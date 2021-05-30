@@ -1,14 +1,29 @@
-//로그인
-
 var port = 3000;
 
-
 function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    // var profile = googleUser.getBasicProfile();
+    // let userName = profile.getName();
+    // let userInfo_it = googleUser.getAuthResponse().id_token;
+    // let userInfo_at = googleUser.getAuthResponse(true).access_token;
+    // console.log(userName + " "+userInfo_it)
+    // var xhr = new XMLHttpRequest();
+    // xhr.open('POST', 'http://localhost:'+port+'/login');
+    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === xhr.DONE) {
+    //         if (xhr.status === 200 || xhr.status === 201) {
+    //             let payload = JSON.parse(xhr.responseText);
+    //             window.location.href = './next.html';
+    //             localStorage.setItem('token', payload.token);
+    //             localStorage.setItem('name', userName)
+    //         } else {
+    //             console.error(xhr.responseText);
+    //         }
+    //     }
+    // };
+    // var reqbody = "idToken : "+ userInfo_it;
+    // console.log(typeof(reqbody));
+    // xhr.send("idToken : ");
 }
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -17,26 +32,20 @@ function signOut() {
     });
 }
 
+
+
+
 var xhr = new XMLHttpRequest();
 xhr.open('POST', 'http://localhost:'+port+'/login');
 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-xhr.onload = function() {
-    console.log('Signed in as: ' + xhr.responseText);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === xhr.DONE) {
+        if (xhr.status === 200 || xhr.status === 201) {
+            console.log(xhr.responseText);
+        } else {
+            console.error(xhr.responseText);
+        }
+    }
 };
-xhr.send('idtoken=' + profile.getId());
-
-// const {OAuth2Client} = require('google-auth-library');
-// const client = new OAuth2Client(CLIENT_ID);
-// async function verify() {
-//   const ticket = await client.verifyIdToken({
-//       idToken: token,
-//       audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
-//       // Or, if multiple clients access the backend:
-//       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-//   });
-//   const payload = ticket.getPayload();
-//   const userid = payload['sub'];
-//   // If request specified a G Suite domain:
-//   // const domain = payload['hd'];
-// }
-// verify().catch(console.error);
+var a = "dfd";
+xhr.send(a);
