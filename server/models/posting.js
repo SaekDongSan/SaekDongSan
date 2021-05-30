@@ -29,7 +29,7 @@ const postingSchema = mongoose.Schema({
 });
 
 //Model
-const Posting = mongoose.model('Posting', userSchema);
+const Posting = mongoose.model('Posting', postingSchema);
 
 //다른 파일에서도 쓸 수 있도록
 module.exports = { Posting }

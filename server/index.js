@@ -1,8 +1,9 @@
-var express = require('express');
-
-var app = express();
+const express = require('express');
+const app = express();
 const config = require('./config/key');
-// const fs = require('fs');
+const {User} = require("./models/user");
+const {Posting} = require("./models/posting");
+
 app.use(express.static('client/public')); 
 
 const mongoose = require('mongoose');

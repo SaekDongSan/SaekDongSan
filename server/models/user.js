@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+// const saltRounds = 10;
+// const jwt = require('jsonwebtoken');
 
 //Schema
 const userSchema = mongoose.Schema({
@@ -26,6 +26,7 @@ const userSchema = mongoose.Schema({
 
 // index.js의 save 가 실행 되기 전 실행될 함수이고, 
 //실행한 뒤 next(=index.js의 save)로 이동
+/* 
 userSchema.pre('save', function (next) {
     var user = this;
     if (user.isModified('password')) {
@@ -80,7 +81,7 @@ userSchema.statics.findByToken = function(token, cb){
         })
     })
 }
-
+*/
 
 //Model
 const User = mongoose.model('User', userSchema);
