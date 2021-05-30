@@ -17,15 +17,7 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/', function(req, res){
 
-    // fs.readFile('test.txt','utf8', function(error, data){
-    //     if(error){
-    //         console.log(error);
-    //     }
-    //     else{
-    //         console.log('success!');
-    //         res.send(data);
-    //     }
-    // });
+
     res.send('Hello');
 });
 
