@@ -215,3 +215,9 @@ nav a{
     column-rule-color:gray;
     column-width: 300px;
 } */
+
+.plus{
+    border : 0;
+    outline : 0;
+    background: none;
+}
