@@ -1,0 +1,133 @@
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+</head>
+
+<body>
+    <h1> 포스팅 부분 나중에 따로 옮기기 !! </h1>
+
+    <!-- Button trigger modal -->
+    <!-- 리뷰가 없다면 아래와 같은 창이 나타나고, 리뷰가 있다면 써진 리뷰들을 확인할 수 있는 창이 나타남 -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+        새 마커 생성 리뷰남기기
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">리뷰남기기</h5>
+                    &nbsp &nbsp현재 위치의 주소
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action='/upload' method="post" enctype="multipart/form-data">
+
+                        <label> 장소이름
+                            <input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
+                        </label>
+                        <br>
+                        <br>
+                        <lable> 이미지 파일 업로드
+                            <input type="file" id="photoInput" name="photoUpload[]" multiple />
+                        </lable>
+                        <br>
+                        <br>
+                        <label id="multiple-container">사진 뜨기</label>
+                        <br>
+                        <br>
+                        <lable> 감상업로드<br>
+                            <textarea cols="38" rows="10" name="comment"
+                                placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!"></textarea>
+                        </lable>
+                        <br>
+                        <br>
+                        <label> Category :
+                            <select id="category">
+                                <option value="night" selected> 야경이 좋은 </option>
+                                <option value="tree"> 나무가 많은 곳 </option>
+                                <option value="calorie"> 칼로리 소비가 많은 곳 </option>
+                                <option value="hip"> HIP함이 느껴지는 곳 </option>
+                                <option value="thrill"> 스릴 넘치는 곳 </option>
+                                <option value="happy"> 행복함을 주는 곳 </option>
+                            </select>
+                        </label>
+                        <br>
+                        <br>
+                        <button name="good" id="good">추천</button>
+                        <button name="bad" id="bad">비추천</button>
+                        <br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">등록하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            //이미지 전체 감쌀곳
+            const multipleContainer = document.getElementById("multiple-container");
+
+            // 파일 업로드 된 내용이 변화
+            $("#photoInput").on('change', function () {
+                while (multipleContainer.firstChild) {
+                    multipleContainer.removeChild(multipleContainer.firstChild);
+                }
+                readURL(this);
+            });
+
+            function readURL(input) {
+                // 인풋 태그에 파일들이 있는 경우
+                if (input.files) {
+                    // 이미지 파일 검사 (생략)
+                    console.log(input.files);
+                    // 유사배열을 배열로 변환 (forEach문으로 처리하기 위해)
+                    const fileArr = Array.from(input.files);
+
+                    //파일마다 img태그만들어서 multicontainer에 넣기
+                    fileArr.forEach((file) => {
+                        // 파일 읽기
+                        const reader = new FileReader();
+                        // 이미지 태그 만들기
+                        const $img = document.createElement("img");
+
+                        //파일을 읽으면 - callback함수
+                        reader.onload = e => {
+                            console.log(file.name);
+                            $img.src = e.target.result;
+                            $img.arc = file.name;
+                            $img.style.width = "40%";
+                        }
+
+                        //container에 넣고, 이미지 로드
+                        multipleContainer.appendChild($img);
+                        reader.readAsDataURL(file);
+                    });
+                }
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
