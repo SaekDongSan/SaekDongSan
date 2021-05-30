@@ -24,13 +24,15 @@
 
 	<!-- 구글 소셜 로그인 -->
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<!-- <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdb5dae09f39444cb9c87fd5289236e24"></script> -->
-	<!-- <script src="index.js"> -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>     
+
+	<!--Tmap API : 사용하려면 주석 지우기!!-->
+	<!-- <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdb5dae09f39444cb9c87fd5289236e24"></script> --> -->
+	<script src="index.js">
 	</script>
 </head>
 
-<body>
+<body onload="getLocation();">
 	<h1>색동산</h1>
 	<!-- 로그인기능 -->
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>

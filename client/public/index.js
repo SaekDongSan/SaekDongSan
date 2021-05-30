@@ -10,10 +10,10 @@ var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
 
-document.addEventListener(load, getLocation());
 function getLocation() {
-    if (navigator.geolocation) { 
-        navigator.geolocation.getCurrentPosition(initTmap); 
+    console.log("start map");
+    if (navigator.geolocation) {        /* 지도 사용 방법! 아래 initTmap 주석 처리 지우고, index.html api script 주석 지우기 */
+        navigator.geolocation.getCurrentPosition(/*initTmap*/); 
     } else { 
         loc.innerHTML = "이 문장은 사용자의 웹 브라우저가 Geolocation API를 지원하지 않을 때 나타납니다!"; 
     }
@@ -35,7 +35,7 @@ function initTmap(position) {
 
     // 2. 리뷰 마커 찍기
 
-    
+
     // 시작
     marker_s = new Tmapv2.Marker(
             {
