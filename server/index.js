@@ -4,15 +4,11 @@ const config = require('./config/key');
 const {User} = require("./models/user");
 const {Posting} = require("./models/posting");
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-
-const { OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client('구글 클라이언트 id');
-const jwt = require('jsonwebtoken');
-console.log("terminal");
-app.use(express.static('client/public')); 
-app.use(bodyParser.urlencoded({extended: true}));
+var bodyParser = require('body-parser'); 
+app.use(bodyParser.urlencoded({extended:true})); 
 app.use(bodyParser.json());
+
+app.use(express.static('client/public')); 
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, 
@@ -22,6 +18,9 @@ mongoose.connect(config.mongoURI, {
 }).then(()=> console.log('MongoDB Connected...'))
 .catch(err=> console.log(err))
 
+const { OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client('구글 클라이언트 id');
+const jwt = require('jsonwebtoken');
 
 var port = 3000;
 app.listen(port, function(){
@@ -29,39 +28,68 @@ app.listen(port, function(){
 });
 
 
+// ----------------------Google Login 
 app.post('/login', function(req, res){
-    console.log('arrive..');
-    
-    let s = '34'+req.body;
-    console.log(s);
+	async function verify() {
+		const ticket = await client.verifyIdToken({
+			idToken: req.body.it
+		});
+		const payload = ticket.getPayload();
+		const userid = payload['sub']; //21자리의 Google 회원 id 번호
+        console.log(userid);
+
+        User.findOne({ID: userid}, (err,user)=>{
+            if (err) throw err;
+            let token = '';
+            if(user){//user 콜렉션 안에 이메일이 없다면(== user가 false)
+				console.log('DB에 있는 유저', user);
+				token = updateToken(payload);
+            }
+            else {
+				console.log('DB에 없는 유저');
+				//새로 유저를 만들면 jwt 토큰값을 받아온다.
+				token = insertUserIntoDB(payload);
+			}
+			res.send({
+				token
+			});
+		});
+    }
+	verify().then(() => {}).catch(console.error);
 });
 
+const updateToken = function(payload){
 
-// app.post('/login', function(req, res){
-//     console.log(req.body);
-// 	async function verify() {
-//         console.log("request : "+req.body);
-// 		const ticket = await client.verifyIdToken({
-// 			idToken: req.body.it
-// 		});
-// 		const payload = ticket.getPayload();
-// 		const userid = payload['sub']; //21자리의 Google 회원 id 번호
-//         console.log(userid);
-// 		User.execute('SELECT `TOKEN` FROM `innoboost_user` WHERE `ID`= ?', [userid], (err, results) => {
-// 			if (err) throw err;
-// 			let token = '';
-// 			if (results.length > 0) {
-// 				console.log('DB에 있는 유저', results);
-// 				token = updateToken(payload);
-// 			} else {
-// 				console.log('DB에 없는 유저');
-// 				//새로 유저를 만들면 jwt 토큰값을 받아온다.
-// 				token = insertUserIntoDB(payload);
-// 			}
-// 			res.send({
-// 				token
-// 			});
-// 		});
-// 	}
-// 	verify().then(() => {}).catch(console.error);
-// });
+    console.log("-----payload.userid"+payload.sub);
+    User.findOne({ID: payload.sub}, (err,user)=>{
+            console.log('토큰 업데이트');
+            token =  0;
+            var token = jwt.sign(user._id.toHexString(), 'secretToken');
+            console.log('-----token : ', token);
+        return token;
+    });
+ 
+}
+
+const insertUserIntoDB = (payload) => {
+
+	console.log(" --- insert"+ payload.sub+"----");
+        
+    const user = new User({ ID:payload.sub ,NAME:payload.name ,EMAIL: payload.email});
+    user.save((err, userInfo)=>{ // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
+        if(err) return console.log({success:false, err});
+        //에러없다면 성공(200) 
+        return console.log({success:true});
+    })
+    
+    var token = jwt.sign(user._id.toHexString(), 'secretToken');
+    user.TOKEN = token;
+    console.log('-----token : ', token);
+	return token;
+};
+//-----------------------------------------------------
+
+//--------포스팅------------------------------
+
+
+//--------------------------------------------

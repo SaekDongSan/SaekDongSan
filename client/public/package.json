@@ -11,5 +11,4 @@
   "dependencies": {
     "google-auth-library": "^7.1.0"
   },
-  "type":"commonjs"
 }
