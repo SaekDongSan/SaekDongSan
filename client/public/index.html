@@ -10,8 +10,8 @@
 	<title>simpleMap</title>
 
 	<!-- Bootstrap 관련 -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
 		crossorigin="anonymous"></script>
@@ -151,6 +151,8 @@
 			}
 		});
 
+		document.getElementById('time').value = new Date().toISOString().slice(0, 10);
+
 		function openChild() {
 			// window.name = "부모창 이름"; 
 			window.name = "parentForm";
@@ -242,6 +244,7 @@
 						<label> 장소이름
 							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
 						</label>
+						<label> <input type='time' id='time' style="display:none"></label>
 						<br>
 						<br>
 						<lable> 이미지 파일 업로드
@@ -273,12 +276,12 @@
 						<button name="good" value="o">추천</button>
 						<button name="bad" value="x">비추천</button>
 						<br>
-					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 					<button type="submit" class="btn btn-primary">등록하기</button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
