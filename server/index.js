@@ -54,9 +54,9 @@ app.post('/login', function (req, res) {
                 console.log('DB에 없는 유저');
             }
 
-            console.log("보낼 정보입니다" ,userSignedIn);
+            // console.log("보낼 정보입니다" ,userSignedIn);
             res.send({
-                userSignedIn
+                ID:userSignedIn.ID, name : userSignedIn.NAME, email:userSignedIn.EMAIL
             });
         });
     }
