@@ -100,6 +100,7 @@ app.post('/upload', function (req, res) {
         console.log(fields);
         console.log(files);
     });
+    res.send("good");
 });
 
 //--------------------------------------------

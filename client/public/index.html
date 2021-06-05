@@ -33,15 +33,18 @@
 </head>
 
 <body onload="getLocation();">
-	<div class = "titleofproject">
-		<h1><span style = "color:red">색</span><span style = "color:rgb(214, 96, 16)">다</span><span style = "color:yellow">른</span>
-			<span style = "color:rgb(84, 151, 64)">동</span><span style = "color:rgb(54, 114, 84)">네</span><span style = "color:rgb(36, 56, 170)">산</span><span style = "color:rgb(104, 14, 139)">책</span></h1>
+	<div class="titleofproject">
+		<h1><span style="color:red">색</span><span style="color:rgb(214, 96, 16)">다</span><span
+				style="color:yellow">른</span>
+			<span style="color:rgb(84, 151, 64)">동</span><span style="color:rgb(54, 114, 84)">네</span><span
+				style="color:rgb(36, 56, 170)">산</span><span style="color:rgb(104, 14, 139)">책</span>
+		</h1>
 	</div>
 
 	<!-- 로그인기능 -->
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<a href="#" class = "signingout" onclick="signOut();">Sign out</a>
-	
+	<a href="#" class="signingout" onclick="signOut();">Sign out</a>
+
 	<!-- 상단 바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#"><strong>Main Page</strong></a>
@@ -57,9 +60,10 @@
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 				<!-- 리뷰추가버튼 -->
 				<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-					<img src="./img/plus.png" alt="리뷰 추가하기" width="15px" height="15px"/>
+					<img src="./img/plus.png" alt="리뷰 추가하기" width="15px" height="15px" />
 				</button>
-				<a class="nav-item nav-link" href="#"><-- 리뷰 추가하기</a>
+				<a class="nav-item nav-link" href="#">
+					<-- 리뷰 추가하기</a>
 			</div>
 		</div>
 	</nav>
@@ -115,7 +119,7 @@
 						<br>
 						<br>
 						<lable> 이미지 파일 업로드
-							<input name="phot0" type="file" id="photoInput" accept="image/jpeg,video/*[, MIME_TYPES]" multiple />
+							<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
 						</lable>
 						<br>
 						<br>
@@ -123,7 +127,7 @@
 						<br>
 						<br>
 						<lable> 감상업로드<br>
-							<textarea cols="38" rows="10" name="comment"
+							<textarea cols="40" rows="10" name="comment"
 								placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!"></textarea>
 						</lable>
 						<br>
@@ -140,13 +144,13 @@
 						</label>
 						<br>
 						<br>
-						<input type="button" class="recommend" name="recommend" value="good">
-						<input type="button" class="recommend" name="recommend" value="bad">
+						<input type="button" id="good" value="추천">
+						<input type="button" id="bad" value="비추천">
 						<br>
 				</div>
 				<div class="modal-footer">
-					<input type="reset">
-					<input type="button" id="posting_submit">
+					<input type="reset" value="다시 작성">
+					<input type="button" id="posting_submit" value="올리기">
 				</div>
 				</form>
 			</div>

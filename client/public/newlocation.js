@@ -202,13 +202,12 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: formData,
-            dataType: 'json',
             enctype: 'multipart/form-data',
             url: "/upload",
             success: function (data) {
-                alert(data);
+                alert('성고오오오오오오ㅔㅈ발');
             },
-            error: function (xhr, status, error) {
+            error: function (error) {
                 alert('ajax error' + error);
             }
         })
