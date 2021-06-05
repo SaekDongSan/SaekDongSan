@@ -1,4 +1,3 @@
-
 var latitude;
 var longtitude;
 
@@ -144,7 +143,6 @@ function setLocation(lat, lng) {
     longtitude = lng;
 }
 
-
 var userInfo;
 var url = 'http://localhost:3000';
 // 로그인 해서 user 정보 얻기 => userInfo에 object 형식으로 저장됨({ID: "108261111142396297688", name: "박서정", email: "dgymjol@gmail.com"})
@@ -178,7 +176,6 @@ $(document).ready(function () {
         recommend = "not-recommend";
     })
 
-
     $('#posting_submit').click(function (event) {
         console.log("이제 보낼꺼");
         event.preventDefault();
@@ -205,6 +202,13 @@ $(document).ready(function () {
             enctype: 'multipart/form-data',
             url: "/upload",
             success: function (data) {
+                $('form').each(function () {
+                    this.reset();
+                });
+                const multipleContainer = document.getElementById("multiple-container");
+                while (multipleContainer.firstChild) {
+                    multipleContainer.removeChild(multipleContainer.firstChild);
+                }
                 alert('성고오오오오오오ㅔㅈ발');
             },
             error: function (error) {

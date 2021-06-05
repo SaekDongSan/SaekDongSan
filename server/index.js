@@ -102,6 +102,7 @@ app.post('/upload', function (req, res) {
     });
     res.send("good");
 });
+<<<<<<< HEAD
 
 //--------------------------------------------
 
@@ -141,3 +142,6 @@ function findCtgList(selected){
     locationsInfo = Posting.find({category : selected}).sort('likes');
     return locationsInfo;
 }
+=======
+//--------------------------------------------
+>>>>>>> d3ca36e3fcfaa05e58ff383d00883ac953fe8134
