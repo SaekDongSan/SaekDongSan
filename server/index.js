@@ -5,9 +5,10 @@ const { User } = require("./models/user");
 const { Posting } = require("./models/posting");
 const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+var formidable = require('formidable');
+var fs = require('fs');
+app.use(bodyParser.urlencoded({ extended: true }}));
 app.use(bodyParser.json());
-
 app.use(express.static('client/public'));
 
 mongoose.connect(config.mongoURI, {
@@ -91,8 +92,25 @@ const insertUserIntoDB = (payload) => {
 
 //--------포스팅------------------------------
 app.post('/upload', function (req, res) {
-    console.log("name은 ", req.body.name);
-    res.send("리뷰는 " + req.body + "입니다.");
+
+    // //그 외 정보들 받기
+    // var posting = new Posting({
+
+    // });
+
+    // //파일 받기 
+    // var form = new formidable.IncomingForm();
+
+    // form.parse(req, function (err, fields, files) {
+    //     var oldpath = files.file.path;
+    //     var newpath = 'C:/server/upload/' + files.file.name;
+    //     fs.rename(oldpath, newpath, function (err) {
+    //         if (err) throw err;
+    //         res.write('File uploaded and moved!');
+    //         res.end();
+    //     });
+
+    // });
 });
 
 //--------------------------------------------
