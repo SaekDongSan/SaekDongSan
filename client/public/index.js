@@ -1,3 +1,20 @@
+//선택한 카테고리 포스팅 전부 가져오기 (data 함수에 배열로 포스팅 정보 담겨 있음!!!)
+
+$(document).ready(function(){
+    console.log("제제바라랄");
+    
+    $("#btn_select").click(function(){
+        var selected = $("#selectedcategory option:selected").attr('value');;
+        console.log("click "+ selected);
+        $.post(url + '/category',{category:selected}, function (data, status) {
+            console.log(data);
+        }) 
+    })
+})
+
+
+// -------지도 관련
+
 var map;
 var markerInfo;
 //리뷰 마커
