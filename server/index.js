@@ -107,7 +107,7 @@ app.post('/upload', function (req, res) {
     });
     res.send("good");
 });
- 
+
 //--------------------------------------------
 
 const insertPostingIntoDB = (files, fields) => {
@@ -138,7 +138,7 @@ const insertPostingIntoDB = (files, fields) => {
     post.save((err, postInfo) => { // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
         if (err) return console.log({ success: false, err });
         //에러없다면 성공(200) 
-        return console.log({ success: true, postInfo});
+        return console.log({ success: true, postInfo });
     })
 
     console.log("------------crete Posting object!!----- "+JSON.stringify(post.simages));
@@ -152,23 +152,42 @@ app.post('/category', function (req, res) {
     var selected = req.body.category;
     console.log(selected);
 
-    Posting.find({category : selected}, function(err, posts){
+    Posting.find({ category: selected }, function (err, posts) {
         if (!posts) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
             console.log('카테고리에 맞는 posting 찾기 실패')
         }
         res.send(posts);
-    })   
+    })
 });
 
-// app.post('/category', function (req, res) {
+app.post('/showpost', function (req, res) {
 
-//     var selected = req.body.category;
-//     console.log(selected);
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+    console.log(lat);
+    console.log(lng);
 
-//     Posting.find({category : selected}, function(err, posts){
-//         if (!posts) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
-//             console.log('카테고리에 맞는 posting 찾기 실패')
-//         }
-//         res.send(posts);
-//     })   
-// });
+    Posting.find({ latitude: lat, longtitude: lng }, function (err, location) {
+        if (!location) {
+            console.log('카테고리에 맞는 posting 찾기 실패')
+        }
+        res.send(location);
+        console.log(location);
+    });
+});
+
+app.post('/addcomment', function (req, res) {
+    var postname = req.body.post_id;
+    var id = req.body.post_id;
+    var comment = req.body.post_comment;
+    console.log(time, id, comment);
+
+    Posting.updateMany({ _id: postname }, { add_comments: [{ "comment_id": new ObjectId(), "comment_author": id, "comment_text": comment, "comment_createdAt": new Date() }] }, function (err, change) {
+        if (!change) {
+            console.log('카테고리에 맞는 posting 찾기 실패');
+        }
+        res.send("change");
+        console.log(change);
+    });
+});
+
