@@ -114,7 +114,7 @@
 					<form name id="review" action='#' method="post" enctype="multipart/form-data">
 						<div id="current-location"> 현재 위치 주소 </div><br><br>
 						<label> 장소이름
-							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
+							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" required />
 						</label>
 						<br>
 						<br>
@@ -128,12 +128,12 @@
 						<br>
 						<lable> 감상업로드<br>
 							<textarea cols="40" rows="10" name="comment"
-								placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!"></textarea>
+								placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
 						</lable>
 						<br>
 						<br>
 						<label> Category :
-							<select name="category" id="category">
+							<select name="category" id="category" required>
 								<option value="night" selected> 야경이 좋은 </option>
 								<option value="tree"> 나무가 많은 곳 </option>
 								<option value="calorie"> 칼로리 소비가 많은 곳 </option>
@@ -156,6 +156,12 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$('#posting_submit').on('click', function () {
+			$('#staticBackdrop1').modal('hide');
+			console.log("click close");
+		})
+	</script>
 </body>
 
 </html>
