@@ -40,21 +40,23 @@ app.post('/login', function (req, res) {
         console.log(userid);
 
         User.findOne({ ID: userid }, (err, user) => {
-            var userID;
+            var userSignedIn;
             if (err) throw err;
             let token = '';
             if (user) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
-                userID = user.ID;
+                userSignedIn = user;
                 console.log('DB에 있는 유저', user.ID);
                 token = updateToken(payload);
             }
             else {
                 //새로 유저를 만들면 jwt 토큰값을 받아온다.
-                userID = insertUserIntoDB(payload);
+                userSignedIn = insertUserIntoDB(payload);
                 console.log('DB에 없는 유저');
             }
+
+            console.log("보낼 정보입니다" ,userSignedIn);
             res.send({
-                userID
+                userSignedIn
             });
         });
     }
@@ -85,7 +87,7 @@ const insertUserIntoDB = (payload) => {
 
     var token = jwt.sign(user._id.toHexString(), 'secretToken');
     user.TOKEN = token;
-    return payload.sub;
+    return user;
 };
 //-----------------------------------------------------
 
