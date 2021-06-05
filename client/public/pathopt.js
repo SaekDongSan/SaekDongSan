@@ -14,5 +14,5 @@ function getCategoryPath(selected){
     
     $.post(url + '/category',{category:selected}, function (data, status) {
         console.log(data);
-    })
+    }) 
 }

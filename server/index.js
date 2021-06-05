@@ -102,7 +102,7 @@ app.post('/upload', function (req, res) {
     });
     res.send("good");
 });
-
+ 
 //--------------------------------------------
 
 const insertPostingIntoDB = (files, fields) => {

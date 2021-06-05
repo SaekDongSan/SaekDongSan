@@ -10,7 +10,7 @@ const postingSchema = mongoose.Schema({
         type: String,
     },
     image: String,
-    posting_content:{
+    posting_content:{ 
         type: String,
         maxlength : 2000
     },
