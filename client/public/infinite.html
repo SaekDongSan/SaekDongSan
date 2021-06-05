@@ -12,6 +12,16 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
         </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=발급받은 Appkey"></script>
+    <script type="text/javascript"></script>
+    <script>
+        function getpath() {
+			// window.open("open할 window", "자식창 이름", "팝업창 옵션");
+			var win = window.open("./walkingpath.html", "Pathforwalking", "scrollbars = yes, resizable = yes, width=400, height=450");
+		}
+    </script>
     <style>
         /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
         .row.content {
@@ -99,11 +109,38 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" onclick = "checklocation()">이 위치로 경로 찾기</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
+<script>
+    //리뷰 보고 선택하였을 때 현재 위치 확실히 하기
+    function checklocation(){
+        <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">현재 위치 체크하기</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="current-location" onchange="textchange()"> 현재 위치 주소 </div>
+                        <br></br>
+                        <p>이 위치가 현재 위치가 맞나요?</p>
+                    </div>                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick = "getpath()">네, 맞습니다</button>
+                        <button type="submit" class="btn btn-primary" onclick="openChild()">그 위치가 아닙니다</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</script>
 </html>

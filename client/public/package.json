@@ -10,5 +10,5 @@
   "license": "ISC",
   "dependencies": {
     "google-auth-library": "^7.1.0"
-  },
+  }
 }
