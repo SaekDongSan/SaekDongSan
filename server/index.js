@@ -5,7 +5,7 @@ const { User } = require("./models/user");
 const { Posting } = require("./models/posting");
 const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static('client/public'));
