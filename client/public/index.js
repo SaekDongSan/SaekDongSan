@@ -12,6 +12,7 @@ $(document).ready(function(){
     })
 })
 
+// data[i].latitude
 
 // -------지도 관련
 

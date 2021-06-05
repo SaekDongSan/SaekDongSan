@@ -165,16 +165,7 @@ function signOut() {
 }
 
 $(document).ready(function () {
-    $('#staticBackdrop1').modal('hide');
-
-    var recommend;
     var editForm = $("#review");
-    $('#good').click(function (event) {
-        recommend = "recommend";
-    })
-    $('#bad').click(function (event) {
-        recommend = "not-recommend";
-    })
 
     $('#posting_submit').click(function (event) {
         console.log("이제 보낼꺼");
@@ -183,7 +174,6 @@ $(document).ready(function () {
         var formData = new FormData(editForm[0]);
         var inputfiles = $('input[name="img[]"]');
         var files = inputfiles[0].files;
-        formData.append('recommend', recommend);
         formData.append('time', new Date().toLocaleDateString());
         formData.append('id', userInfo.ID.toString());
         formData.append('user', userInfo.name.toString());
@@ -191,8 +181,9 @@ $(document).ready(function () {
         formData.append('longtitude', longtitude);
         formData.delete('img[]');
         for (var i = 0; i < files.length; i++) {
-            formData.append('files[' + i + ']', files[i]);
+            formData.append(i, files[i]);
         }
+        formData.append('fileNumber', files.length);
 
         $.ajax({
             method: "POST",
@@ -202,14 +193,14 @@ $(document).ready(function () {
             enctype: 'multipart/form-data',
             url: "/upload",
             success: function (data) {
-                $('form').each(function () {
-                    this.reset();
-                });
-                const multipleContainer = document.getElementById("multiple-container");
-                while (multipleContainer.firstChild) {
-                    multipleContainer.removeChild(multipleContainer.firstChild);
-                }
-                alert('성고오오오오오오ㅔㅈ발');
+                // $('form').each(function () {
+                //     this.reset();
+                // });
+                // const multipleContainer = document.getElementById("multiple-container");
+                // while (multipleContainer.firstChild) {
+                //     multipleContainer.removeChild(multipleContainer.firstChild);
+                // }
+                // alert('리뷰가 작성되었습니다');
             },
             error: function (error) {
                 alert('ajax error' + error);

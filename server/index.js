@@ -7,9 +7,15 @@ const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var formidable = require('formidable');
 var fs = require('fs');
+var multer = require("multer");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client/public'));
+const jwt = require('jsonwebtoken');
+const { json } = require('body-parser');
+// app.use(multer({dest:'./uploadImg'}).any());
+var upload = multer({dest:'./uploadImg'});
+
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
@@ -21,8 +27,7 @@ mongoose.connect(config.mongoURI, {
 
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client('구글 클라이언트 id');
-const jwt = require('jsonwebtoken');
-const { json } = require('body-parser');
+
 
 var port = 3000;
 app.listen(port, function () {
@@ -96,8 +101,8 @@ app.post('/upload', function (req, res) {
     // //파일 받기 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-        console.log(fields);
-        console.log(files);
+        // console.log(fields);
+        // console.log(files);
         insertPostingIntoDB(files, fields);
     });
     res.send("good");
@@ -106,16 +111,29 @@ app.post('/upload', function (req, res) {
 //--------------------------------------------
 
 const insertPostingIntoDB = (files, fields) => {
-    const post = new Posting(
-        { loaction : fields.name, 
-        writer:fields.id, 
-        image: 'idontknowyet',
-        posting_content:fields.comment,
-        likes :0,
-        time : fields.time,
-        category:fields.category,
-        latitude : fields.latitude,
-        longtitude :fields.longtitude });
+
+    const nFile = fields.fileNumber;
+
+    var orgImgNameList = new Object();
+    var saveImgNameList = new Object();
+    for(var j=0; j<nFile; j++){
+        orgImgNameList[j] = files[j]["name"];
+        saveImgNameList[j] = fields.name+j;
+    }
+    const post = new Posting({ 
+                        loaction : fields.name, 
+                        writer:fields.id, 
+                        posting_content:fields.comment,
+                        likes :0,
+                        time : fields.time,
+                        category:fields.category,
+                        latitude : fields.latitude,
+                        longtitude :fields.longtitude });
+
+    post.oimages = [];
+    post.oimages.push(orgImgNameList);
+    post.simages = [];
+    post.simages.push(saveImgNameList);
 
     post.save((err, postInfo) => { // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
         if (err) return console.log({ success: false, err });
@@ -123,7 +141,8 @@ const insertPostingIntoDB = (files, fields) => {
         return console.log({ success: true, postInfo});
     })
 
-    console.log("------------crete Posting object!!----- "+post);
+    console.log("------------crete Posting object!!----- "+JSON.stringify(post.simages));
+    console.log("------------crete Posting object!!----- "+JSON.stringify(post.oimages));
     return post;
 };
 
@@ -140,3 +159,16 @@ app.post('/category', function (req, res) {
         res.send(posts);
     })   
 });
+
+// app.post('/category', function (req, res) {
+
+//     var selected = req.body.category;
+//     console.log(selected);
+
+//     Posting.find({category : selected}, function(err, posts){
+//         if (!posts) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
+//             console.log('카테고리에 맞는 posting 찾기 실패')
+//         }
+//         res.send(posts);
+//     })   
+// });
