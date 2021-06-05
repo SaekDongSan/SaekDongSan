@@ -34,15 +34,18 @@
 </head>
 
 <body onload="getLocation();">
-	<h1>색동산</h1>
+	<div class = "titleofproject">
+		<h1><span style = "color:red">색</span><span style = "color:rgb(214, 96, 16)">다</span><span style = "color:yellow">른</span>
+			<span style = "color:rgb(84, 151, 64)">동</span><span style = "color:rgb(54, 114, 84)">네</span><span style = "color:rgb(36, 56, 170)">산</span><span style = "color:rgb(104, 14, 139)">책</span></h1>
+	</div>
 
 	<!-- 로그인기능 -->
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<a href="#" onclick="signOut();">Sign out</a>
-
+	<a href="#" class = "signingout" onclick="signOut();">Sign out</a>
+	
 	<!-- 상단 바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Navbar</a>
+		<a class="navbar-brand" href="#"><strong>Navbar</strong></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
 			aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -50,9 +53,17 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
 				<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-				<a class="nav-item nav-link" href="#">카테고리</a>
+				<a class="nav-item nav-link" href="#">Category</a>
 				<a class="nav-item nav-link" href="#">길찾기</a>
 				<a class="nav-item nav-link" href="#">추천경로</a>
+
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- 리뷰추가버튼 -->
+				<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+					<img src="./img/plus.png" alt="리뷰 추가하기" width="15px" height="15px"/>
+				</button>
+				<a class="nav-item nav-link" href="#"><-- 리뷰 추가하기</a>
 			</div>
 		</div>
 	</nav>
@@ -88,10 +99,6 @@
 	<div class="map_act_btn_wrap clear_box"></div>
 	<p id="result"></p>
 
-	<!-- 리뷰추가버튼 -->
-	<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-		<img src="./img/plus.png" alt="리뷰 추가하기" width="100px" />
-	</button>
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

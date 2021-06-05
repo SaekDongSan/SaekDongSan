@@ -1,30 +1,69 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;400&family=Quicksand:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
-body{
+body .titleofproject h1{ /*main page title 색다른 동네 산책*/
+    position : absolute;
+    font-family: 'Gugi', cursive;
+    font-size : 55px;
+    top : 25px;
+    left : 200px;
+}
+
+.g-signin2{ /*main page top right signin button*/
+    position : absolute;
+    left: 70%;
+    top : 25px;
+}
+
+body .signingout{ /*main page top right signout button*/
+    position : absolute;
+    left: 85%;
+    top : 25px;
+    font-family: 'Gugi', cursive;
+    background-color: rgb(253, 253, 253);
+    border-radius : 12px;
+    border-top: rgb(56, 49, 9) solid 2px;
+    border-left: rgb(56, 49, 9) solid 2px;
+    border-bottom: rgb(56, 49, 9) solid 2px;
+    border-right: rgb(56, 49, 9) solid 2px;
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ft_area{ /*main page filter 적용 부분*/
+    position : absolute;
+    top : 160px;
+}
+
+nav{ /*메인 페이지 상단 바*/
+    position : absolute;
+    top : 90px;
+    width: 950px;
+    background-color: rgb(250, 255, 183);
+    border-top: rgb(56, 49, 9) solid 2px;
+    border-bottom: rgb(56, 49, 9) solid 2px;
+    padding: 3px 0 3px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+nav a{
+    text-decoration-line: none;
+    color:rgb(56, 49, 9);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight:600;
+}
+
+body{ /*body element 전체적으로*/
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(53, 55, 71);
-
-}
-.welcome{
-    font-family: 'Londrina Solid', cursive;
-    font-size: 40px;
-    text-align: center;
-    color:rgb(220, 255, 93);
-    text-shadow: 1px 1px 3px rgb(7, 41, 0);
-    margin-bottom: 0;
-}
-.shop_name{
-    font-family: 'Londrina Solid', cursive;
-    font-size: 50px;
-    text-align: center;
-    color:rgb(255, 204, 36);
-    text-shadow: 1px 1px 3px rgb(80, 48, 17);
-    margin-top: 0;
-    margin-bottom: 20px;
+    background-color: rgb(250, 177, 93);
 }
 
 .btn{
@@ -59,7 +98,6 @@ body{
 
 }
 
-/*
 
 .menu{
     
@@ -69,9 +107,9 @@ body{
     margin : 30px 0px 10px 0px;
 
 }
-.form{
+/*.form{
 
-}
+}*/
 
 .btns{
     display:flex;
@@ -115,9 +153,9 @@ input{
 
 
 */
-/* index.html */
+/*index.html */
 
-/*
+
 .flex-container{
     color:white;
     display : flex;
@@ -146,23 +184,9 @@ header{
     100%{ right:0px; }
 }
 
-nav{
-    width:950px;
-    background-color: rgb(250, 255, 183);
-    border-top: rgb(56, 49, 9) solid 2px;
-    border-bottom: rgb(56, 49, 9) solid 2px;
-    padding: 3px 0 3px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-nav a{
-    text-decoration-line: none;
-    color:rgb(56, 49, 9);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 18px;
-    font-weight:600;
-}
+
+
+
 
 
 .content{
