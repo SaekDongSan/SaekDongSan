@@ -2,7 +2,7 @@
 //recommend 여부
 $('.recommend').on('click', (e) => {
     console.log(e.target.value);
-};
+});
 
 function send() {
 

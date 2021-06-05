@@ -22,6 +22,7 @@ mongoose.connect(config.mongoURI, {
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client('구글 클라이언트 id');
 const jwt = require('jsonwebtoken');
+const { json } = require('body-parser');
 
 var port = 3000;
 app.listen(port, function () {
@@ -39,19 +40,21 @@ app.post('/login', function (req, res) {
         console.log(userid);
 
         User.findOne({ ID: userid }, (err, user) => {
+            var userID;
             if (err) throw err;
             let token = '';
             if (user) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
-                console.log('DB에 있는 유저', user);
+                userID = user.ID;
+                console.log('DB에 있는 유저', user.ID);
                 token = updateToken(payload);
             }
             else {
                 //새로 유저를 만들면 jwt 토큰값을 받아온다.
-                token = insertUserIntoDB(payload);
+                userID = insertUserIntoDB(payload);
                 console.log('DB에 없는 유저');
             }
             res.send({
-                token
+                userID
             });
         });
     }
@@ -82,7 +85,7 @@ const insertUserIntoDB = (payload) => {
 
     var token = jwt.sign(user._id.toHexString(), 'secretToken');
     user.TOKEN = token;
-    return token;
+    return payload.sub;
 };
 //-----------------------------------------------------
 

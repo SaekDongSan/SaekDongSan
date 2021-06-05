@@ -8,10 +8,7 @@ function onSignIn(googleUser) {
     var url = 'http://localhost:'+port+'/login';
 
     $.post(url, {it : userInfo_it, at : userInfo_at}, function(data, status){
-        // console.log(data);
-        // window.location.href = './next.html';
-        // localStorage.setItem('token', payload.token);
-        // localStorage.setItem('name', userName)
+        console.log(data);
     })
 }
 
