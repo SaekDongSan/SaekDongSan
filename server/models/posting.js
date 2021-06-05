@@ -2,30 +2,21 @@ const mongoose = require('mongoose');
 
 //Schema
 const postingSchema = mongoose.Schema({
-    title: {
+    location: {
         type: String,
         maxlength : 200,
-        required : true
     },
     writer:{
         type: String,
-        required : true
     },
     image: String,
     posting_content:{
         type: String,
         maxlength : 2000
     },
-    coment_content:{
-        type: String,
-        maxlength : 1000
-    },
-    comment_writer : {
-        type: String,
-        required : true
-    },
-    comment_likes : Number,
-    comment_time : String,
+    category: String,
+    likes : Number,
+    time : String,
     latitude : Number,
     longtitude : Number
 });

@@ -96,11 +96,48 @@ app.post('/upload', function (req, res) {
     // //파일 받기 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-        //console.log(fields);
         console.log(fields);
         console.log(files);
+        insertPostingIntoDB(files, fields);
     });
     res.send("good");
 });
 
 //--------------------------------------------
+
+const insertPostingIntoDB = (files, fields) => {
+    const post = new Posting(
+        { loaction : fields.name, 
+        writer:fields.id, 
+        image: 'idontknowyet',
+        posting_content:fields.comment,
+        likes :0,
+        time : fields.time,
+        category:fields.category,
+        latitude : fields.latitude,
+        longtitude :fields.longtitude });
+
+    post.save((err, postInfo) => { // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
+        if (err) return console.log({ success: false, err });
+        //에러없다면 성공(200) 
+        return console.log({ success: true, postInfo});
+    })
+
+    console.log("------------crete Posting object!!----- "+post);
+    return post;
+};
+
+app.post('/category', function (req, res) {
+    console.log(req.body.category);
+
+    // var result = findCtgList(category);
+    // res.send(
+    //     result
+    // );
+});
+
+function findCtgList(selected){
+    console.log("find"+selected);
+    locationsInfo = Posting.find({category : selected}).sort('likes');
+    return locationsInfo;
+}
