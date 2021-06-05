@@ -97,6 +97,11 @@ $(function () {
         if (input.files) {
             // 이미지 파일 검사 (생략)
             console.log(input.files);
+            if (input.files.length > 5) {
+                alert("파일 개수가 초과되었습니다.");
+                document.getElementById("photoInput").value = "";
+                return;
+            }
             // 유사배열을 배열로 변환 (forEach문으로 처리하기 위해)
             const fileArr = Array.from(input.files);
 
@@ -162,25 +167,34 @@ function signOut() {
 }
 
 $(document).ready(function () {
+    $('#staticBackdrop1').modal('hide');
+
+    var recommend;
     var editForm = $("#review");
+    $('#good').click(function (event) {
+        recommend = "recommend";
+    })
+    $('#bad').click(function (event) {
+        recommend = "not-recommend";
+    })
+
 
     $('#posting_submit').click(function (event) {
         console.log("이제 보낼꺼");
         event.preventDefault();
 
         var formData = new FormData(editForm[0]);
-        var inputfiles = $('input[name="phot0"]');
-        var fileArray = inputfiles[0].files;
-        console.log(fileArray);
+        var inputfiles = $('input[name="img[]"]');
+        var files = inputfiles[0].files;
+        formData.append('recommend', recommend);
         formData.append('time', new Date().toLocaleDateString());
         formData.append('id', userInfo.ID.toString());
         formData.append('user', userInfo.name.toString());
         formData.append('latitude', latitude);
         formData.append('longtitude', longtitude);
-        formData.append('file', fileArray);
-        for(var i=0; i<fileArray.length;i++){
-            console.log("one file : " +fileArray[i]);
-            formData.append('file', fileArray[i]);
+        formData.delete('img[]');
+        for (var i = 0; i < files.length; i++) {
+            formData.append('files[' + i + ']', files[i]);
         }
 
         $.ajax({
@@ -191,14 +205,12 @@ $(document).ready(function () {
             dataType: 'json',
             enctype: 'multipart/form-data',
             url: "/upload",
-            success: function (result) {
-                if (result.result === "success") {
-                    alert('success to upload');
-                } else {
-                    alert('fail to upload');
-                }
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr, status, error) {
+                alert('ajax error' + error);
             }
         })
     });
-
 });
