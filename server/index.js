@@ -97,7 +97,8 @@ app.post('/upload', function (req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
         //console.log(fields);
-        console.log(JSON.stringify(fields.id));
+        console.log(fields);
+        console.log(files);
     });
 });
 

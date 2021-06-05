@@ -170,16 +170,18 @@ $(document).ready(function () {
 
         var formData = new FormData(editForm[0]);
         var inputfiles = $('input[name="phot0"]');
-        var files = inputfiles[0].files;
-
+        var fileArray = inputfiles[0].files;
+        console.log(fileArray);
         formData.append('time', new Date().toLocaleDateString());
-        formData.append('id', { id: userInfo.ID, name: userInfo.name });
+        formData.append('id', userInfo.ID.toString());
+        formData.append('user', userInfo.name.toString());
         formData.append('latitude', latitude);
         formData.append('longtitude', longtitude);
-
-        // for (var i = 0; i < files.length; i++) {
-        //     formData.append('uploadfiles', files[i]);
-        // }
+        formData.append('file', fileArray);
+        for(var i=0; i<fileArray.length;i++){
+            console.log("one file : " +fileArray[i]);
+            formData.append('file', fileArray[i]);
+        }
 
         $.ajax({
             method: "POST",
@@ -200,5 +202,3 @@ $(document).ready(function () {
     });
 
 });
-
-
