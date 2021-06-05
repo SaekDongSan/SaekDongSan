@@ -139,29 +139,92 @@ function setLocation(lat, lng) {
     longtitude = lng;
 }
 
-function send(event) {
+
+var userInfo;
+var url = 'http://localhost:3000';
+// 로그인 해서 user 정보 얻기 => userInfo에 object 형식으로 저장됨({ID: "108261111142396297688", name: "박서정", email: "dgymjol@gmail.com"})
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    let userName = profile.getName();
+    let userInfo_it = googleUser.getAuthResponse().id_token;
+    let userInfo_at = googleUser.getAuthResponse(true).access_token;
+    $.post(url+'/login', {it : userInfo_it, at : userInfo_at}, function(data, status){
+        
+        userInfo = data;
+        console.log(userInfo);
+    })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
+// function send() {
+    
+//     var queryString = $("form[name=reviewForm]").serialize() ;
+//     var pairs = queryString.split('&');
+  
+//     var result = {};//json 빈 객체
+  
+//     //각 파라메터별 key/val 처리
+//     pairs.forEach(function(pair) {
+//         pair = pair.split('=');//key=val 분리
+//         result[pair[0]] = decodeURIComponent(pair[1] || '');
+//     });
+
+//     console.log(result);
+//     $.ajax({
+//         type: 'POST',
+//         url: url+"/upload",
+//         dataType : 'json',
+//         data : queryString,
+//         error : function(xhr, status, error){
+//             alert(error);
+//         },
+//         success : function(json){
+//             alert(json);
+//         }
+//     });
+// }
+
+$(document.getElementById("posting_submit")).click(function (event) {
+    event.preventDefault();
+     
     $("time").value = new Date().toLocaleDateString();
-    //id값 
-    // $("id").value = UserId;
+    $("id").value = {id : userInfo.ID, name : userInfo.name};
     $("location").value1 = latitude;
     $("location").value2 = longtitude;
 
-    var form = $("review")[0];
-    var formData = new FormData(form);
-    console.log("보내는중");
+    var formData = new FormData($("#review"));
+    formData.append('img',document.getElementById('photoInput').files[0]);
+
+    console.log("보내는중" + formData);
 
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
         url: "/upload",
         data: formData,
-        processData: false,
-        cache: false,
-        timeout: 600000,
-    }).done(function (data) {
-        console.log("complete");
-        console.log(data);
-        document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
+        contentType : false,
+        processData : false,
+        // data : formData
+        // cache: false,
+        // timeout: 600000,
+        error : function(xhr, status, error){
+            alert(error);
+        },
+        success : function(json){
+            alert(json);
+        }
     })
+    // .done(function (data) {
+    //     console.log("complete");
+    //     console.log(data);
+    //     document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
+    // })
     console.log("보낸후");
 }
+)
