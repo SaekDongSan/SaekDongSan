@@ -116,7 +116,7 @@
 						</lable>
 						<br>
 						<br>
-						<label id="multiple-container">사진 뜨기</label>
+						<label id="multiple-container"> </label>
 						<br>
 						<br>
 						<lable> 감상업로드<br>
@@ -135,15 +135,18 @@
 								<option value="happy"> 행복함을 주는 곳 </option>
 							</select>
 						</label>
+						<label> <input type="hidden" id='id' name="user" /> </label>
+						<label> <input type="hidden" id="location" name="location" /> </label>
+						<label> <input type="hidden" id="time" name="time" /> </label>
 						<br>
 						<br>
-						<button type="button" class="recommend" value="recommend">추천</button>
-						<button type="button" class="recommend" value="not-recommend">비추천</button>
+						<input type="button" class="recommend" name="recommend" value="good">
+						<input type="button" class="recommend" name="recommend" value="bad">
 						<br>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="submit" id="posting_submit" onclick="storeLocation()">등록하기</button>
+					<input type="reset">
+					<input type="button" id="posting_submit" onclick="send()">
 				</div>
 				</form>
 			</div>

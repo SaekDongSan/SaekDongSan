@@ -139,3 +139,29 @@ function setLocation(lat, lng) {
     longtitude = lng;
 }
 
+function send(event) {
+    $("time").value = new Date().toLocaleDateString();
+    //id값 
+    // $("id").value = UserId;
+    $("location").value1 = latitude;
+    $("location").value2 = longtitude;
+
+    var form = $("review")[0];
+    var formData = new FormData(form);
+    console.log("보내는중");
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/upload",
+        data: formData,
+        processData: false,
+        cache: false,
+        timeout: 600000,
+    }).done(function (data) {
+        console.log("complete");
+        console.log(data);
+        document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
+    })
+    console.log("보낸후");
+}
