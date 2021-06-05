@@ -91,7 +91,6 @@ const insertUserIntoDB = (payload) => {
 
 //--------포스팅------------------------------
 app.post('/upload', function (req, res) {
-
     // //파일 받기 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
