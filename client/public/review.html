@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>view</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        //예시
+        var post;
+        var open = true;
+        var latitude = 1;
+        var longtitude = 2;
+        $(document).ready(function () {
+            //user정보 받기
+
+
+            //현재 위치에 맞는 포스팅 불러오기
+            console.log("click " + latitude + longtitude);
+            $.post('/showpost', { lat: latitude, lng: longtitude },
+                function (data, status) {
+                    post = data;
+                    alert("확인" + data);
+                    display(post);
+                }
+            )
+
+            function display(post) {
+                console.log(post.length);
+
+                var html;
+
+                for (var i = 0; i < post.length; i++) {
+                    html += `<article>
+                    <div id="num" display="none"></div>
+                    <header id="header" style="border: 5px solid black;"> 
+                     <div id="제목"> ${post[i].name} </div> + <div id="작성자"> ${post[i].user}</div>
+                    </header>
+                    <div id="posting_photo" style="border: 5px solid black;">
+                        <section id="imgs"> file[]배열 출력 </section>
+                    </div>
+                    <div id="posting_add" style="border: 5px solid black;">
+                        <button type="button" onclick="likes()"> 좋아요 </button> <span id="likes">${post[i].like}</span>
+                        <button type="button" onclick="show()"> 댓글보기 및 달기 </button>
+                    </div>
+                    <div id="information" style="border: 5px solid black;">
+                        <div id="time">${post[i].time}</div>
+                        <div id="category">${post[i].category}</div>
+                    </div>
+                    <div id="posting_comment" style="border: 5px solid black;">
+                        <div id="comment">${post[i].comment}</div>
+                    </div>
+                    <div id="show_comment" style="border: 5px solid black;"></div>
+                    <div id="add_comment" style="border: 5px solid black;"></div>
+                    </article>`
+                    alert(html);
+                    console.log($("#new"));
+                    document.getElementById("new").innerHTML = html;
+                    document.getElementById("num").value = i;
+                }
+            }
+
+            function show() {
+                console.log("show comment button click");
+                var show_comment = document.querySelector('#show_comment');
+                var add_comment = document.querySelector('#add_comment');
+                var num = document.getElementById("num").value;
+
+                if (open === true) {
+                    for (var i = 1; i < post.add_comments.length; i++) {
+                        console.log("화면 구성중 ");
+                        var div1 = document.createElement('div');
+                        var div2 = document.createElement('div');
+                        var div_user = document.createElement('div');
+                        var div_time = document.createElement('div');
+                        var div_comment = document.createElement('div');
+
+                        div_user.setAttribute("id", 'dv_name');
+                        div_user.innerHTML = post[num].user;
+                        div_time.setAttribute("id", 'time');
+                        div_time.innerHTML = post[num].time;
+                        div_comment.setAttribute("id", 'comment');
+                        div_comment.innerHTML = post[num].comment;
+                        div1.appendChild(div_user);
+                        div1.appendChild(div_time);
+                        div2.appendChild(div_comment);
+
+                        show_comment.appendChild(div1);
+                        show_comment.appendChild(div2);
+                    }
+
+                    //댓글창 보이기
+                    var add_text = document.createElement('textarea');
+                    var done = document.createElement('button');
+                    add_text.setAttribute("id", "add");
+                    add_text.setAttribute("col", "50");
+                    add_text.setAttribute("row", "30");
+                    add_text.setAttribute("placeholder", "댓글을 남겨주세요")
+                    done.setAttribute("type", "button");
+                    done.setAttribute("id", "done");
+                    done.innerHTML = "comment";
+
+                    add_comment.appendChild(add_text);
+                    add_comment.appendChild(done);
+
+                    $('#done').click(function () {
+                        console.log("댓글확인창 열기");
+                        if ($("textarea").val().trim() == "") {
+                            alert("내용을 입력하세요.");
+                            $("textarea").focus();
+                            return false;
+                        }
+
+                        console.log("clicks");
+                        var comment = $('#add').text();
+                        console.log(comment);
+                        var time = new Date().toLocaleDateString();
+                        console.log(time);
+                        var userid = userInfo.name.toString();
+
+                        var div_user = document.createElement('div');
+                        var div_time = document.createElement('div');
+                        var div_comment = document.createElement('div');
+
+                        div_user.setAttribute("id", 'dv_name');
+                        div_user.innerHTML = userid;
+                        div_time.setAttribute("id", 'time');
+                        div_time.innerHTML = time;
+                        div_comment.setAttribute("id", 'comment');
+                        div_comment.innerHTML = comment;
+                        div1.appendChild(div_user);
+                        div1.appendChild(div_time);
+                        div2.appendChild(div_comment);
+
+                        show_comment.appendChild(div1);
+                        show_comment.appendChild(div2);
+
+                        //몽고디비에 추가하기
+                        console.log("comment" + comment);
+                        $.post(url + '/showpost', { post_id: post[num]._id, post_name: userid, post_time: time, post_comment: comment },
+                            function (data, status) {
+                                console.log("전송완료");
+                            })
+
+                        open = false;
+                    })
+                } else {
+                    console.log("댓글 확인 창 닫습니다.");
+                    while (show_comment.firstChild) {
+                        show_comment.removeChild(show_comment.firstChild);
+                    }
+                    while (add_comment.firstChild) {
+                        add_comment.removeChild(add_comment.firstChild);
+                    }
+                    open = true;
+                }
+            }
+            var liked = true;
+            function like() {
+                var num = document.getElementById("num").value;
+                var likess = post.likes[num];
+                if (like === true) {
+                    likess++;
+                    $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
+                        function (data, status) {
+                            console.log("전송완료");
+                        });
+                    $("#likes").text(likess);
+                    liked = false;
+                } else {
+                    likess--;
+                    $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
+                        function (data, status) {
+                            console.log("전송완료");
+                        });
+                    $("#likes").text(likess);
+                }
+                liked = true;
+            }
+
+            // index.js - /add부분 고쳐야함!
+            //     app.post('/likes', function(req, res){
+            //         var likes = req.body.likes;
+            //         var postid = req.body.post_id
+            //         console.log(likes, postid);
+            //         Posting.updateMany({ _id: postname }, $set: { like: likes }, function (err, change) {
+            //             if (!change) {
+            //                 console.log('카테고리에 맞는 posting 찾기 실패');
+            //             }
+            //             res.send("change");
+            //             console.log(change);
+            //         }); 
+            //     })
+        })
+    </script>
+</head>
+
+<body>
+    <div id="new"></div>
+
+</body>
+
+</html>
