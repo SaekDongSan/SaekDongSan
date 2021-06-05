@@ -46,9 +46,9 @@ app.post('/login', function (req, res) {
                 token = updateToken(payload);
             }
             else {
-                console.log('DB에 없는 유저');
                 //새로 유저를 만들면 jwt 토큰값을 받아온다.
                 token = insertUserIntoDB(payload);
+                console.log('DB에 없는 유저');
             }
             res.send({
                 token
@@ -60,12 +60,10 @@ app.post('/login', function (req, res) {
 
 const updateToken = function (payload) {
 
-    console.log("-----payload.userid" + payload.sub);
     User.findOne({ ID: payload.sub }, (err, user) => {
         console.log('토큰 업데이트');
         token = 0;
         var token = jwt.sign(user._id.toHexString(), 'secretToken');
-        console.log('-----token : ', token);
         return token;
     });
 
@@ -84,7 +82,6 @@ const insertUserIntoDB = (payload) => {
 
     var token = jwt.sign(user._id.toHexString(), 'secretToken');
     user.TOKEN = token;
-    console.log('-----token : ', token);
     return token;
 };
 //-----------------------------------------------------
