@@ -139,29 +139,66 @@ function setLocation(lat, lng) {
     longtitude = lng;
 }
 
-function send(event) {
-    $("time").value = new Date().toLocaleDateString();
-    //id값 
-    // $("id").value = UserId;
-    $("location").value1 = latitude;
-    $("location").value2 = longtitude;
 
-    var form = $("review")[0];
-    var formData = new FormData(form);
-    console.log("보내는중");
-
-    $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: "/upload",
-        data: formData,
-        processData: false,
-        cache: false,
-        timeout: 600000,
-    }).done(function (data) {
-        console.log("complete");
-        console.log(data);
-        document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
+var userInfo;
+var url = 'http://localhost:3000';
+// 로그인 해서 user 정보 얻기 => userInfo에 object 형식으로 저장됨({ID: "108261111142396297688", name: "박서정", email: "dgymjol@gmail.com"})
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    let userName = profile.getName();
+    let userInfo_it = googleUser.getAuthResponse().id_token;
+    let userInfo_at = googleUser.getAuthResponse(true).access_token;
+    $.post(url + '/login', { it: userInfo_it, at: userInfo_at }, function (data, status) {
+        userInfo = data;
+        console.log(userInfo);
     })
-    console.log("보낸후");
 }
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
+$(document).ready(function () {
+    var editForm = $("#review");
+
+    $('#posting_submit').click(function (event) {
+        console.log("이제 보낼꺼");
+        event.preventDefault();
+
+        var formData = new FormData(editForm[0]);
+        var inputfiles = $('input[name="phot0"]');
+        var fileArray = inputfiles[0].files;
+        console.log(fileArray);
+        formData.append('time', new Date().toLocaleDateString());
+        formData.append('id', userInfo.ID.toString());
+        formData.append('user', userInfo.name.toString());
+        formData.append('latitude', latitude);
+        formData.append('longtitude', longtitude);
+        formData.append('file', fileArray);
+        for(var i=0; i<fileArray.length;i++){
+            console.log("one file : " +fileArray[i]);
+            formData.append('file', fileArray[i]);
+        }
+
+        $.ajax({
+            method: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            dataType: 'json',
+            enctype: 'multipart/form-data',
+            url: "/upload",
+            success: function (result) {
+                if (result.result === "success") {
+                    alert('success to upload');
+                } else {
+                    alert('fail to upload');
+                }
+            }
+        })
+    });
+
+});

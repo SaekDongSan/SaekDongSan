@@ -25,7 +25,9 @@ const postingSchema = mongoose.Schema({
         required : true
     },
     comment_likes : Number,
-    comment_time : String
+    comment_time : String,
+    latitude : Number,
+    longtitude : Number
 });
 
 //Model

@@ -56,7 +56,7 @@ app.post('/login', function (req, res) {
 
             // console.log("보낼 정보입니다" ,userSignedIn);
             res.send({
-                ID:userSignedIn.ID, name : userSignedIn.NAME, email:userSignedIn.EMAIL
+                ID: userSignedIn.ID, name: userSignedIn.NAME, email: userSignedIn.EMAIL
             });
         });
     }
@@ -96,8 +96,9 @@ app.post('/upload', function (req, res) {
     // //파일 받기 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-        console.log(files);
+        //console.log(fields);
         console.log(fields);
+        console.log(files);
     });
 });
 

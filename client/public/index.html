@@ -18,7 +18,6 @@
 
 	<!-- 구글 소셜 로그인 -->
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<script src="posting.js"></script>
 
 	<!-- jquery사용 -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -111,7 +110,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="review" action='#' method="post" enctype="multipart/form-data">
+					<form name id="review" action='#' method="post" enctype="multipart/form-data">
 						<div id="current-location"> 현재 위치 주소 </div><br><br>
 						<label> 장소이름
 							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
@@ -119,7 +118,7 @@
 						<br>
 						<br>
 						<lable> 이미지 파일 업로드
-							<input type="file" id="photoInput" name="phot0" multiple />
+							<input name="phot0" type="file" id="photoInput" accept="image/jpeg,video/*[, MIME_TYPES]" multiple />
 						</lable>
 						<br>
 						<br>
@@ -142,9 +141,6 @@
 								<option value="happy"> 행복함을 주는 곳 </option>
 							</select>
 						</label>
-						<label> <input type="hidden" id='id' name="user" /> </label>
-						<label> <input type="hidden" id="location" name="location" /> </label>
-						<label> <input type="hidden" id="time" name="time" /> </label>
 						<br>
 						<br>
 						<input type="button" class="recommend" name="recommend" value="good">
@@ -153,7 +149,7 @@
 				</div>
 				<div class="modal-footer">
 					<input type="reset">
-					<input type="button" id="posting_submit" onclick="send()">
+					<input type="button" id="posting_submit">
 				</div>
 				</form>
 			</div>
