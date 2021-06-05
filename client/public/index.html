@@ -104,7 +104,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action='#' method="post" enctype="multipart/form-data">
+					<form id="review" action='#' method="post" enctype="multipart/form-data">
 						<div id="current-location"> 현재 위치 주소 </div><br><br>
 						<label> 장소이름
 							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
@@ -112,7 +112,7 @@
 						<br>
 						<br>
 						<lable> 이미지 파일 업로드
-							<input type="file" id="photoInput" name="photoUpload[]" multiple />
+							<input type="file" id="photoInput" name="phot0" multiple />
 						</lable>
 						<br>
 						<br>
@@ -126,7 +126,7 @@
 						<br>
 						<br>
 						<label> Category :
-							<select id="category">
+							<select name="category" id="category">
 								<option value="night" selected> 야경이 좋은 </option>
 								<option value="tree"> 나무가 많은 곳 </option>
 								<option value="calorie"> 칼로리 소비가 많은 곳 </option>
@@ -137,8 +137,8 @@
 						</label>
 						<br>
 						<br>
-						<button type="button" name="good" value="o">추천</button>
-						<button type="button" name="bad" value="x">비추천</button>
+						<button type="button" class="recommend" value="recommend">추천</button>
+						<button type="button" class="recommend" value="not-recommend">비추천</button>
 						<br>
 				</div>
 				<div class="modal-footer">
