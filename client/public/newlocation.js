@@ -193,14 +193,14 @@ $(document).ready(function () {
             enctype: 'multipart/form-data',
             url: "/upload",
             success: function (data) {
-                // $('form').each(function () {
-                //     this.reset();
-                // });
-                // const multipleContainer = document.getElementById("multiple-container");
-                // while (multipleContainer.firstChild) {
-                //     multipleContainer.removeChild(multipleContainer.firstChild);
-                // }
-                // alert('리뷰가 작성되었습니다');
+                $('form').each(function () {
+                    this.reset();
+                });
+                const multipleContainer = document.getElementById("multiple-container");
+                while (multipleContainer.firstChild) {
+                    multipleContainer.removeChild(multipleContainer.firstChild);
+                }
+                alert('리뷰가 작성되었습니다');
             },
             error: function (error) {
                 alert('ajax error' + error);
