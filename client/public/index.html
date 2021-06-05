@@ -47,6 +47,7 @@
 
 	<!-- 상단 바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		&nbsp; &nbsp;
 		<a class="navbar-brand" href="#"><strong>Main Page</strong></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
 			aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +55,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 				<a class="nav-item nav-link active" href="#">나도 모르던 내 동네의 숨은 명소 찾기!</span></a>
 
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -72,20 +74,16 @@
 	<div class="ft_area">
 		<div class="ft_select_wrap">
 			<div class="ft_select">
-				<select id="selectLevel">
-					<option value="0" selected="selected">교통최적+추천</option>
-					<option value="1">교통최적+무료우선</option>
-					<option value="2">교통최적+최소시간</option>
-					<option value="3">교통최적+초보</option>
-					<option value="4">교통최적+고속도로우선</option>
-					<option value="10">최단거리+유/무료</option>
-					<option value="12">이륜차도로우선</option>
-					<option value="19">교통최적+어린이보호구역 회피</option>
-				</select> <select id="year">
-					<option value="N" selected="selected">교통정보 표출 옵션</option>
-					<option value="Y">Y</option>
-					<option value="N">N</option>
-				</select>
+				<label> Filter by Category :
+					<select name="category" id="selectedcategory">
+						<option value="night" selected> 야경이 좋은 </option>
+						<option value="tree"> 나무가 많은 곳 </option>
+						<option value="calorie"> 칼로리 소비가 많은 곳 </option>
+						<option value="hip"> HIP함이 느껴지는 곳 </option>
+						<option value="thrill"> 스릴 넘치는 곳 </option>
+						<option value="happy"> 행복함을 주는 곳 </option>
+					</select>
+				</label>
 				<button id="btn_select">적용하기</button>
 			</div>
 		</div>

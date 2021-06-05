@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;400&family=Quicksand:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Jua&display=swap');
 
 body .titleofproject h1{ /*main page title 색다른 동네 산책*/
     position : absolute;
@@ -37,6 +38,9 @@ body .signingout{ /*main page top right signout button*/
 }
 
 .ft_area{ /*main page filter 적용 부분*/
+    font-family: 'Gugi', cursive;
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
     position : absolute;
     top : 160px;
     left : 50%;
@@ -44,6 +48,8 @@ body .signingout{ /*main page top right signout button*/
 }
 
 body nav{ /*메인 페이지 상단 바*/
+    font-family: 'Gugi', cursive;
+    font-family: 'Jua', sans-serif;
     position : absolute;
     top : 90px;
     width: 950px;
@@ -57,10 +63,11 @@ body nav{ /*메인 페이지 상단 바*/
     margin-left : -470px;
 }
 body nav a{
+    font-family: 'Gugi', cursive;
+    font-family: 'Jua', sans-serif;
     text-decoration-line: none;
     color:rgb(56, 49, 9);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight:600;
     align-items: center;
 }
