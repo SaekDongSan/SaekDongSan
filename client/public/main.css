@@ -7,18 +7,21 @@ body .titleofproject h1{ /*main page title 색다른 동네 산책*/
     font-family: 'Gugi', cursive;
     font-size : 55px;
     top : 25px;
-    left : 200px;
+    left: 50%;
+    margin-left: -400px;
 }
 
 .g-signin2{ /*main page top right signin button*/
     position : absolute;
     left: 70%;
+    margin-left : -40px;
     top : 25px;
 }
 
 body .signingout{ /*main page top right signout button*/
     position : absolute;
     left: 85%;
+    margin-left : -40px;
     top : 25px;
     font-family: 'Gugi', cursive;
     background-color: rgb(253, 253, 253);
@@ -36,9 +39,11 @@ body .signingout{ /*main page top right signout button*/
 .ft_area{ /*main page filter 적용 부분*/
     position : absolute;
     top : 160px;
+    left : 50%;
+    margin-left : -300px;
 }
 
-nav{ /*메인 페이지 상단 바*/
+body nav{ /*메인 페이지 상단 바*/
     position : absolute;
     top : 90px;
     width: 950px;
@@ -48,22 +53,28 @@ nav{ /*메인 페이지 상단 바*/
     padding: 3px 0 3px 0;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    left : 50%;
+    margin-left : -470px;
 }
-nav a{
+body nav a{
     text-decoration-line: none;
     color:rgb(56, 49, 9);
     font-family: 'Quicksand', sans-serif;
     font-size: 18px;
     font-weight:600;
+    align-items: center;
 }
 
 body{ /*body element 전체적으로*/
     display:flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     background-color: rgb(250, 177, 93);
+}
+
+.map_wrap div{
+    position : absolute;
+    top : 250px;
 }
 
 .btn{
