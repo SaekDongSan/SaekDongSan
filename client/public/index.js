@@ -37,15 +37,6 @@ function initTmap(position) {
 
 
 
-
-    //Marker에 클릭이벤트 등록.
-    markers.forEach(function (item) {
-        addEventListener("click", function (evt) {
-            console.log("마커를 클릭했습니다.");
-            console.log(item);
-        });
-    });
-
     // 시작
     marker_s = new Tmapv2.Marker(
         {

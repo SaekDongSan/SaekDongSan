@@ -29,15 +29,19 @@
 	<script src="index.js"></script>
 	<script src="login.js"></script>
 	<script>
+		var latitude;
+		var longtitude;
+
 		$(document).ready(function () {
 
 			if ("geolocation" in navigator) {	/* geolocation 사용 가능 */
 				navigator.geolocation.getCurrentPosition(function (data) {
 
-					var latitude = data.coords.latitude;
-					var longitude = data.coords.longitude;
+					latitude = data.coords.latitude;
+					longitude = data.coords.longitude;
 
 					reverseGeo(longitude, latitude);
+					setLocation(longitude, latitude);
 
 				}, function (error) {
 					alert(error);
@@ -164,6 +168,10 @@
 			var text = document.querySelector('#current-location').value;
 			document.querySelector('#current-location').innerHTML = text;
 		}
+		function setLocation(lat, lng) {
+			latitude = lat;
+			longtitude = lng;
+		}
 
 	</script>
 </head>
@@ -225,7 +233,7 @@
 
 	<!-- 리뷰추가버튼 -->
 	<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-		<img src="./img/plus.png" src="추가하기" width="100px" />
+		<img src="./img/plus.png" alt="리뷰 추가하기" width="100px" />
 	</button>
 
 	<!-- Modal -->
@@ -273,13 +281,13 @@
 						</label>
 						<br>
 						<br>
-						<button name="good" value="o">추천</button>
-						<button name="bad" value="x">비추천</button>
+						<button type="button" name="good" value="o">추천</button>
+						<button type="button" name="bad" value="x">비추천</button>
 						<br>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">등록하기</button>
+					<button type="submit">등록하기</button>
 				</div>
 				</form>
 			</div>
