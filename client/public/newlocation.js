@@ -162,37 +162,41 @@ function signOut() {
 }
 
 $(document).ready(function () {
+    var editForm = $("#review");
+
     $('#posting_submit').click(function (event) {
         console.log("이제 보낼꺼");
         event.preventDefault();
 
-        $("time").value = new Date().toLocaleDateString();
-        $("id").value = { id: userInfo.ID, name: userInfo.name };
-        $("location").value1 = latitude;
-        $("location").value2 = longtitude;
-
-        var formData = new FormData($("#review"));
+        var formData = new FormData(editForm[0]);
         var inputfiles = $('input[name="phot0"]');
         var files = inputfiles[0].files;
-        for (var i = 0; i < files.length; i++) {
-            formData.append('uploadfiles', files[i]);
-        }
+
+        formData.append('time', new Date().toLocaleDateString());
+        formData.append('id', { id: userInfo.ID, name: userInfo.name });
+        formData.append('latitude', latitude);
+        formData.append('longtitude', longtitude);
+
+        // for (var i = 0; i < files.length; i++) {
+        //     formData.append('uploadfiles', files[i]);
+        // }
+
         $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/upload",
-            data: formData,
+            method: "POST",
             contentType: false,
             processData: false,
-            error: function (xhr, status, error) {
-                alert(error);
-            },
-            success: function (json) {
-                console.log("success", json);
+            data: formData,
+            dataType: 'json',
+            enctype: 'multipart/form-data',
+            url: "/upload",
+            success: function (result) {
+                if (result.result === "success") {
+                    alert('success to upload');
+                } else {
+                    alert('fail to upload');
+                }
             }
         })
-        console.log("보낸후");
-        document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
     });
 
 });
