@@ -148,8 +148,7 @@ function onSignIn(googleUser) {
     let userName = profile.getName();
     let userInfo_it = googleUser.getAuthResponse().id_token;
     let userInfo_at = googleUser.getAuthResponse(true).access_token;
-    $.post(url+'/login', {it : userInfo_it, at : userInfo_at}, function(data, status){
-        
+    $.post(url + '/login', { it: userInfo_it, at: userInfo_at }, function (data, status) {
         userInfo = data;
         console.log(userInfo);
     })
@@ -162,69 +161,40 @@ function signOut() {
     });
 }
 
-// function send() {
-    
-//     var queryString = $("form[name=reviewForm]").serialize() ;
-//     var pairs = queryString.split('&');
-  
-//     var result = {};//json 빈 객체
-  
-//     //각 파라메터별 key/val 처리
-//     pairs.forEach(function(pair) {
-//         pair = pair.split('=');//key=val 분리
-//         result[pair[0]] = decodeURIComponent(pair[1] || '');
-//     });
+$(document).ready(function () {
+    $('#posting_submit').click(function (event) {
+        console.log("이제 보낼꺼");
+        event.preventDefault();
 
-//     console.log(result);
-//     $.ajax({
-//         type: 'POST',
-//         url: url+"/upload",
-//         dataType : 'json',
-//         data : queryString,
-//         error : function(xhr, status, error){
-//             alert(error);
-//         },
-//         success : function(json){
-//             alert(json);
-//         }
-//     });
-// }
+        $("time").value = new Date().toLocaleDateString();
+        $("id").value = { id: userInfo.ID, name: userInfo.name };
+        $("location").value1 = latitude;
+        $("location").value2 = longtitude;
 
-$(document.getElementById("posting_submit")).click(function (event) {
-    event.preventDefault();
-     
-    $("time").value = new Date().toLocaleDateString();
-    $("id").value = {id : userInfo.ID, name : userInfo.name};
-    $("location").value1 = latitude;
-    $("location").value2 = longtitude;
-
-    var formData = new FormData($("#review"));
-    formData.append('img',document.getElementById('photoInput').files[0]);
-
-    console.log("보내는중" + formData);
-
-    $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: "/upload",
-        data: formData,
-        contentType : false,
-        processData : false,
-        // data : formData
-        // cache: false,
-        // timeout: 600000,
-        error : function(xhr, status, error){
-            alert(error);
-        },
-        success : function(json){
-            alert(json);
+        var formData = new FormData($("#review"));
+        var inputfiles = $('input[name="phot0"]');
+        var files = inputfiles[0].files;
+        for (var i = 0; i < files.length; i++) {
+            formData.append('uploadfiles', files[i]);
         }
-    })
-    // .done(function (data) {
-    //     console.log("complete");
-    //     console.log(data);
-    //     document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
-    // })
-    console.log("보낸후");
-}
-)
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/upload",
+            data: formData,
+            contentType: false,
+            processData: false,
+            error: function (xhr, status, error) {
+                alert(error);
+            },
+            success: function (json) {
+                console.log("success", json);
+            }
+        })
+        console.log("보낸후");
+        document.getElementById('posting_submit').setAttribute("data-bs-dismiss", "modal");
+    });
+
+});
+
+
