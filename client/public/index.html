@@ -33,26 +33,24 @@
 </head>
 
 <body onload="getLocation();">
-	<h1>색동산</h1>
+	<div class = "titleofproject">
+		<h1><span style = "color:red">색</span><span style = "color:rgb(214, 96, 16)">다</span><span style = "color:yellow">른</span>
+			<span style = "color:rgb(84, 151, 64)">동</span><span style = "color:rgb(54, 114, 84)">네</span><span style = "color:rgb(36, 56, 170)">산</span><span style = "color:rgb(104, 14, 139)">책</span></h1>
+	</div>
 
 	<!-- 로그인기능 -->
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<a href="#" onclick="signOut();">Sign out</a>
-
+	<a href="#" class = "signingout" onclick="signOut();">Sign out</a>
+	
 	<!-- 상단 바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<<<<<<< HEAD
 		<a class="navbar-brand" href="#"><strong>Main Page</strong></a>
-=======
-		<a class="navbar-brand" href="#">Navbar</a>
->>>>>>> 95f406820200d7e941b8286f9a2501c9f85b278c
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
 			aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-<<<<<<< HEAD
 				<a class="nav-item nav-link active" href="#">나도 모르던 내 동네의 숨은 명소 찾기!</span></a>
 
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -62,12 +60,6 @@
 					<img src="./img/plus.png" alt="리뷰 추가하기" width="15px" height="15px"/>
 				</button>
 				<a class="nav-item nav-link" href="#"><-- 리뷰 추가하기</a>
-=======
-				<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-				<a class="nav-item nav-link" href="#">카테고리</a>
-				<a class="nav-item nav-link" href="#">길찾기</a>
-				<a class="nav-item nav-link" href="#">추천경로</a>
->>>>>>> 95f406820200d7e941b8286f9a2501c9f85b278c
 			</div>
 		</div>
 	</nav>
@@ -103,10 +95,6 @@
 	<div class="map_act_btn_wrap clear_box"></div>
 	<p id="result"></p>
 
-	<!-- 리뷰추가버튼 -->
-	<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-		<img src="./img/plus.png" alt="리뷰 추가하기" width="100px" />
-	</button>
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -120,14 +108,14 @@
 				</div>
 				<div class="modal-body">
 					<form name id="review" action='#' method="post" enctype="multipart/form-data">
-						<div id="current-location"> 현재 위치 주소 </div><br>
+						<div id="current-location"> 현재 위치 주소 </div><br><br>
 						<label> 장소이름
 							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
 						</label>
 						<br>
 						<br>
 						<lable> 이미지 파일 업로드
-							<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
+							<input name="phot0" type="file" id="photoInput" accept="image/jpeg,video/*[, MIME_TYPES]" multiple />
 						</lable>
 						<br>
 						<br>
@@ -152,13 +140,13 @@
 						</label>
 						<br>
 						<br>
-						<input type="button" id="good" value="추천">
-						<input type="button" id="bad" value="비추천">
+						<input type="button" class="recommend" name="recommend" value="good">
+						<input type="button" class="recommend" name="recommend" value="bad">
 						<br>
 				</div>
 				<div class="modal-footer">
-					<input type="reset" value="다시 작성">
-					<input type="button" id="posting_submit" value="올리기">
+					<input type="reset">
+					<input type="button" id="posting_submit">
 				</div>
 				</form>
 			</div>
