@@ -70,8 +70,6 @@ function reverseGeo(lon, lat) {
                 }
 
                 $('#current-location').text(newRoadAddr);
-                document.querySelector('#current-location').value = newRoadAddr;
-                console.log(document.querySelector('#current-location').value)
             },
             error: function (request, status, error) {
                 console.log("code:" + request.status + "\n"
@@ -125,8 +123,6 @@ $(function () {
     }
 });
 
-document.getElementById('time').value = new Date().toISOString().slice(0, 10);
-
 function openChild() {
     // window.name = "부모창 이름"; 
     window.name = "parentForm";
@@ -134,11 +130,12 @@ function openChild() {
     var win = window.open("./newlocation.html", "newLocation", "width=400, height=450");
 }
 function setChildValue(name) {
-    document.querySelector('#current-location').value = name;
-    var text = document.querySelector('#current-location').value;
-    document.querySelector('#current-location').innerHTML = text;
+    console.log('새로운 위치 정보 저장');
+    document.querySelector('#current-location').innerHTML = name;
 }
 function setLocation(lat, lng) {
+    console.log(lng, lat);
     latitude = lat;
     longtitude = lng;
 }
+

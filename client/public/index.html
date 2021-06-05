@@ -30,7 +30,7 @@
 	<script src="login.js"></script>
 	<script src="category.js"></script>
 	<script src="newlocation.js"></script>
-	
+
 </head>
 
 <body onload="getLocation();">
@@ -98,9 +98,9 @@
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
 			<div class="modal-content">
-				<div class="modal-hceader">
+				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">리뷰남기기</h5>
-					&nbsp; <input type="button" value="새로운 위치 선택" onclick="openChild()">
+					&nbsp; &nbsp;&nbsp; <p onclick="openChild()"> 새로운 위치 선택 </p>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
@@ -109,7 +109,6 @@
 						<label> 장소이름
 							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" />
 						</label>
-						<label> <input type='time' id='time' style="display:none"></label>
 						<br>
 						<br>
 						<lable> 이미지 파일 업로드
