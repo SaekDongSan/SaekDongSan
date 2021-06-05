@@ -127,17 +127,16 @@ const insertPostingIntoDB = (files, fields) => {
     return post;
 };
 
+
 app.post('/category', function (req, res) {
-    console.log(req.body.category);
 
-    // var result = findCtgList(category);
-    // res.send(
-    //     result
-    // );
+    var selected = req.body.category;
+    console.log(selected);
+
+    Posting.find({category : selected}, function(err, posts){
+        if (!posts) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
+            console.log('카테고리에 맞는 posting 찾기 실패')
+        }
+        res.send(posts);
+    })   
 });
-
-function findCtgList(selected){
-    console.log("find"+selected);
-    locationsInfo = Posting.find({category : selected}).sort('likes');
-    return locationsInfo;
-}
