@@ -203,8 +203,8 @@ app.post('/addcomment', function (req, res) {
     var time = req.body.post_time;
     var comment = req.body.post_comment;
     console.log(userid, time, comment);
-
-    Posting.updateMany({ _id: postid }, { $push: { add_comments: [{ "comment_id": new ObjectId(), "comment_author": userid, "comment_text": comment, "comment_createdAt": time }] } }, function (err, change) {
+                                                  
+    Posting.updateMany({ _id: postid }, { $push: { comments: [{ "comment_writer": userid, "comment_content": comment, "comment_time": time }] } }, function (err, change) {
         if (!change) {
             console.log('현재 posting 댓글 넣기 실패');
         }

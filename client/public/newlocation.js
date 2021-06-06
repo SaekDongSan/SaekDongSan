@@ -1,5 +1,5 @@
-var latitude;
-var longitude;
+// var latitude;
+// var longitude;
 var url = 'http://localhost:3000';
 
 $(document).ready(function () {
@@ -220,11 +220,11 @@ $(document).ready(function () {
     //현재 위치에 맞는 포스팅 불러오기
     console.log("click " + latitude + longitude);
     $('#markerid').click(function () {
-        if (userInfo == undefined) {
-            document.location.href = url;
-            alert('로그인 후 이용해 주세요');
-            return
-        }
+        // if (userInfo == undefined) {
+        //     document.location.href = url;
+        //     alert('로그인 후 이용해 주세요');
+        //     return
+        // }
 
         $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
             console.log(data);
