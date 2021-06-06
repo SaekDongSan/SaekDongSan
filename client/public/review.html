@@ -25,8 +25,6 @@
                 function (data, status) {
                     post = data;
                     alert("현재위치확인 " + post);
-                    alert(data[0].writer);
-
                 }
             )
 
@@ -39,45 +37,44 @@
                 alert("내용 보여주기");
                 console.log("총 내보낼 포스트의 길이는 " + post.length);
 
-                var html;
-                var imgs;
+                var html = "";
                 var url1 = "http://localhost:3000/uploads/";
+                var imgs = "";
 
                 for (var i = 0; i < post.length; i++) {
-                    if (i > 0) {
-                        html = `<hr/>`;
-                    }
                     console.log("포스트 하나 추가");
+
                     html += `<article>
                     <div id="num" display="none"></div>
                     <header id="header" style="border: 5px solid black;"> 
-                     <div id="제목"> ${post[i].name} </div> <div id="작성자"> ${post[i]["user"]}</div>
+                     <div id="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
                     </header>
                     <div id="posting_photo" style="border: 5px solid black;">
-                        <section id="imgs"> </section>
+                        <section id="imgs${i}"> </section>
                     </div>
                     <div id="posting_add" style="border: 5px solid black;">
-                        <button type="button" onclick="likes()"> 좋아요 </button> <span id="likes">${post[i]["likes"]}</span>
+                        <button type="button" onclick="likes()"> 좋아요 </button> <span id="likes">${post[i].likes}</span>
                         <button type="button" onclick="show()"> 댓글보기 및 달기 </button>
                     </div>
                     <div id="information" style="border: 5px solid black;">
-                        <div id="time">${post[i]["time"]}</div>
-                        <div id="category">${post[i]["category"]}</div>
+                        <div id="time">${post[i].time}</div>
+                        <div id="category">${post[i].category}</div>
                     </div>
                     <div id="posting_comment" style="border: 5px solid black;">
-                        <div id="comment">${post[i]["comment"]}</div>
+                        <div id="comment">${post[i].posting_content}</div>
                     </div>
                     <div id="show_comment" style="border: 5px solid black;"></div>
                     <div id="add_comment" style="border: 5px solid black;"></div>
-                    </article>`;
+                    </article> <hr>`;
                     document.getElementById("new").innerHTML = html;
                     document.getElementById("num").value = i;
 
-                    for (var j = 0; ij < post[i].filenumber; js++) {
-                        var img = url1 + data[i][`image${j}`];
+                    for (var j = 0; j < post[i].filenumber; j++) {
+                        var img = url1 + post[i][`image${j}`];
+                        console.log(img);
                         imgs += `<img src="${img}" width="40%">`;
+                        document.getElementById(`imgs${i}`).innerHTML = imgs;
                     }
-                    document.getElementById("imgs").innerHTML = imgs;
                 }
             }
             /////////////댓글 보여주기
@@ -98,7 +95,7 @@
             //                 var div_comment = document.createElement('div');
 
             //                 div_user.setAttribute("id", 'dv_name');
-            //                 //div_user.innerHTML = //이 댓글의 글쓴이
+            //                 //div_user.innerHTML = post[i].comments["writer"];
             //                 div_time.setAttribute("id", 'time');
             //                 //div_time.innerHTML = //이 댓글 작성 시간
             //                 div_comment.setAttribute("id", 'comment');
