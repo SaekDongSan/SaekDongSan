@@ -1,15 +1,15 @@
 const express = require('express');
-var multer  = require('multer')
+var multer = require('multer')
 const path = require('path');
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads/');
-    },
-    filename: function (req, file, cb) {
-      cb(null, new Date().valueOf() + path.extname(file.originalname));
-    }
-  }),
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './uploads/');
+        },
+        filename: function (req, file, cb) {
+            cb(null, new Date().valueOf() + path.extname(file.originalname));
+        }
+    }),
 });
 const app = express();
 const config = require('./config/key');
@@ -109,39 +109,40 @@ const insertUserIntoDB = (payload) => {
 //--------포스팅------------------------------
 
 app.post('/upload', upload.any(), (req, res) => {
-    for(var i =0 ; i<req.body.fileNumber; i++){
-        console.log("file"+JSON.stringify(req.files));
+    for (var i = 0; i < req.body.fileNumber; i++) {
+        console.log("file" + JSON.stringify(req.files));
     }
-    
+
     // console.log("others"+req.body.id);
     insertPostingIntoDB(req.files, req.body);
     res.send("good");
 })
-  
+
 //--------------------------------------------
 
 const insertPostingIntoDB = (files, fields) => {
     const nFile = fields.fileNumber;
     var filenamelist = [];
-    for(var i =0 ; i<nFile; i++){
+    for (var i = 0; i < nFile; i++) {
         filenamelist[i] = files[i]["path"].slice(8,);
     }
     console.log(filenamelist);
-    const post = new Posting({ 
-                        loaction : fields.name, 
-                        writer:fields.id, 
-                        posting_content:fields.comment,
-                        likes :0,
-                        filenumber: nFile,
-                        image0 : filenamelist[0],
-                        image1 : filenamelist[1],
-                        image2 : filenamelist[2],
-                        image3 : filenamelist[3],
-                        image4 : filenamelist[4],
-                        time : fields.time,
-                        category:fields.category,
-                        latitude : fields.latitude,
-                        longtitude :fields.longtitude });
+    const post = new Posting({
+        location: fields.name,
+        writer: fields.id,
+        posting_content: fields.comment,
+        likes: 0,
+        filenumber: nFile,
+        image0: filenamelist[0],
+        image1: filenamelist[1],
+        image2: filenamelist[2],
+        image3: filenamelist[3],
+        image4: filenamelist[4],
+        time: fields.time,
+        category: fields.category,
+        latitude: fields.latitude,
+        longtitude: fields.longtitude
+    });
 
     post.save((err, postInfo) => { // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
         if (err) return console.log({ success: false, err });
@@ -186,40 +187,40 @@ app.post('/showpost', function (req, res) {
     console.log(lat);
     console.log(lng);
 
-Posting.find({ latitude: lat, longtitude: lng }, function (err, location) {
-    if (!location) {
-        console.log('현재위치 posting 찾기 실패')
-    }
-    res.send(location);
-    console.log(location);
-});
+    Posting.find({ latitude: lat, longtitude: lng }, function (err, location) {
+        if (!location) {
+            console.log('현재위치 posting 찾기 실패')
+        }
+        res.send(location);
+        console.log(location);
+    });
 });
 //-----------------------------------------------------------------------------------------
 app.post('/addcomment', function (req, res) {
-var postid = req.body.post_id;
-var userid = req.body.post_name;
-var time = req.body.post_time;
-var comment = req.body.post_comment;
-console.log(userid, time, comment);
+    var postid = req.body.post_id;
+    var userid = req.body.post_name;
+    var time = req.body.post_time;
+    var comment = req.body.post_comment;
+    console.log(userid, time, comment);
 
-Posting.updateMany({ _id: postid }, { $push: { add_comments: [{ "comment_id": new ObjectId(), "comment_author": userid, "comment_text": comment, "comment_createdAt": time }] } }, function (err, change) {
-    if (!change) {
-        console.log('현재 posting 댓글 넣기 실패');
-    }
-    res.send("change");
-    console.log(change);
-});
+    Posting.updateMany({ _id: postid }, { $push: { add_comments: [{ "comment_id": new ObjectId(), "comment_author": userid, "comment_text": comment, "comment_createdAt": time }] } }, function (err, change) {
+        if (!change) {
+            console.log('현재 posting 댓글 넣기 실패');
+        }
+        res.send("change");
+        console.log(change);
+    });
 });
 //---------------------------------------------------------------------------------------
 app.post('/likes', function (req, res) {
-var likes = req.body.likes;
-var postid = req.body.post_id;
-console.log(likes, postid);
-Posting.updateOne({ _id: postid }, { $set: { like: likes } }, function (err, change) {
-    if (!change) {
-        console.log('현재 포스팅 좋아요 넣기 실패');
-    }
-    res.send("change");
-    console.log(change);
-});
+    var likes = req.body.likes;
+    var postid = req.body.post_id;
+    console.log(likes, postid);
+    Posting.updateOne({ _id: postid }, { $set: { like: likes } }, function (err, change) {
+        if (!change) {
+            console.log('현재 포스팅 좋아요 넣기 실패');
+        }
+        res.send("change");
+        console.log(change);
+    });
 })
