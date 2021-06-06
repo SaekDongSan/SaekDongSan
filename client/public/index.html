@@ -33,7 +33,7 @@
 </head>
 
 <body onload="getLocation();">
-	<a href="./new.html">클릭</a>
+	<a href="./review.html">클릭</a>
 	<div class="titleofproject">
 		<h1><span style="color:red">색</span><span style="color:rgb(214, 96, 16)">다</span><span
 				style="color:yellow">른</span>
@@ -86,78 +86,78 @@
 						<option value="happy"> 행복함을 주는 곳 </option>
 					</select>
 				</label>
-				<button type=submit id="btn_select" onclick = "getlocation()">적용하기</button>
+				<button type=submit id="btn_select" onclick="getlocation()">적용하기</button>
 			</div>
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
 		<div class="clear"></div>
-	</div>
+		</div>
 
-	<div id="map_wrap" class="map_wrap">
-		<div id="map_div"></div>
-	</div>
-	<div class="map_act_btn_wrap clear_box"></div>
-	<p id="result"></p>
+		<div id="map_wrap" class="map_wrap">
+			<div id="map_div"></div>
+		</div>
+		<div class="map_act_btn_wrap clear_box"></div>
+		<p id="result"></p>
 
 
-	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">리뷰남기기</h5>
-					&nbsp; &nbsp;&nbsp; <p onclick="openChild()"> 새로운 위치 선택 </p>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">리뷰남기기</h5>
+						&nbsp; &nbsp;&nbsp; <p onclick="openChild()"> 새로운 위치 선택 </p>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form name id="review" action='#' method="post" enctype="multipart/form-data">
+							<div id="current-location"> 현재 위치 주소 </div><br><br>
+							<label> 장소이름
+								<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" required />
+							</label>
+							<br>
+							<br>
+							<lable> 이미지 파일 업로드
+								<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
+							</lable>
+							<br>
+							<br>
+							<label id="multiple-container"> </label>
+							<br>
+							<br>
+							<lable> 감상업로드<br>
+								<textarea cols="40" rows="10" name="comment"
+									placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
+							</lable>
+							<br>
+							<br>
+							<label> Category :
+								<select name="category" id="category" required>
+									<option value="night" selected> 야경이 좋은 </option>
+									<option value="tree"> 나무가 많은 곳 </option>
+									<option value="calorie"> 칼로리 소비가 많은 곳 </option>
+									<option value="hip"> HIP함이 느껴지는 곳 </option>
+									<option value="thrill"> 스릴 넘치는 곳 </option>
+									<option value="happy"> 행복함을 주는 곳 </option>
+								</select>
+							</label>
+							<br>
+					</div>
+					<div class="modal-footer">
+						<input type="reset" value="다시 작성">
+						<input type="button" id="posting_submit" value="올리기">
+					</div>
+					</form>
 				</div>
-				<div class="modal-body">
-					<form name id="review" action='#' method="post" enctype="multipart/form-data">
-						<div id="current-location"> 현재 위치 주소 </div><br><br>
-						<label> 장소이름
-							<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" required />
-						</label>
-						<br>
-						<br>
-						<lable> 이미지 파일 업로드
-							<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
-						</lable>
-						<br>
-						<br>
-						<label id="multiple-container"> </label>
-						<br>
-						<br>
-						<lable> 감상업로드<br>
-							<textarea cols="40" rows="10" name="comment"
-								placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
-						</lable>
-						<br>
-						<br>
-						<label> Category :
-							<select name="category" id="category" required>
-								<option value="night" selected> 야경이 좋은 </option>
-								<option value="tree"> 나무가 많은 곳 </option>
-								<option value="calorie"> 칼로리 소비가 많은 곳 </option>
-								<option value="hip"> HIP함이 느껴지는 곳 </option>
-								<option value="thrill"> 스릴 넘치는 곳 </option>
-								<option value="happy"> 행복함을 주는 곳 </option>
-							</select>
-						</label>
-						<br>
-				</div>
-				<div class="modal-footer">
-					<input type="reset" value="다시 작성">
-					<input type="button" id="posting_submit" value="올리기">
-				</div>
-				</form>
 			</div>
 		</div>
-	</div>
-	<script>
-		$('#posting_submit').on('click', function () {
-			$('#staticBackdrop1').modal('hide');
-			console.log("click close");
-		})
-	</script>
+		<script>
+			$('#posting_submit').on('click', function () {
+				$('#staticBackdrop1').modal('hide');
+				console.log("click close");
+			})
+		</script>
 </body>
 
 </html>
