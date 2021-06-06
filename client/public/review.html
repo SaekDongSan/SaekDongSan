@@ -48,17 +48,16 @@
                         var img = url1 + post[i][`image${j}`];
                         console.log(img);
                         imgs += `<img src="${img}" width="40%">`;
-                        // document.getElementById(`imgs${i}`).innerHTML = imgs;
                     }
                     // alert(imgs);
 
-                    middle= `<article>
-                    <div id="num" display="none"></div>
+                    middle = `<article>
+                    <input id="num" value="${i}" style="display:none"></input>
                     <header id="header" style="border: 5px solid black;"> 
                      <div id="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
                     </header>
                     <div id="posting_photo" style="border: 5px solid black;">
-                        <section id="imgs${i}">`+imgs+`</section>
+                        <section id="imgs${i}">` + imgs + `</section>
                     </div>
                     <div id="posting_add" style="border: 5px solid black;">
                         <button type="button" onclick="likes()"> 좋아요 </button> <span id="likes">${post[i].likes}</span>
@@ -75,11 +74,9 @@
                     <div id="add_comment" style="border: 5px solid black;"></div>
                     </article> <hr>`;
 
-                    html+= middle;
+                    html += middle;
                     console.log(middle);
-                    // document.getElementById("num").value = i;
                 }
-
                 document.getElementById("new").innerHTML = html;
             }
             /////////////댓글 보여주기
@@ -180,29 +177,32 @@
             //             open = true;
             //         }
             //     }
-            //     var liked = true;
-            //     function like() {
-            //         var num = document.getElementById("num").value;
-            //         var likess = post[num]["likes"];
-            //         if (like === true) {
-            //             likess++;
-            //             $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
-            //                 function (data, status) {
-            //                     console.log("좋아요 추가");
-            //                 });
-            //             $("#likes").text(likess);
-            //             liked = false;
-            //         } else {
-            //             likess--;
-            //             $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
-            //                 function (data, status) {
-            //                     console.log("좋아요 제거");
-            //                 });
-            //             $("#likes").text(likess);
-            //         }
-            //         liked = true;
-            //     }
+
         })
+        var liked = true;
+        function likes() {
+            var num = document.getElementById("num").value;
+            alert(num);
+            var likess = post[num].likes;
+            alert(post[num].likes);
+            if (liked === true) {
+                likess++;
+                $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
+                    function (data, status) {
+                        console.log("좋아요 추가");
+                    });
+                $("#likes").text(likess);
+                liked = false;
+            } else {
+                likess--;
+                $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
+                    function (data, status) {
+                        console.log("좋아요 제거");
+                    });
+                $("#likes").text(likess);
+            }
+            liked = true;
+        }
     </script>
 </head>
 
