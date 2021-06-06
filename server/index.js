@@ -185,16 +185,17 @@ app.post('/showpost', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
-    console.log(lat);
-    console.log(lng);
+    console.log("포스팅 위치 : "+lat+lng);
 
-    Posting.find({ latitude: lat, longtitude: lng }, function (err, location) {
+    var post;
+    Posting.find({ "latitude": lat , "longtitude" : lng}, function (err, location) {
         if (!location) {
             console.log('현재위치 posting 찾기 실패')
         }
         res.send(location);
-        console.log(location);
+        console.log("찾은 결과"+location);
     });
+
 });
 //-----------------------------------------------------------------------------------------
 app.post('/addcomment', function (req, res) {
@@ -204,7 +205,7 @@ app.post('/addcomment', function (req, res) {
     var comment = req.body.post_comment;
     console.log(userid, time, comment);
                                                   
-    Posting.updateMany({ _id: postid }, { $push: { comments: [{ "comment_writer": userid, "comment_content": comment, "comment_time": time }] } }, function (err, change) {
+    Posting.updateOne({ _id: postid }, { $set: { 'comments': [{ "comment_writer": userid, "comment_content": comment, "comment_time": time }] } }, function (err, change) {
         if (!change) {
             console.log('현재 posting 댓글 넣기 실패');
         }
