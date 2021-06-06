@@ -18,18 +18,15 @@
 
             var latitude = 127.0078127;
             var longtitude = 37.592483099999995;
-            alert("현재위치");
             //현재 위치에 맞는 포스팅 불러오기
             console.log("click " + latitude + longtitude);
             $.post('/showpost', { lat: latitude, lng: longtitude },
                 function (data, status) {
                     post = data;
-                    alert("현재위치확인 " + post);
                 }
             )
 
             $('#markerid').click(function () {
-                alert('모달창 실행')
                 display(post);
             })
 
@@ -52,7 +49,6 @@
                     // alert(imgs);
 
                     middle = `<article>
-                    <input id="num" value="${i}" style="display:none"></input>
                     <header id="header" style="border: 5px solid black;"> 
                      <div id="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
                     </header>
@@ -60,8 +56,8 @@
                         <section id="imgs${i}">` + imgs + `</section>
                     </div>
                     <div id="posting_add" style="border: 5px solid black;">
-                        <button type="button" onclick="likes()"> 좋아요 </button> <span id="likes">${post[i].likes}</span>
-                        <button type="button" onclick="show()"> 댓글보기 및 달기 </button>
+                        <button type="button" onclick="likes(${i})"> 좋아요 </button> <span id="likes${i}">${post[i].likes}</span>
+                        <button type="button" onclick="show(${i})"> 댓글보기 및 달기 </button>
                     </div>
                     <div id="information" style="border: 5px solid black;">
                         <div id="time">${post[i].time}</div>
@@ -180,28 +176,25 @@
 
         })
         var liked = true;
-        function likes() {
-            var num = document.getElementById("num").value;
-            alert(num);
+        function likes(num) {
+            console.log(num);
             var likess = post[num].likes;
-            alert(post[num].likes);
             if (liked === true) {
                 likess++;
-                $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
+                $.post('/likes', { post_id: post[num]._id, likes: likess },
                     function (data, status) {
                         console.log("좋아요 추가");
                     });
-                $("#likes").text(likess);
+                document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
                 liked = false;
             } else {
-                likess--;
-                $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
+                $.post('/likes', { post_id: post[num]._id, likes: likess },
                     function (data, status) {
                         console.log("좋아요 제거");
                     });
-                $("#likes").text(likess);
+                document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
+                liked = true;
             }
-            liked = true;
         }
     </script>
 </head>
