@@ -8,29 +8,43 @@
     <script>
         //예시
         var post;
+        var modal;
         var open = true;
-        var latitude = 1;
-        var longtitude = 2;
         $(document).ready(function () {
-            //user정보 받기
-
+            //onclick funtion
+            // $('#마커id').click(function () {
+            //     console.log("리뷰확인 모달창 구성중입니다");
+            //     modal = `<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            //                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            //             <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+            //             <div class="modal-content">
+            // 	            <div class="modal-header">
+            // 		            <h5 class="modal-title" id="staticBackdropLabel">리뷰보기</h5>
+            // 		            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            //                 </div>
+            // 	        </div>
+            // 	        <div class="modal-body"> 
+            //                 <div id = "new"> </div>`;
+            //     document.querySelector("#new").innerHTML = modal;
+            // })
 
             //현재 위치에 맞는 포스팅 불러오기
             console.log("click " + latitude + longtitude);
             $.post('/showpost', { lat: latitude, lng: longtitude },
                 function (data, status) {
                     post = data;
-                    alert("확인" + data);
+                    console.log("현재위치확인 " + data);
                     display(post);
                 }
             )
 
             function display(post) {
-                console.log(post.length);
+                console.log("총 내보낼 포스트의 길이는 " + post.length);
 
                 var html;
 
                 for (var i = 0; i < post.length; i++) {
+                    console.log("포스트 하나 추가");
                     html += `<article>
                     <div id="num" display="none"></div>
                     <header id="header" style="border: 5px solid black;"> 
@@ -52,8 +66,7 @@
                     </div>
                     <div id="show_comment" style="border: 5px solid black;"></div>
                     <div id="add_comment" style="border: 5px solid black;"></div>
-                    </article>`
-                    alert(html);
+                    </article>`;
                     console.log($("#new"));
                     document.getElementById("new").innerHTML = html;
                     document.getElementById("num").value = i;
@@ -123,6 +136,7 @@
                         var div_comment = document.createElement('div');
 
                         div_user.setAttribute("id", 'dv_name');
+                        //userid 고치기
                         div_user.innerHTML = userid;
                         div_time.setAttribute("id", 'time');
                         div_time.innerHTML = time;
@@ -136,10 +150,10 @@
                         show_comment.appendChild(div2);
 
                         //몽고디비에 추가하기
-                        console.log("comment" + comment);
+                        console.log("지금부터 db에 댓글 추가");
                         $.post(url + '/addcomment', { post_id: post[num]._id, post_name: userid, post_time: time, post_comment: comment },
                             function (data, status) {
-                                console.log("전송완료");
+                                console.log("db에 전송완료" + data);
                             })
 
                         open = false;
@@ -163,7 +177,7 @@
                     likess++;
                     $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
                         function (data, status) {
-                            console.log("전송완료");
+                            console.log("좋아요 추가");
                         });
                     $("#likes").text(likess);
                     liked = false;
@@ -171,7 +185,7 @@
                     likess--;
                     $.post(url + '/likes', { post_id: post[num]._id, likes: likess },
                         function (data, status) {
-                            console.log("전송완료");
+                            console.log("좋아요 제거");
                         });
                     $("#likes").text(likess);
                 }
@@ -182,7 +196,6 @@
 </head>
 
 <body>
-    <div id="new"></div>
 
 </body>
 
