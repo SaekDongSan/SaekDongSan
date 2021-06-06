@@ -312,10 +312,11 @@ function add_comment(num) {
     if (open == "none") {
         if (length > 0) {
             for (var i = 0; i < length; i++) {
-                console.log('댓글 ' + i)
-                let euser = post[num].comments[i].writer;
-                let etime = post[num].comments[i].time;
-                let ecomment = post[num].comments[i].content;
+               
+                let euser = post[num].comments[i].comment_writer;
+                let etime = post[num].comments[i].comment_time;
+                let ecomment = post[num].comments[i].comment_content;
+                console.log('댓글 ' + euser+etime+ecomment);
 
                 exist1 += `<div id="euser">${euser}</div>
                                 <div id="etime">${etime}</div> 
