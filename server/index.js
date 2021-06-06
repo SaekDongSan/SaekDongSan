@@ -1,17 +1,17 @@
 const express = require('express');
-var multer  = require('multer')
+var multer = require('multer')
 const path = require('path');
 var filenamelist = [];
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads/');
-    },
-    filename: function (req, file, cb) {
-      cb(null, new Date().valueOf() + path.extname(file.originalname));
-      filenamelist.push(new Date().valueOf() + path.extname(file.originalname));
-    }
-  }),
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './uploads/');
+        },
+        filename: function (req, file, cb) {
+            cb(null, new Date().valueOf() + path.extname(file.originalname));
+            filenamelist.push(new Date().valueOf() + path.extname(file.originalname));
+        }
+    }),
 });
 const app = express();
 const config = require('./config/key');
@@ -121,13 +121,13 @@ const insertUserIntoDB = (payload) => {
 // });
 
 
-app.post('/upload', upload.any(), (req, res)=>{
+app.post('/upload', upload.any(), (req, res) => {
     // console.log("file"+req.files.length);
     // console.log("others"+req.body.id);
     insertPostingIntoDB(req.files, req.body);
     res.send("good");
 })
-  
+
 //--------------------------------------------
 
 const insertPostingIntoDB = (files, fields) => {
@@ -135,22 +135,23 @@ const insertPostingIntoDB = (files, fields) => {
     const nFile = fields.fileNumber;
     // console.log(filenamelist);
     // var orgImgNameList = new Object();
-    
+
     var saveImgNameList = new Object();
-    for(var j=0; j<nFile; j++){
+    for (var j = 0; j < nFile; j++) {
         // orgImgNameList[j] = files[j]["name"];
-        saveImgNameList[j]=filenamelist[j];
+        saveImgNameList[j] = filenamelist[j];
     }
-    const post = new Posting({ 
-                        loaction : fields.name, 
-                        writer:fields.id, 
-                        posting_content:fields.comment,
-                        likes :0,
-                        filenumber: nFile,
-                        time : fields.time,
-                        category:fields.category,
-                        latitude : fields.latitude,
-                        longtitude :fields.longtitude });
+    const post = new Posting({
+        loaction: fields.name,
+        writer: fields.id,
+        posting_content: fields.comment,
+        likes: 0,
+        filenumber: nFile,
+        time: fields.time,
+        category: fields.category,
+        latitude: fields.latitude,
+        longtitude: fields.longtitude
+    });
 
     // post.oimages = [];
     // post.oimages.push(orgImgNameList);
@@ -163,12 +164,12 @@ const insertPostingIntoDB = (files, fields) => {
         return console.log({ success: true, postInfo });
     })
 
-    console.log("------------crete Posting object!!----- "+JSON.stringify(post.simages));
+    console.log("------------crete Posting object!!----- " + JSON.stringify(post.simages));
     // console.log("------------crete Posting object!!----- "+JSON.stringify(post.oimages));
     return post;
 };
 
-
+//---------------------------------------------------------
 app.post('/category', function (req, res) {
 
     var selected = req.body.category;
@@ -182,6 +183,7 @@ app.post('/category', function (req, res) {
     })
 });
 
+//--------------------------------------------------------------------
 app.post('/showpost', function (req, res) {
 
     var lat = req.body.lat;
@@ -191,25 +193,38 @@ app.post('/showpost', function (req, res) {
 
     Posting.find({ latitude: lat, longtitude: lng }, function (err, location) {
         if (!location) {
-            console.log('카테고리에 맞는 posting 찾기 실패')
+            console.log('현재위치 posting 찾기 실패')
         }
         res.send(location);
         console.log(location);
     });
 });
-
+//-----------------------------------------------------------------------------------------
 app.post('/addcomment', function (req, res) {
-    var postname = req.body.post_id;
-    var id = req.body.post_id;
+    var postid = req.body.post_id;
+    var userid = req.body.post_name;
+    var time = req.body.post_time;
     var comment = req.body.post_comment;
-    console.log(time, id, comment);
+    console.log(userid, time, comment);
 
-    Posting.updateMany({ _id: postname }, { add_comments: [{ "comment_id": new ObjectId(), "comment_author": id, "comment_text": comment, "comment_createdAt": new Date() }] }, function (err, change) {
+    Posting.updateMany({ _id: postid }, { $push: { add_comments: [{ "comment_id": new ObjectId(), "comment_author": userid, "comment_text": comment, "comment_createdAt": time }] } }, function (err, change) {
         if (!change) {
-            console.log('카테고리에 맞는 posting 찾기 실패');
+            console.log('현재 posting 댓글 넣기 실패');
         }
         res.send("change");
         console.log(change);
     });
 });
-
+//---------------------------------------------------------------------------------------
+app.post('/likes', function (req, res) {
+    var likes = req.body.likes;
+    var postid = req.body.post_id;
+    console.log(likes, postid);
+    Posting.updateOne({ _id: postid }, { $set: { like: likes } }, function (err, change) {
+        if (!change) {
+            console.log('현재 포스팅 좋아요 넣기 실패');
+        }
+        res.send("change");
+        console.log(change);
+    });
+})

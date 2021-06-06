@@ -179,6 +179,12 @@ $(document).ready(function () {
         formData.append('user', userInfo.name.toString());
         formData.append('latitude', latitude);
         formData.append('longtitude', longtitude);
+        //에러나면 이거떄문------------------------
+        formData.append('add_comments', []);
+        formData.append('like', 0);
+        ////-----------------------
+
+
         formData.delete('img[]');
         for (var i = 0; i < files.length; i++) {
             formData.append(i, files[i]);

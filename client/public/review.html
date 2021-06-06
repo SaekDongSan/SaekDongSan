@@ -137,7 +137,7 @@
 
                         //몽고디비에 추가하기
                         console.log("comment" + comment);
-                        $.post(url + '/showpost', { post_id: post[num]._id, post_name: userid, post_time: time, post_comment: comment },
+                        $.post(url + '/addcomment', { post_id: post[num]._id, post_name: userid, post_time: time, post_comment: comment },
                             function (data, status) {
                                 console.log("전송완료");
                             })
@@ -177,20 +177,6 @@
                 }
                 liked = true;
             }
-
-            // index.js - /add부분 고쳐야함!
-            //     app.post('/likes', function(req, res){
-            //         var likes = req.body.likes;
-            //         var postid = req.body.post_id
-            //         console.log(likes, postid);
-            //         Posting.updateMany({ _id: postname }, $set: { like: likes }, function (err, change) {
-            //             if (!change) {
-            //                 console.log('카테고리에 맞는 posting 찾기 실패');
-            //             }
-            //             res.send("change");
-            //             console.log(change);
-            //         }); 
-            //     })
         })
     </script>
 </head>
