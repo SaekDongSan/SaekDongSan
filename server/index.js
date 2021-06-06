@@ -72,7 +72,7 @@ app.post('/login', function (req, res) {
 
             // console.log("보낼 정보입니다" ,userSignedIn);
             res.send({
-                ID: userSignedIn.ID, name: userSignedIn.NAME, email: userSignedIn.EMAIL
+                ID: userSignedIn.ID, name: userSignedIn.NAME, email: userSignedIn.EMAIL, liked : userSignedIn.likedlist
             });
         });
     }
@@ -94,7 +94,7 @@ const insertUserIntoDB = (payload) => {
 
     console.log(" --- insert" + payload.sub + "----");
 
-    const user = new User({ ID: payload.sub, NAME: payload.name, EMAIL: payload.email });
+    const user = new User({ ID: payload.sub, NAME: payload.name, EMAIL: payload.email, });
     user.save((err, userInfo) => { // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
         if (err) return console.log({ success: false, err });
         //에러없다면 성공(200) 
@@ -204,8 +204,8 @@ app.post('/addcomment', function (req, res) {
     var time = req.body.post_time;
     var comment = req.body.post_comment;
     console.log(userid, time, comment);
-                                                  
-    Posting.updateOne({ _id: postid }, { $set: { 'comments': [{ "comment_writer": userid, "comment_content": comment, "comment_time": time }] } }, function (err, change) {
+
+    Posting.updateOne({ _id: postid }, { $push: { 'comments': [{ "comment_writer": userid, "comment_content": comment, "comment_time": time }] } }, function (err, change) {
         if (!change) {
             console.log('현재 posting 댓글 넣기 실패');
         }
@@ -232,27 +232,29 @@ app.post('/likes', function (req, res) {
 })
 
 app.post('/liked', function (req, res) {
-    var userid = req.body.user;
-    var updateLike = req.body.liked;
-    var postid = req.body.post_id;
-    console.log(userid, postid, updateLike);
+    var postid = new ObjectId(req.body.postid);
+    var userid = req.body.userid;
+    var likeTF = req.body.updateLike;
+    console.log("클라이언트 좋아요 요청 : "+postid+ " "+userid+ " "+likeTF);
 
-    if(updateLike=="true"){
-        User.updateMany({ ID : user }, { $pull: { 'liked': [{ "posting_id": postid }]  }}, function (err, change) {
+    if(likeTF == "true"){
+        User.updateOne({ ID: userid }, { $push: { "likedlist" : [{ "posting_id" : postid}] } }, function (err, change) {
             if (!change) {
-                console.log('현재 posting 댓글 넣기 실패');
+                console.log('현재 posting 좋아요 추가 실패');
             }
             res.send("change");
-            console.log(change);
-        })
+            console.log("좋아요 목록 추가"+change);
+        });
     }
     else{
-        User.updateMany({ ID : user }, { $pull: { 'liked': { "posting_id": postid }  }}, function (err, change) {
+        console.log("!!!!!!!");
+        User.updateOne({ ID: userid }, { "likedlist" : { $elemMatch:[{ "posting_id" : postid}] }  }, function (err, change) {
             if (!change) {
-                console.log('현재 posting 댓글 넣기 실패');
+                console.log('현재 posting 좋아요 취소 실패');
             }
             res.send("change");
-            console.log(change);
-        })
+            console.log("좋아요 목록 삭제"+change);
+        });
     }
-})
+
+});
