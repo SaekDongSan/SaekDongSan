@@ -181,8 +181,6 @@ $(document).ready(function () {
         formData.append('latitude', latitude);
         formData.append('longtitude', longtitude);
         formData.delete('img[]');
-        formData.append('add_comments', []);
-        formData.append('like', 0);
         for (var i = 0; i < files.length; i++) {
             formData.append(i, files[i]);
         }
