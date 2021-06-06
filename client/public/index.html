@@ -84,11 +84,22 @@
 						<option value="happy"> 행복함을 주는 곳 </option>
 					</select>
 				</label>
-				<button type=submit id="btn_select" onclick="getlocation()">적용하기</button>
+				<button type=submit id="category_select" onclick="getlocation()">적용하기</button>
+				<button type=submit id="want_select">산책 코스</button>
 			</div>
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
 		<div class="clear"></div>
+		</div>
+		<div>
+			<p id="result"></p>
+			<select id="selectLevel" style = "width:130px;height:30px;">
+				<option value="0" selected="selected">최적+추천</option>
+				<option value="4" >추천+대로우선</option>
+				<option value="10" >최단</option>
+				<option value="30" >최단거리+계단제외</option>
+			</select>
+			<button id="course_select" style = "width:130px;height:30px;">적용하기</button>
 		</div>
 
 		<div id="map_wrap" class="map_wrap">
