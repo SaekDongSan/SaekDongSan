@@ -20,6 +20,7 @@ const postingSchema = mongoose.Schema({
         type: String,
         maxlength : 2000
     },
+    comments : [{ posting_id : Number, writer: String, content: String, time : String}],
     category: String,
     likes : Number,
     time : String,
