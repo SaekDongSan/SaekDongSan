@@ -1,4 +1,18 @@
 const express = require('express');
+var multer  = require('multer')
+const path = require('path');
+var filenamelist = [];
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, new Date().valueOf() + path.extname(file.originalname));
+      filenamelist.push(new Date().valueOf() + path.extname(file.originalname));
+    }
+  }),
+});
 const app = express();
 const config = require('./config/key');
 const { User } = require("./models/user");
@@ -7,15 +21,11 @@ const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var formidable = require('formidable');
 var fs = require('fs');
-var multer = require("multer");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client/public'));
 const jwt = require('jsonwebtoken');
 const { json } = require('body-parser');
-// app.use(multer({dest:'./uploadImg'}).any());
-var upload = multer({dest:'./uploadImg'});
-
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
@@ -97,41 +107,53 @@ const insertUserIntoDB = (payload) => {
 //-----------------------------------------------------
 
 //--------포스팅------------------------------
-app.post('/upload', function (req, res) {
-    // //파일 받기 
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-        // console.log(fields);
-        // console.log(files);
-        insertPostingIntoDB(files, fields);
-    });
-    res.send("good");
-});
+// app.post('/upload', upload.array('myFiles'), function (req, res) {
+//     console.log(req.files);
+//     console.log(req.body);
+//     //파일 받기 
+//     var form = new formidable.IncomingForm();
+//     form.parse(req, function (err, fields, files) {
+//         console.log(fields);
+//         console.log(files);
+//         insertPostingIntoDB(files, fields);
+//     });
+//     res.send("good");
+// });
 
+
+app.post('/upload', upload.any(), (req, res)=>{
+    // console.log("file"+req.files.length);
+    // console.log("others"+req.body.id);
+    insertPostingIntoDB(req.files, req.body);
+    res.send("good");
+})
+  
 //--------------------------------------------
 
 const insertPostingIntoDB = (files, fields) => {
 
     const nFile = fields.fileNumber;
-
-    var orgImgNameList = new Object();
+    // console.log(filenamelist);
+    // var orgImgNameList = new Object();
+    
     var saveImgNameList = new Object();
     for(var j=0; j<nFile; j++){
-        orgImgNameList[j] = files[j]["name"];
-        saveImgNameList[j] = fields.name+j;
+        // orgImgNameList[j] = files[j]["name"];
+        saveImgNameList[j]=filenamelist[j];
     }
     const post = new Posting({ 
                         loaction : fields.name, 
                         writer:fields.id, 
                         posting_content:fields.comment,
                         likes :0,
+                        filenumber: nFile,
                         time : fields.time,
                         category:fields.category,
                         latitude : fields.latitude,
                         longtitude :fields.longtitude });
 
-    post.oimages = [];
-    post.oimages.push(orgImgNameList);
+    // post.oimages = [];
+    // post.oimages.push(orgImgNameList);
     post.simages = [];
     post.simages.push(saveImgNameList);
 
@@ -142,7 +164,7 @@ const insertPostingIntoDB = (files, fields) => {
     })
 
     console.log("------------crete Posting object!!----- "+JSON.stringify(post.simages));
-    console.log("------------crete Posting object!!----- "+JSON.stringify(post.oimages));
+    // console.log("------------crete Posting object!!----- "+JSON.stringify(post.oimages));
     return post;
 };
 

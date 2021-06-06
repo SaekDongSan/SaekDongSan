@@ -9,7 +9,6 @@ const postingSchema = mongoose.Schema({
     writer:{
         type: String,
     },
-    orgImgFileName : { oimages:[{ "0": String, "1":String, "2":String, "3":String, "4":String}]},
     saveImgFileName: { simages:[{ "0": String, "1":String, "2":String, "3":String, "4":String}]},
     filenumber: Number,
     posting_content:{ 
