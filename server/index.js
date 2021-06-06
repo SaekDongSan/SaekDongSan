@@ -198,7 +198,7 @@ app.post('/showpost', function (req, res) {
 });
 //-----------------------------------------------------------------------------------------
 app.post('/addcomment', function (req, res) {
-    var postid = req.body.post_id;
+    var postid = new ObjectId(req.body.post_id);
     var userid = req.body.post_name;
     var time = req.body.post_time;
     var comment = req.body.post_comment;
@@ -218,15 +218,14 @@ app.post('/likes', function (req, res) {
     var postid = new ObjectId(req.body.post_id);
     console.log(likess, postid);
 
-    Posting.findOne({ _id: postid }, (err, post) => {
-        if (err) throw err;
-        if (post) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
-            post.likes = likess;
-            console.log("likes up : "+post.likes);
+    Posting.updateOne({ _id: postid }, { $set: { likes: likess } }, function (err, change) {
+        if (!change) {
+            console.log('현재 포스팅 좋아요 넣기 실패');
+            res.send("좋아요 추가 실패");
         }
-        else {
-            console.log('없는 리뷰에 좋아요를 했습니다');
+        else{
+            res.send("likes up : " + likess);
+            console.log("likes up : " + likess);
         }
-        res.send("update likes up : "+post.likes);
     });
 })
