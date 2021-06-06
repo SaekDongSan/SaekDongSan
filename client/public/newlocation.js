@@ -391,10 +391,8 @@ function shows(num) {
 }
 
 let html1 = "";
-let html2 = " ";
+let html2 = "";
 function add_comment(num) {
-    var showc = document.getElementById(`show_comment${num}`);
-    var addc = document.getElementById(`add_comment${num}`);
     var open = document.getElementById(`open${num}`).style.display;
 
     html1 = "";
