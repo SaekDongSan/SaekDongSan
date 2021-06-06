@@ -80,6 +80,3 @@ function createnewlayer(latitude, longitude, map){
         })
     }
 } 
-
-
- 

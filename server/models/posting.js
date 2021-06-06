@@ -9,7 +9,12 @@ const postingSchema = mongoose.Schema({
     writer:{
         type: String,
     },
-    saveImgFileName: { simages:[{ "0": String, "1":String, "2":String, "3":String, "4":String}]},
+    image0 : String,
+    image1 : String,
+    image2 : String,
+    image3 : String,
+    image4 : String,
+    
     filenumber: Number,
     posting_content:{ 
         type: String,

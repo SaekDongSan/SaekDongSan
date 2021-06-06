@@ -161,6 +161,7 @@ function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
+        userInfo = undefined;
     });
 }
 
@@ -179,13 +180,9 @@ $(document).ready(function () {
         formData.append('user', userInfo.name.toString());
         formData.append('latitude', latitude);
         formData.append('longtitude', longtitude);
-        //에러나면 이거떄문------------------------
+        formData.delete('img[]');
         formData.append('add_comments', []);
         formData.append('like', 0);
-        ////-----------------------
-
-
-        formData.delete('img[]');
         for (var i = 0; i < files.length; i++) {
             formData.append(i, files[i]);
         }
@@ -206,7 +203,8 @@ $(document).ready(function () {
                 while (multipleContainer.firstChild) {
                     multipleContainer.removeChild(multipleContainer.firstChild);
                 }
-                alert('리뷰가 작성되었습니다');
+                console.log(data);
+                // // alert('리뷰가 작성되었습니다');
             },
             error: function (error) {
                 alert('ajax error' + error);
