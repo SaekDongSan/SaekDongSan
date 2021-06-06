@@ -16,6 +16,10 @@ $(document).ready(function(){
 
 // -------지도 관련
 
+// 마커 사이즈
+var image_width = 50;
+var image_height = 80;
+
 var map;
 var markerLayer;
 var markerInfo;
@@ -135,12 +139,15 @@ function initTmap(position) {
                 for (var i = 0; i < 5; i++){
                     old_place[i][0] = Math.round(data[i].latitude * 1e8) / 1e8;
                     old_place[i][1] = Math.round(data[i].longtitude * 1e8) / 1e8;
-                    images[i] = data[i].image;
+                    console.log(data);
+                    images[i] = "http://localhost:3000/uploads/" + data[i].image0;
+                    console.log(images[i])
                     console.log(old_place[i][0]);
                     console.log(old_place[i][1]);
 
                 }
 
+                // 장소 배열 정렬
                 old_place.sort(function(a, b){
                     if (a[1] > b[1]) {
                     return 1;
@@ -199,8 +206,8 @@ function initTmap(position) {
                 marker_s = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(old_place[0][0],old_place[0][1]),
-                            icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_1.png",
-                            iconSize : new Tmapv2.Size(24, 38),
+                            icon : images[0],
+                            iconSize : new Tmapv2.Size(image_width, image_height),
                             map : map
                         });
                 resultMarkerArr.push(marker_s);
@@ -209,8 +216,8 @@ function initTmap(position) {
                 marker_e = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[4][0], place[4][1]),
-                            icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_5.png",
-                            iconSize : new Tmapv2.Size(24, 38),
+                            icon : images[4],
+                            iconSize : new Tmapv2.Size(image_width, image_height),
                             map : map
                         });
                 resultMarkerArr.push(marker_e);
@@ -221,8 +228,8 @@ function initTmap(position) {
                 marker_p1 = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[1][0], place[1][1]),
-                            icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_2.png",
-                            iconSize : new Tmapv2.Size(24, 38),
+                            icon : images[1],
+                            iconSize : new Tmapv2.Size(image_width, image_height),
                             map:map
                         });
                 resultMarkerArr.push(marker_p1);
@@ -230,8 +237,8 @@ function initTmap(position) {
                 marker_p2 = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[2][0], place[2][1]),
-                            icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_3.png",
-                            iconSize : new Tmapv2.Size(24, 38),
+                            icon : images[2],
+                            iconSize : new Tmapv2.Size(image_width, image_height),
                             map:map
                         });
                 resultMarkerArr.push(marker_p2);
@@ -239,12 +246,18 @@ function initTmap(position) {
                 marker_p3 = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[3][0], place[3][1]),
-                            icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_4.png",
-                            iconSize : new Tmapv2.Size(24, 38),
+                            icon : images[3],
+                            iconSize : new Tmapv2.Size(image_width, image_height),
                             map:map
                         });
                 resultMarkerArr.push(marker_p3);
                 
+                // 중심좌표로 지도 이동..
+                /*
+                var lat = (place[4][0] + place[0][0])/2;
+                var lon = (place[4][1] + place[0][1])/2;
+                tMapView.setCenterPoint(lon, lat);
+                */
 
                 var routeLayer;
                 // 최단~~ 적용 클릭 시 
