@@ -1,5 +1,5 @@
 var latitude;
-var longtitude;
+var longitude;
 
 $(document).ready(function () {
 
@@ -10,7 +10,7 @@ $(document).ready(function () {
             longitude = data.coords.longitude;
 
             reverseGeo(longitude, latitude);
-            setLocation(longitude, latitude);
+            setLocation(latitude,longitude);
 
         }, function (error) {
             alert(error);
@@ -21,8 +21,7 @@ $(document).ready(function () {
 });
 
 function reverseGeo(lon, lat) {
-    $
-        .ajax({
+    $.ajax({
             method: "GET",
             url: "https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&format=json&callback=result",
             async: false,
@@ -140,7 +139,7 @@ function setChildValue(name) {
 function setLocation(lat, lng) {
     console.log(lng, lat);
     latitude = lat;
-    longtitude = lng;
+    longitude = lng;
 }
 
 var userInfo;
@@ -179,7 +178,7 @@ $(document).ready(function () {
         formData.append('id', userInfo.ID.toString());
         formData.append('user', userInfo.name.toString());
         formData.append('latitude', latitude);
-        formData.append('longtitude', longtitude);
+        formData.append('longtitude', longitude);
         formData.delete('img[]');
         for (var i = 0; i < files.length; i++) {
             formData.append(i, files[i]);
