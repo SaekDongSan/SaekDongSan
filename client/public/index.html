@@ -33,7 +33,6 @@
 </head>
 
 <body onload="getLocation();">
-	<a href="./review.html">클릭</a>
 	<div class="titleofproject">
 		<h1><span style="color:red">색</span><span style="color:rgb(214, 96, 16)">다</span><span
 				style="color:yellow">른</span>
@@ -152,7 +151,43 @@
 				</div>
 			</div>
 		</div>
+
+		<button type="button" id="markerid" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+			마커누름
+		</button>
+
+
+		<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">리뷰보기</h5>
+						<button type="button" class="btn-close" id="closebtn" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div id="new">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script>
+			$('#plus').click(function () {
+				if (userInfo == undefined) {
+					document.location.href = url;
+					alert('로그인 후 이용해 주세요');
+					return
+				}
+			})
+
+			$("#closebtn").click(function () {
+				const multipleContainer = document.getElementById("new");
+				while (multipleContainer.firstChild) {
+					multipleContainer.removeChild(multipleContainer.firstChild);
+				}
+			})
 			$('#reset').on('click', function () {
 				const multipleContainer = document.getElementById("multiple-container");
 				while (multipleContainer.firstChild) {

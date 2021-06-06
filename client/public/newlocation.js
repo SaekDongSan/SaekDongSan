@@ -1,5 +1,6 @@
 var latitude;
 var longitude;
+var url = 'http://localhost:3000';
 
 $(document).ready(function () {
 
@@ -10,7 +11,7 @@ $(document).ready(function () {
             longitude = data.coords.longitude;
 
             reverseGeo(longitude, latitude);
-            setLocation(latitude,longitude);
+            setLocation(latitude, longitude);
 
         }, function (error) {
             alert(error);
@@ -22,59 +23,59 @@ $(document).ready(function () {
 
 function reverseGeo(lon, lat) {
     $.ajax({
-            method: "GET",
-            url: "https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&format=json&callback=result",
-            async: false,
-            data: {
-                "appKey": "l7xxdb5dae09f39444cb9c87fd5289236e24",
-                "coordType": "WGS84GEO",
-                "addressType": "A10",
-                "lon": lon,
-                "lat": lat
-            },
-            success: function (response) {
-                // 3. json에서 주소 파싱
-                var arrResult = response.addressInfo;
+        method: "GET",
+        url: "https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&format=json&callback=result",
+        async: false,
+        data: {
+            "appKey": "l7xxdb5dae09f39444cb9c87fd5289236e24",
+            "coordType": "WGS84GEO",
+            "addressType": "A10",
+            "lon": lon,
+            "lat": lat
+        },
+        success: function (response) {
+            // 3. json에서 주소 파싱
+            var arrResult = response.addressInfo;
 
-                //법정동 마지막 문자 
-                var lastLegal = arrResult.legalDong
-                    .charAt(arrResult.legalDong.length - 1);
+            //법정동 마지막 문자 
+            var lastLegal = arrResult.legalDong
+                .charAt(arrResult.legalDong.length - 1);
 
-                // 새주소
-                newRoadAddr = arrResult.city_do + ' '
-                    + arrResult.gu_gun + ' ';
+            // 새주소
+            newRoadAddr = arrResult.city_do + ' '
+                + arrResult.gu_gun + ' ';
 
-                if (arrResult.eup_myun == ''
-                    && (lastLegal == "읍" || lastLegal == "면")) {//읍면
-                    newRoadAddr += arrResult.legalDong;
-                } else {
-                    newRoadAddr += arrResult.eup_myun;
-                }
-                newRoadAddr += ' ' + arrResult.roadName + ' '
-                    + arrResult.buildingIndex;
-
-                // 새주소 법정동& 건물명 체크
-                if (arrResult.legalDong != ''
-                    && (lastLegal != "읍" && lastLegal != "면")) {//법정동과 읍면이 같은 경우
-
-                    if (arrResult.buildingName != '') {//빌딩명 존재하는 경우
-                        newRoadAddr += (' (' + arrResult.legalDong
-                            + ', ' + arrResult.buildingName + ') ');
-                    } else {
-                        newRoadAddr += (' (' + arrResult.legalDong + ')');
-                    }
-                } else if (arrResult.buildingName != '') {//빌딩명만 존재하는 경우
-                    newRoadAddr += (' (' + arrResult.buildingName + ') ');
-                }
-
-                $('#current-location').text(newRoadAddr);
-            },
-            error: function (request, status, error) {
-                console.log("code:" + request.status + "\n"
-                    + "message:" + request.responseText + "\n"
-                    + "error:" + error);
+            if (arrResult.eup_myun == ''
+                && (lastLegal == "읍" || lastLegal == "면")) {//읍면
+                newRoadAddr += arrResult.legalDong;
+            } else {
+                newRoadAddr += arrResult.eup_myun;
             }
-        });
+            newRoadAddr += ' ' + arrResult.roadName + ' '
+                + arrResult.buildingIndex;
+
+            // 새주소 법정동& 건물명 체크
+            if (arrResult.legalDong != ''
+                && (lastLegal != "읍" && lastLegal != "면")) {//법정동과 읍면이 같은 경우
+
+                if (arrResult.buildingName != '') {//빌딩명 존재하는 경우
+                    newRoadAddr += (' (' + arrResult.legalDong
+                        + ', ' + arrResult.buildingName + ') ');
+                } else {
+                    newRoadAddr += (' (' + arrResult.legalDong + ')');
+                }
+            } else if (arrResult.buildingName != '') {//빌딩명만 존재하는 경우
+                newRoadAddr += (' (' + arrResult.buildingName + ') ');
+            }
+
+            $('#current-location').text(newRoadAddr);
+        },
+        error: function (request, status, error) {
+            console.log("code:" + request.status + "\n"
+                + "message:" + request.responseText + "\n"
+                + "error:" + error);
+        }
+    });
 }
 
 // 포스팅 모달 부분
@@ -143,7 +144,6 @@ function setLocation(lat, lng) {
 }
 
 var userInfo;
-var url = 'http://localhost:3000';
 // 로그인 해서 user 정보 얻기 => userInfo에 object 형식으로 저장됨({ID: "108261111142396297688", name: "박서정", email: "dgymjol@gmail.com"})
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -209,3 +209,186 @@ $(document).ready(function () {
         })
     });
 });
+
+//예시
+var post;
+
+//나중에 onclick으로 받아올거
+var latitude = 37.592483099999995;
+var longitude = 127.0078127;
+$(document).ready(function () {
+    //현재 위치에 맞는 포스팅 불러오기
+    console.log("click " + latitude + longitude);
+    $('#markerid').click(function () {
+        if (userInfo == undefined) {
+            document.location.href = url;
+            alert('로그인 후 이용해 주세요');
+            return
+        }
+
+        $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
+            console.log(data);
+            if (status == 'success') post = data;
+            else console.log(status);
+        })
+            .done(function () {
+                display(post);
+            })
+            .fail(function () {
+                console.log("fail");
+            })
+    })
+
+    function display(post) {
+        if (post.length != 0) {
+            console.log("총 내보낼 포스트의 길이는 " + post.length);
+
+            var html = "";
+            var url1 = "http://localhost:3000/uploads/";
+
+            for (var i = 0; i < post.length; i++) {
+                var imgs = '';
+                var middle;
+                for (var j = 0; j < post[i].filenumber; j++) {
+                    var img = url1 + post[i][`image${j}`];
+                    imgs += `<img src="${img}" width="40%">`;
+                }
+
+                middle = `<article>
+                    <header class="header" style="border: 5px solid black;"> 
+                     <div class="title"> ${post[i].location} </div> <div class="writer"> ${post[i].writer}</div>
+                    </header>
+                    <div class="posting_photo" style="border: 5px solid black;">
+                        <section id="imgs${i}">` + imgs + `</section>
+                    </div>
+                    <div class="posting_add" style="border: 5px solid black;">
+                        <button type="button" onclick="likes(${i})"> 좋아요 </button> <span id="likes${i}">${post[i].likes}</span>
+                        <button type="button" onclick="shows(${i})"> 댓글보기 및 달기 </button>
+                    </div>
+                    <div class="information" style="border: 5px solid black;">
+                        <div class="ptime">${post[i].time}</div>
+                        <div class="pcategory">${post[i].category}</div>
+                    </div>
+                    <div class="posting_comment" style="border: 5px solid black;">
+                        <div class="pcomment">${post[i].posting_content}</div>
+                    </div>
+                    <div id="open${i}" style="display:none">
+                        <div id="show_comment${i}" style="border: 5px solid black;"></div>
+                        <div id="add_comment${i}" style="border: 5px solid black;"></div>
+                    </div>
+                    </article> <hr>`;
+
+                html += middle;
+            }
+            document.getElementById("new").innerHTML = html;
+        } else {
+            document.getElementById("new").innerText = "해당 지역에 대한 포스트가 아무것도 없습니다. 새로운 포스트를 작성해 주세요!"
+        }
+    }
+})
+
+
+let html1 = "";
+function shows(num) {
+    console.log("댓글 보이기 버튼 누름");
+    $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
+        console.log(data);
+        if (status == 'success') post = data;
+        else console.log(status);
+    })
+        .done(function () {
+            add_comment(num);
+        })
+}
+
+function add_comment(num) {
+    var showc = document.getElementById(`show_comment${num}`);
+    var addc = document.getElementById(`add_comment${num}`);
+    var open = document.getElementById(`open${num}`).style.display;
+    let length = post[num].comments.length;
+    let exist1 = "";
+    let exist2 = "";
+
+    if (open == "none") {
+        if (length > 0) {
+            for (var i = 0; i < length; i++) {
+                console.log('댓글 ' + i)
+                let euser = post[num].comments[i].writer;
+                let etime = post[num].comments[i].time;
+                let ecomment = post[num].comments[i].content;
+
+                exist1 += `<div id="euser">${euser}</div>
+                                <div id="etime">${etime}</div> 
+                                <div id="ecomment">${ecomment}</div>`
+                html1 += exist1;
+            }
+            document.getElementById(`show_comment${num}`).innerHTML = html1;
+        }
+
+        exist2 += `<textarea id="add${num}" col="50" row="30" placeholder = "댓글을 입력해주세요" ></textarea>
+                    <button class="done" onclick="add(${num})">comment</button>`
+        document.getElementById(`add_comment${num}`).innerHTML = exist2;
+        document.getElementById(`open${num}`).style.display = "block";
+    } else {
+        console.log("댓글 확인 창 닫습니다.");
+        while (showc.firstChild) {
+            showc.removeChild(showc.firstChild);
+        }
+        while (showc.firstChild) {
+            addc.removeChild(addc.firstChild);
+        }
+        document.getElementById(`open${num}`).style.display = "none";
+    }
+}
+
+function add(num) {
+    console.log("댓글 저장");
+    if ($(`#add${num}`).val() == "") {
+        alert("내용을 입력하세요.");
+        $(`#add${num}`).focus();
+        return false;
+    }
+    let html2 = " ";
+
+    let comment = document.getElementById(`add${num}`).value;
+    console.log(comment);
+    let time = new Date().toLocaleString();
+    console.log(time);
+    let writer = userInfo.name.toString();
+    console.log(writer);
+
+    html2 += `<div id="euser">${writer}</div>
+                        <div id="etime">${time}</div> 
+                        <div id="ecomment">${comment}</div>`
+    document.getElementById(`show_comment${num}`).innerHTML = html2;
+
+    //몽고디비에 추가하기 
+    $.post('/addcomment', { post_id: post[num]._id, post_name: writer, post_time: time, post_comment: comment },
+        function (data, status) {
+            console.log("db에 전송완료" + data);
+        }
+    )
+}
+
+//좋아요 부분 고칠곳!
+var liked = true;
+function likes(num) {
+    console.log(num);
+    var likess = post[num].likes;
+    if (liked === true) {
+        likess++;
+        $.post('/likes', { post_id: post[num]._id, likes: likess },
+            function (data, status) {
+                console.log(data);
+            });
+        document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
+        liked = false;
+    } else {
+        $.post('/likes', { post_id: post[num]._id, likes: likess },
+            function (data, status) {
+                console.log("좋아요 제거");
+            });
+        document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
+        liked = true;
+    }
+}

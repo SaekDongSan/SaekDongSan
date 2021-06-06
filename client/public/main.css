@@ -188,24 +188,6 @@ input{
 .flex-container > *{
     margin-bottom: 10px;
 }
-header{
-    font-family: 'Londrina Solid', cursive;
-    font-size: 35px;
-    width:1020px;
-    text-align: left;
-    position: relative;
-    animation: sliding 2s;
-}
-
-@keyframes sliding {
-    0%{ right:-1040px; }
-    100%{ right:0px; }
-}
-
-
-
-
-
 
 .content{
     display : flex;
