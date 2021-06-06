@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
         type: String,
         maxlength : 50,
     },
+    likedlist : [{ posting_id : String}],
     nickname : String,
     TOKEN:{
         type: String

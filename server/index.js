@@ -224,8 +224,34 @@ app.post('/likes', function (req, res) {
             res.send("좋아요 추가 실패");
         }
         else{
-            res.send("likes up : " + likess);
-            console.log("likes up : " + likess);
+            res.send("likes : " + likess);
+            console.log("likes : " + likess);
         }
     });
+})
+
+app.post('/liked', function (req, res) {
+    var userid = req.body.user;
+    var updateLike = req.body.liked;
+    var postid = req.body.post_id;
+    console.log(userid, postid, updateLike);
+
+    if(updateLike=="true"){
+        User.updateMany({ ID : user }, { $pull: { 'liked': [{ "posting_id": postid }]  }}, function (err, change) {
+            if (!change) {
+                console.log('현재 posting 댓글 넣기 실패');
+            }
+            res.send("change");
+            console.log(change);
+        })
+    }
+    else{
+        User.updateMany({ ID : user }, { $pull: { 'liked': { "posting_id": postid }  }}, function (err, change) {
+            if (!change) {
+                console.log('현재 posting 댓글 넣기 실패');
+            }
+            res.send("change");
+            console.log(change);
+        })
+    }
 })

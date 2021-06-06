@@ -14,67 +14,34 @@
         //예시
         var post;
         var open = true;
+        var postLiked = [];
+
         $(document).ready(function () {
 
-            var latitude = 127.0078127;
-            var longtitude = 37.592483099999995;
+            var longtitude = 127.0078127;
+            var latitude = 37.592483099999995;
             //현재 위치에 맞는 포스팅 불러오기
             console.log("click " + latitude + longtitude);
-            $.post('/showpost', { lat: latitude, lng: longtitude },
-                function (data, status) {
-                    post = data;
-                }
-            )
+            $('#markerid').click(function (){
 
-            $('#markerid').click(function () {
-                display(post);
-            })
-
-            function display(post) {
-                alert("내용 보여주기");
-                console.log("총 내보낼 포스트의 길이는 " + post.length);
-
-                var html = "";
-                var url1 = "http://localhost:3000/uploads/";
-
-                for (var i = 0; i < post.length; i++) {
-                    console.log("포스트 하나 추가");
-                    var imgs = '';
-                    var middle;
-                    for (var j = 0; j < post[i].filenumber; j++) {
-                        var img = url1 + post[i][`image${j}`];
-                        console.log(img);
-                        imgs += `<img src="${img}" width="40%">`;
+                $.post('/showpost', { lat: latitude, lng: longtitude }, function(data, status){
+                    console.log(data);
+                if(status == 'success') post = data;
+                else console.log(status);
+                })
+                .done(function(){
+                    for(var i=0; i<userInfo.length; i++){
+                        if(userInfo[i]["liked"] == 'true'){
+                            postLiked.push(userInfo[i]["posting_id"])
+                        }
                     }
-                    // alert(imgs);
-
-                    middle = `<article>
-                    <header id="header" style="border: 5px solid black;"> 
-                     <div id="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
-                    </header>
-                    <div id="posting_photo" style="border: 5px solid black;">
-                        <section id="imgs${i}">` + imgs + `</section>
-                    </div>
-                    <div id="posting_add" style="border: 5px solid black;">
-                        <button type="button" onclick="likes(${i})"> 좋아요 </button> <span id="likes${i}">${post[i].likes}</span>
-                        <button type="button" onclick="show(${i})"> 댓글보기 및 달기 </button>
-                    </div>
-                    <div id="information" style="border: 5px solid black;">
-                        <div id="time">${post[i].time}</div>
-                        <div id="category">${post[i].category}</div>
-                    </div>
-                    <div id="posting_comment" style="border: 5px solid black;">
-                        <div id="comment">${post[i].posting_content}</div>
-                    </div>
-                    <div id="show_comment" style="border: 5px solid black;"></div>
-                    <div id="add_comment" style="border: 5px solid black;"></div>
-                    </article> <hr>`;
-
-                    html += middle;
-                    console.log(middle);
-                }
-                document.getElementById("new").innerHTML = html;
-            }
+                    if(i==userInfo.length) display(post);    
+                })
+                .fail(function(){
+                    console.log("fail");
+                })
+            })
+                        
             /////////////댓글 보여주기
 
             //     function show() {
@@ -175,27 +142,94 @@
             //     }
 
         })
-        var liked = true;
+
+        function display(post) {
+
+            console.log("display "+post);
+            var html = "";
+            var url1 = "http://localhost:3000/uploads/";
+
+            for (var i = 0; i < post.length; i++) {
+                var imgs = '';
+                var middle;
+                for (var j = 0; j < post[i].filenumber; j++) {
+                    var img = url1 + post[i][`image${j}`];
+                    imgs += `<img src="${img}" width="40%">`;
+                }
+                
+                var record;
+                var bgcolor = "white";
+                if(postLiked.hasOwnProperty(`${post[i]._id}`)){
+                    record = postLiked[`${post[i]._id}`];
+                }
+                else record = "false";
+
+                if(record == "true"){
+                    bgcolor = "green";
+                }
+
+                middle = `<article>
+                <header class="header" style="border: 5px solid black;"> 
+                <div class="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
+                </header>
+                <div id="posting_photo" style="border: 5px solid black;">
+                    <section class="imgs${i}">` + imgs + `</section>
+                </div>
+                <div class="posting_add" style="border: 5px solid black;">
+                    <button type="buttondd" id ="comment${post[i]._id}" style="background-color: ${bgcolor}" onclick="likes(${i})"> 좋아요 </button> <span id="likes${post[i]._id}" data-id = ${record} >${post[i].likes}</span>
+                    <button type="button" onclick="show(${i})"> 댓글보기 및 달기 </button>
+                </div>
+                <div id="information" style="border: 5px solid black;">
+                    <div class="time">${post[i].time}</div>
+                    <div class="category">${post[i].category}</div>
+                </div>
+                <div id="posting_comment" style="border: 5px solid black;">
+                    <div class="comment">${post[i].posting_content}</div>
+                </div>
+                <div class="show_comment" style="border: 5px solid black;"></div>
+                <div class="add_comment" style="border: 5px solid black;"></div>
+                </article> <hr>`;
+
+                html += middle;
+            }
+                document.getElementById("new").innerHTML = html;
+        }
+
+        var liked;
         function likes(num) {
-            console.log(num);
+            console.log("실행")
+            var elem = $(`#likes${post[num]._id}`)
+            liked = $(`#likes${post[num]._id}`).attr("data-id");
             var likess = post[num].likes;
-            if (liked === true) {
+            if (liked == "false") {
+                elem.attr("data-id", "true");
+                $(`#comment${post[num]._id}`).css( "background-color", "green" );
                 likess++;
                 $.post('/likes', { post_id: post[num]._id, likes: likess },
                     function (data, status) {
                         console.log(data);
                     });
-                document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
-                liked = false;
-            } else {
+                document.getElementById(`likes${post[num]._id}`).innerHTML = `${likess}`;
+                postLiked[`${post[num]._id}`] = "true";
+
+                $.post('/liked', { userid : userInfo.ID, updateLike : "true", postid : post[num]._id}, function (req, res) {
+                    console.log(data);
+                })}
+            else {
+                elem.attr("data-id", "false");
+                $(`#comment${post[num]._id}`).css( "background-color", "white" );
                 $.post('/likes', { post_id: post[num]._id, likes: likess },
                     function (data, status) {
                         console.log("좋아요 제거");
                     });
-                document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
-                liked = true;
+                document.getElementById(`likes${post[num]._id}`).innerHTML = `<span id="likes"> ${likess} </span>`;
+                postLiked[`${post[num]._id}`] = "false";
+                $.post('/liked', { userid : userInfo.ID, updateLike : "false", postid : post[num]._id}, function (req, res) {
+                    console.log(data);
+                })
             }
         }
+
     </script>
 </head>
 
@@ -220,6 +254,14 @@
         </div>
     </div>
 
+    <!-- <script>
+        $("#closebtn").click(function () {
+            const multipleContainer = document.getElementById("new");
+            while (multipleContainer.firstChild) {
+                multipleContainer.removeChild(multipleContainer.firstChild);
+            }
+        })
+    </script> -->
 </body>
 
 </html>
