@@ -1,267 +1,163 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-    <title>view</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script>
-        //예시
-        var post;
-        var open = true;
-        var postLiked = [];
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-signin-client_id"
+		content="358885579377-963gkpo3jr9s54a8qp28emppjsb7qqj1.apps.googleusercontent.com">
 
-        $(document).ready(function () {
+	<title>simpleMap</title>
 
-            var longtitude = 127.0078127;
-            var latitude = 37.592483099999995;
-            //현재 위치에 맞는 포스팅 불러오기
-            console.log("click " + latitude + longtitude);
-            $('#markerid').click(function (){
+	<!-- Bootstrap 관련 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 
-                $.post('/showpost', { lat: latitude, lng: longtitude }, function(data, status){
-                    console.log(data);
-                if(status == 'success') post = data;
-                else console.log(status);
-                })
-                .done(function(){
-                    for(var i=0; i<userInfo.length; i++){
-                        if(userInfo[i]["liked"] == 'true'){
-                            postLiked.push(userInfo[i]["posting_id"])
-                        }
-                    }
-                    if(i==userInfo.length) display(post);    
-                })
-                .fail(function(){
-                    console.log("fail");
-                })
-            })
-                        
-            /////////////댓글 보여주기
+	<!-- 구글 소셜 로그인 -->
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 
-            //     function show() {
-            //         console.log("show comment button click");
-            //         var show_comment = document.querySelector('#show_comment');
-            //         var add_comment = document.querySelector('#add_comment');
-            //         var num = document.getElementById("num").value;
+	<!-- jquery사용 -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-            //         if (open === true) {
-            //             for (var i = 0; i < post.add_comments.length; i++) {
-            //                 console.log("이전 댓글 화면 구성중 ");
-            //                 var div1 = document.createElement('div');
-            //                 var div2 = document.createElement('div');
-            //                 var div_user = document.createElement('div');
-            //                 var div_time = document.createElement('div');
-            //                 var div_comment = document.createElement('div');
+	<!--Tmap API : 사용하려면 주석 지우기!!-->
+	<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdb5dae09f39444cb9c87fd5289236e24"></script>
+	<link rel="stylesheet" href="main.css">
+	<script src="index.js"></script>
+	<!-- <script src="login.js"></script> -->
+	<script src="newlocation.js"></script>
+	<script src="post.js"></script>
 
-            //                 div_user.setAttribute("id", 'dv_name');
-            //                 //div_user.innerHTML = post[i].comments["writer"];
-            //                 div_time.setAttribute("id", 'time');
-            //                 //div_time.innerHTML = //이 댓글 작성 시간
-            //                 div_comment.setAttribute("id", 'comment');
-            //                 //div_comment.innerHTML = //이 댓글 내용;
-            //                 div1.appendChild(div_user);
-            //                 div1.appendChild(div_time);
-            //                 div2.appendChild(div_comment);
-
-            //                 show_comment.appendChild(div1);
-            //                 show_comment.appendChild(div2);
-            //             }
-
-            //             //댓글창 보이기
-            //             var add_text = document.createElement('textarea');
-            //             var done = document.createElement('button');
-            //             add_text.setAttribute("id", "add");
-            //             add_text.setAttribute("col", "50");
-            //             add_text.setAttribute("row", "30");
-            //             add_text.setAttribute("placeholder", "댓글을 남겨주세요")
-            //             done.setAttribute("type", "button");
-            //             done.setAttribute("id", "done");
-            //             done.innerHTML = "comment";
-
-            //             add_comment.appendChild(add_text);
-            //             add_comment.appendChild(done);
-
-            //             $('#done').click(function () {
-            //                 console.log("댓글확인창 열기");
-            //                 if ($("textarea").val().trim() == "") {
-            //                     alert("내용을 입력하세요.");
-            //                     $("textarea").focus();
-            //                     return false;
-            //                 }
-
-            //                 console.log("clicks");
-            //                 var comment = $('#add').text();
-            //                 console.log(comment);
-            //                 var time = new Date().toLocaleDateString();
-            //                 console.log(time);
-            //                 var userid = userInfo.name.toString();
-
-            //                 var div_user = document.createElement('div');
-            //                 var div_time = document.createElement('div');
-            //                 var div_comment = document.createElement('div');
-
-            //                 div_user.setAttribute("id", 'dv_name');
-            //                 //userid 고치기
-            //                 div_user.innerHTML = userid;
-            //                 div_time.setAttribute("id", 'time');
-            //                 div_time.innerHTML = time;
-            //                 div_comment.setAttribute("id", 'comment');
-            //                 div_comment.innerHTML = comment;
-            //                 div1.appendChild(div_user);
-            //                 div1.appendChild(div_time);
-            //                 div2.appendChild(div_comment);
-
-            //                 show_comment.appendChild(div1);
-            //                 show_comment.appendChild(div2);
-
-            //                 //몽고디비에 추가하기
-            //                 console.log("지금부터 db에 댓글 추가");
-            //                 $.post(url + '/addcomment', { post_id: post[num]._id, post_name: userid, post_time: time, post_comment: comment },
-            //                     function (data, status) {
-            //                         console.log("db에 전송완료" + data);
-            //                     })
-
-            //                 open = false;
-            //             })
-            //         } else {
-            //             console.log("댓글 확인 창 닫습니다.");
-            //             while (show_comment.firstChild) {
-            //                 show_comment.removeChild(show_comment.firstChild);
-            //             }
-            //             while (add_comment.firstChild) {
-            //                 add_comment.removeChild(add_comment.firstChild);
-            //             }
-            //             open = true;
-            //         }
-            //     }
-
-        })
-
-        function display(post) {
-
-            console.log("display "+post);
-            var html = "";
-            var url1 = "http://localhost:3000/uploads/";
-
-            for (var i = 0; i < post.length; i++) {
-                var imgs = '';
-                var middle;
-                for (var j = 0; j < post[i].filenumber; j++) {
-                    var img = url1 + post[i][`image${j}`];
-                    imgs += `<img src="${img}" width="40%">`;
-                }
-                
-                var record;
-                var bgcolor = "white";
-                if(postLiked.hasOwnProperty(`${post[i]._id}`)){
-                    record = postLiked[`${post[i]._id}`];
-                }
-                else record = "false";
-
-                if(record == "true"){
-                    bgcolor = "green";
-                }
-
-                middle = `<article>
-                <header class="header" style="border: 5px solid black;"> 
-                <div class="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
-                </header>
-                <div id="posting_photo" style="border: 5px solid black;">
-                    <section class="imgs${i}">` + imgs + `</section>
-                </div>
-                <div class="posting_add" style="border: 5px solid black;">
-                    <button type="buttondd" id ="comment${post[i]._id}" style="background-color: ${bgcolor}" onclick="likes(${i})"> 좋아요 </button> <span id="likes${post[i]._id}" data-id = ${record} >${post[i].likes}</span>
-                    <button type="button" onclick="show(${i})"> 댓글보기 및 달기 </button>
-                </div>
-                <div id="information" style="border: 5px solid black;">
-                    <div class="time">${post[i].time}</div>
-                    <div class="category">${post[i].category}</div>
-                </div>
-                <div id="posting_comment" style="border: 5px solid black;">
-                    <div class="comment">${post[i].posting_content}</div>
-                </div>
-                <div class="show_comment" style="border: 5px solid black;"></div>
-                <div class="add_comment" style="border: 5px solid black;"></div>
-                </article> <hr>`;
-
-                html += middle;
-            }
-                document.getElementById("new").innerHTML = html;
-        }
-
-        var liked;
-        function likes(num) {
-            console.log("실행")
-            var elem = $(`#likes${post[num]._id}`)
-            liked = $(`#likes${post[num]._id}`).attr("data-id");
-            var likess = post[num].likes;
-            if (liked == "false") {
-                elem.attr("data-id", "true");
-                $(`#comment${post[num]._id}`).css( "background-color", "green" );
-                likess++;
-                $.post('/likes', { post_id: post[num]._id, likes: likess },
-                    function (data, status) {
-                        console.log(data);
-                    });
-                document.getElementById(`likes${post[num]._id}`).innerHTML = `${likess}`;
-                postLiked[`${post[num]._id}`] = "true";
-
-                $.post('/liked', { userid : userInfo.ID, updateLike : "true", postid : post[num]._id}, function (req, res) {
-                    console.log(data);
-                })}
-            else {
-                elem.attr("data-id", "false");
-                $(`#comment${post[num]._id}`).css( "background-color", "white" );
-                $.post('/likes', { post_id: post[num]._id, likes: likess },
-                    function (data, status) {
-                        console.log("좋아요 제거");
-                    });
-                document.getElementById(`likes${post[num]._id}`).innerHTML = `<span id="likes"> ${likess} </span>`;
-                postLiked[`${post[num]._id}`] = "false";
-                $.post('/liked', { userid : userInfo.ID, updateLike : "false", postid : post[num]._id}, function (req, res) {
-                    console.log(data);
-                })
-            }
-        }
-
-    </script>
 </head>
 
-<body>
-    <button type="button" id="markerid" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-        마커누름
-    </button>
+<body onload="getLocation();">
+	<a href="./review.html">클릭</a>
+	<div class="titleofproject">
+		<h1><span style="color:red">색</span><span style="color:rgb(214, 96, 16)">다</span><span
+				style="color:yellow">른</span>
+			<span style="color:rgb(84, 151, 64)">동</span><span style="color:rgb(54, 114, 84)">네</span>
+			<span style="color:rgb(36, 56, 170)">산</span><span style="color:rgb(104, 14, 139)">책</span>
+		</h1>
+	</div>
 
-    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">리뷰보기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="new">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!-- 로그인기능 -->
+	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+	<a href="#" class="signingout" onclick="signOut();">Sign out</a>
 
-    <!-- <script>
-        $("#closebtn").click(function () {
-            const multipleContainer = document.getElementById("new");
-            while (multipleContainer.firstChild) {
-                multipleContainer.removeChild(multipleContainer.firstChild);
-            }
-        })
-    </script> -->
+	<!-- 상단 바 -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		&nbsp; &nbsp;
+		<a class="navbar-brand" href="#"><strong>Main Page</strong></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+			aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				<a class="nav-item nav-link active" href="#">나도 모르던 내 동네의 숨은 명소 찾기!</span></a>
+
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- 리뷰추가버튼 -->
+				<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+					<img src="./img/plus.png" alt="리뷰 추가하기" width="15px" height="15px" />
+				</button>
+				<a class="nav-item nav-link" href="#">
+					<-- 리뷰 추가하기</a>
+			</div>
+		</div>
+	</nav>
+	<div id="imagetestimg"></div>
+	<!-- 지도 -->
+	<div.clas class="ft_area">
+		<div class="ft_select_wrap">
+			<div class="ft_select">
+				<label> Filter by Category :
+					<select name="category" id="selectedcategory">
+						<option value="" disabled selected>카테고리 선택</option>
+						<option value="night"> 야경이 좋은 곳</option>
+						<option value="tree"> 나무가 많은 곳 </option>
+						<option value="calorie"> 칼로리 소비가 많은 곳 </option>
+						<option value="hip"> HIP함이 느껴지는 곳 </option>
+						<option value="thrill"> 스릴 넘치는 곳 </option>
+						<option value="happy"> 행복함을 주는 곳 </option>
+					</select>
+				</label>
+				<button type=submit id="btn_select" onclick="getlocation()">적용하기</button>
+			</div>
+		</div>
+		<div class="map_act_btn_wrap clear_box"></div>
+		<div class="clear"></div>
+		</div>
+
+		<div id="map_wrap" class="map_wrap">
+			<div id="map_div"></div>
+		</div>
+		<div class="map_act_btn_wrap clear_box"></div>
+		<p id="result"></p>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">리뷰남기기</h5>
+						&nbsp; &nbsp;&nbsp; <p onclick="openChild()"> 새로운 위치 선택 </p>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form name id="review" action='#' method="post" enctype="multipart/form-data">
+							<div id="current-location"> 현재 위치 주소 </div><br><br>
+							<label> 장소이름
+								<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" required />
+							</label>
+							<br>
+							<br>
+							<lable> 이미지 파일 업로드
+								<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
+							</lable>
+							<br>
+							<br>
+							<label id="multiple-container"> </label>
+							<br>
+							<br>
+							<lable> 감상업로드<br>
+								<textarea cols="40" rows="10" name="comment"
+									placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
+							</lable>
+							<br>
+							<br>
+							<label> Category :
+								<select name="category" id="category" required>
+									<option value="night" selected> 야경이 좋은 </option>
+									<option value="tree"> 나무가 많은 곳 </option>
+									<option value="calorie"> 칼로리 소비가 많은 곳 </option>
+									<option value="hip"> HIP함이 느껴지는 곳 </option>
+									<option value="thrill"> 스릴 넘치는 곳 </option>
+									<option value="happy"> 행복함을 주는 곳 </option>
+								</select>
+							</label>
+							<br>
+					</div>
+					<div class="modal-footer">
+						<input type="reset" value="다시 작성">
+						<input type="button" id="posting_submit" value="올리기">
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('#posting_submit').on('click', function () {
+				$('#staticBackdrop1').modal('hide');
+				console.log("click close");
+			})
+		</script>
 </body>
 
 </html>

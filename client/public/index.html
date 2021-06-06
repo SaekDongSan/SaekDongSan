@@ -145,7 +145,7 @@
 							<br>
 					</div>
 					<div class="modal-footer">
-						<input type="reset" value="다시 작성">
+						<input type="reset" id="reset" value="다시 작성">
 						<input type="button" id="posting_submit" value="올리기">
 					</div>
 					</form>
@@ -153,6 +153,12 @@
 			</div>
 		</div>
 		<script>
+			$('#reset').on('click', function () {
+				const multipleContainer = document.getElementById("multiple-container");
+				while (multipleContainer.firstChild) {
+					multipleContainer.removeChild(multipleContainer.firstChild);
+				}
+			})
 			$('#posting_submit').on('click', function () {
 				$('#staticBackdrop1').modal('hide');
 				console.log("click close");
