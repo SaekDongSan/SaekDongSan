@@ -76,7 +76,8 @@
 			<div class="ft_select">
 				<label> Filter by Category :
 					<select name="category" id="selectedcategory">
-						<option value="night" selected> 야경이 좋은 </option>
+						<option value="" disabled selected>카테고리 선택</option>
+						<option value="night"> 야경이 좋은 곳</option>
 						<option value="tree"> 나무가 많은 곳 </option>
 						<option value="calorie"> 칼로리 소비가 많은 곳 </option>
 						<option value="hip"> HIP함이 느껴지는 곳 </option>
@@ -84,7 +85,7 @@
 						<option value="happy"> 행복함을 주는 곳 </option>
 					</select>
 				</label>
-				<button type=submit id="btn_select">적용하기</button>
+				<button type=submit id="btn_select" onclick = "getlocation()">적용하기</button>
 			</div>
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
