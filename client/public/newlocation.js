@@ -394,9 +394,7 @@ let html1 = "";
 let html2 = "";
 function add_comment(num) {
     var open = document.getElementById(`open${num}`).style.display;
-
     html1 = "";
-    html2 = "";
     let exist1 = "";
     let exist2 = "";
 
@@ -430,6 +428,7 @@ function add_comment(num) {
 
 function add(num) {
     console.log("댓글 저장");
+    html2 = "";
     if ($(`#add${num}`).val() == "") {
         alert("내용을 입력하세요.");
         $(`#add${num}`).focus();
@@ -445,7 +444,8 @@ function add(num) {
     html2 += `<div id="euser">${writer}</div>
                         <div id="etime">${time}</div> 
                         <div id="ecomment">${comment}</div>`;
-    html1 += html2;
+
+    html1 += html2
     document.getElementById(`show_comment${num}`).innerHTML = html1;
 
     //몽고디비에 추가하기 
