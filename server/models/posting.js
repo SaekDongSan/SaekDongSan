@@ -6,9 +6,8 @@ const postingSchema = mongoose.Schema({
         type: String,
         maxlength : 200,
     },
-    writer:{
-        type: String,
-    },
+    writer: String,
+    writerId: String,
     image0 : String,
     image1 : String,
     image2 : String,

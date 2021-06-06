@@ -128,8 +128,9 @@ const insertPostingIntoDB = (files, fields) => {
     }
     console.log(filenamelist);
     const post = new Posting({ 
-                        loaction : fields.name, 
-                        writer:fields.id, 
+                        location : fields.name, 
+                        writer:fields.user,
+                        writerId:fields.id, 
                         posting_content:fields.comment,
                         likes :0,
                         filenumber: nFile,
