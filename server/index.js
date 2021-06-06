@@ -25,6 +25,7 @@ app.use(express.static('client/public'));
 app.use('/uploads', express.static('uploads'));
 const jwt = require('jsonwebtoken');
 const { json } = require('body-parser');
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
@@ -132,7 +133,7 @@ const insertPostingIntoDB = (files, fields) => {
                         writer:fields.user,
                         writerId:fields.id, 
                         posting_content:fields.comment,
-                        likes :0,
+                        likes : 0,
                         filenumber: nFile,
                         image0 : filenamelist[0],
                         image1 : filenamelist[1],
@@ -213,14 +214,19 @@ app.post('/addcomment', function (req, res) {
 });
 //---------------------------------------------------------------------------------------
 app.post('/likes', function (req, res) {
-    var likes = req.body.likes;
-    var postid = req.body.post_id;
-    console.log(likes, postid);
-    Posting.updateOne({ _id: postid }, { $set: { like: likes } }, function (err, change) {
-        if (!change) {
-            console.log('현재 포스팅 좋아요 넣기 실패');
+    var likess = req.body.likes;
+    var postid = new ObjectId(req.body.post_id);
+    console.log(likess, postid);
+
+    Posting.findOne({ _id: postid }, (err, post) => {
+        if (err) throw err;
+        if (post) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
+            post.likes = likess;
+            console.log("likes up : "+post.likes);
         }
-        res.send("change");
-        console.log(change);
+        else {
+            console.log('없는 리뷰에 좋아요를 했습니다');
+        }
+        res.send("update likes up : "+post.likes);
     });
 })

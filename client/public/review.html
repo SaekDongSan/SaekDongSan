@@ -183,7 +183,7 @@
                 likess++;
                 $.post('/likes', { post_id: post[num]._id, likes: likess },
                     function (data, status) {
-                        console.log("좋아요 추가");
+                        console.log(data);
                     });
                 document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
                 liked = false;
