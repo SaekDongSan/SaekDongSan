@@ -5,7 +5,7 @@ $(document).ready(function(){
     var selected = 'night';
     $.post('/night',{category:selected}, function (data, status) {
         console.log(data.length);
-        var html;
+        var html = '';
         for(var j =0; j<data.length; j++){
             for(var i =0; i< data[j].filenumber; i++){
                 var img = url1+ data[j][`image${i}`];

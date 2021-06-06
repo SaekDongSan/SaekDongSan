@@ -39,18 +39,26 @@
 
                 var html = "";
                 var url1 = "http://localhost:3000/uploads/";
-                var imgs = "";
 
                 for (var i = 0; i < post.length; i++) {
                     console.log("포스트 하나 추가");
+                    var imgs = '';
+                    var middle;
+                    for (var j = 0; j < post[i].filenumber; j++) {
+                        var img = url1 + post[i][`image${j}`];
+                        console.log(img);
+                        imgs += `<img src="${img}" width="40%">`;
+                        // document.getElementById(`imgs${i}`).innerHTML = imgs;
+                    }
+                    // alert(imgs);
 
-                    html += `<article>
+                    middle= `<article>
                     <div id="num" display="none"></div>
                     <header id="header" style="border: 5px solid black;"> 
                      <div id="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
                     </header>
                     <div id="posting_photo" style="border: 5px solid black;">
-                        <section id="imgs${i}"> </section>
+                        <section id="imgs${i}">`+imgs+`</section>
                     </div>
                     <div id="posting_add" style="border: 5px solid black;">
                         <button type="button" onclick="likes()"> 좋아요 </button> <span id="likes">${post[i].likes}</span>
@@ -66,16 +74,13 @@
                     <div id="show_comment" style="border: 5px solid black;"></div>
                     <div id="add_comment" style="border: 5px solid black;"></div>
                     </article> <hr>`;
-                    document.getElementById("new").innerHTML = html;
-                    document.getElementById("num").value = i;
 
-                    for (var j = 0; j < post[i].filenumber; j++) {
-                        var img = url1 + post[i][`image${j}`];
-                        console.log(img);
-                        imgs += `<img src="${img}" width="40%">`;
-                        document.getElementById(`imgs${i}`).innerHTML = imgs;
-                    }
+                    html+= middle;
+                    console.log(middle);
+                    // document.getElementById("num").value = i;
                 }
+
+                document.getElementById("new").innerHTML = html;
             }
             /////////////댓글 보여주기
 
