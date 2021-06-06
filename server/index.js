@@ -25,7 +25,7 @@ app.use(express.static('client/public'));
 app.use('/uploads', express.static('uploads'));
 const jwt = require('jsonwebtoken');
 const { json } = require('body-parser');
-var ObjectId = require('mongoose').Types.ObjectId; 
+var ObjectId = require('mongoose').Types.ObjectId;
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
@@ -72,7 +72,7 @@ app.post('/login', function (req, res) {
 
             // console.log("보낼 정보입니다" ,userSignedIn);
             res.send({
-                ID: userSignedIn.ID, name: userSignedIn.NAME, email: userSignedIn.EMAIL, liked : userSignedIn.likedlist
+                ID: userSignedIn.ID, name: userSignedIn.NAME, email: userSignedIn.EMAIL, liked: userSignedIn.likedlist
             });
         });
     }
@@ -128,22 +128,23 @@ const insertPostingIntoDB = (files, fields) => {
         filenamelist[i] = files[i]["path"].slice(8,);
     }
     console.log(filenamelist);
-    const post = new Posting({ 
-                        location : fields.name, 
-                        writer:fields.user,
-                        writerId:fields.id, 
-                        posting_content:fields.comment,
-                        likes : 0,
-                        filenumber: nFile,
-                        image0 : filenamelist[0],
-                        image1 : filenamelist[1],
-                        image2 : filenamelist[2],
-                        image3 : filenamelist[3],
-                        image4 : filenamelist[4],
-                        time : fields.time,
-                        category:fields.category,
-                        latitude : fields.latitude,
-                        longtitude :fields.longtitude });
+    const post = new Posting({
+        location: fields.name,
+        writer: fields.user,
+        writerId: fields.id,
+        posting_content: fields.comment,
+        likes: 0,
+        filenumber: nFile,
+        image0: filenamelist[0],
+        image1: filenamelist[1],
+        image2: filenamelist[2],
+        image3: filenamelist[3],
+        image4: filenamelist[4],
+        time: fields.time,
+        category: fields.category,
+        latitude: fields.latitude,
+        longtitude: fields.longtitude
+    });
 
     post.save((err, postInfo) => { // 만약 에러가 있다면 클라이언트한테 json 형태로 알려줌
         if (err) return console.log({ success: false, err });
@@ -185,15 +186,15 @@ app.post('/showpost', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
-    console.log("포스팅 위치 : "+lat+lng);
+    console.log("포스팅 위치 : " + lat + lng);
 
     var post;
-    Posting.find({ "latitude": lat , "longtitude" : lng}, function (err, location) {
+    Posting.find({ "latitude": lat, "longtitude": lng }, function (err, location) {
         if (!location) {
             console.log('현재위치 posting 찾기 실패')
         }
         res.send(location);
-        console.log("찾은 결과"+location);
+        console.log("찾은 결과" + location);
     });
 
 });
@@ -224,7 +225,7 @@ app.post('/likes', function (req, res) {
             console.log('현재 포스팅 좋아요 넣기 실패');
             res.send("좋아요 추가 실패");
         }
-        else{
+        else {
             res.send("likes : " + likess);
             console.log("likes : " + likess);
         }
@@ -235,25 +236,25 @@ app.post('/liked', function (req, res) {
     var postid = new ObjectId(req.body.postid);
     var userid = req.body.userid;
     var likeTF = req.body.updateLike;
-    console.log("클라이언트 좋아요 요청 : "+postid+ " "+userid+ " "+likeTF);
+    console.log("클라이언트 좋아요 요청 : " + postid + " " + userid + " " + likeTF);
 
-    if(likeTF == "true"){
-        User.updateOne({ ID: userid }, { $push: { "likedlist" : [{ "posting_id" : postid}] } }, function (err, change) {
+    if (likeTF == "true") {
+        User.updateOne({ ID: userid }, { $push: { "likedlist": [{ "posting_id": postid }] } }, function (err, change) {
             if (!change) {
                 console.log('현재 posting 좋아요 추가 실패');
             }
             res.send("change");
-            console.log("좋아요 목록 추가"+change);
+            console.log("좋아요 목록 추가" + change);
         });
     }
-    else{
+    else {
         console.log("!!!!!!!");
-        User.updateOne({ ID: userid }, { "likedlist" : { $elemMatch:[{ "posting_id" : postid}] }  }, function (err, change) {
+        User.updateOne({ ID: userid }, { "likedlist": { $elemMatch: [{ "posting_id": postid }] } }, function (err, change) {
             if (!change) {
                 console.log('현재 posting 좋아요 취소 실패');
             }
             res.send("change");
-            console.log("좋아요 목록 삭제"+change);
+            console.log("좋아요 목록 삭제" + change);
         });
     }
 

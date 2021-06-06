@@ -3,19 +3,19 @@ const jwt = require('jsonwebtoken');
 
 //Schema
 const userSchema = mongoose.Schema({
-    ID : String,
-    EMAIL:{
-         type: String,
-         trim : true, // 문자열 속 공백 없애주는 역할
-         unique : 1 // 이메일 중복될 수 없게
-    },    
+    ID: String,
+    EMAIL: {
+        type: String,
+        trim: true, // 문자열 속 공백 없애주는 역할
+        unique: 1 // 이메일 중복될 수 없게
+    },
     NAME: {
         type: String,
-        maxlength : 50,
+        maxlength: 50,
     },
-    likedlist : [{ posting_id : String}],
-    nickname : String,
-    TOKEN:{
+    likedlist: [{ posting_id: String }],
+    nickname: String,
+    TOKEN: {
         type: String
     }
 });

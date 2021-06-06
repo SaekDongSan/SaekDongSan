@@ -4,27 +4,27 @@ const mongoose = require('mongoose');
 const postingSchema = mongoose.Schema({
     location: {
         type: String,
-        maxlength : 200,
+        maxlength: 200,
     },
     writer: String,
     writerId: String,
-    image0 : String,
-    image1 : String,
-    image2 : String,
-    image3 : String,
-    image4 : String,
-    
+    image0: String,
+    image1: String,
+    image2: String,
+    image3: String,
+    image4: String,
+
     filenumber: Number,
-    posting_content:{ 
+    posting_content: {
         type: String,
-        maxlength : 2000
+        maxlength: 2000
     },
-    comments : [{ comment_writer: String, comment_content: String, comment_time : String}],
+    comments: [{ comment_writer: String, comment_content: String, comment_time: String }],
     category: String,
-    likes : Number,
-    time : String,
-    latitude : Number,
-    longtitude : Number
+    likes: Number,
+    time: String,
+    latitude: Number,
+    longtitude: Number
 });
 
 //Model

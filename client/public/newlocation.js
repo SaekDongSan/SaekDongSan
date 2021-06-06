@@ -217,19 +217,17 @@ var postLiked;
 
 $(document).ready(function () {
     //현재 위치에 맞는 포스팅 불러오기
-
     //나중에 onclick으로 받아올거
     var latitude = 37.592483099999995;
     var longitude = 127.0078127;
 
-    
     console.log("click " + latitude + longitude);
     $('#markerid').click(function () {
-        // if (userInfo == undefined) {
-        //     document.location.href = url;
-        //     alert('로그인 후 이용해 주세요');
-        //     return
-        // }
+        if (userInfo == undefined) {
+            document.location.href = url;
+            alert('로그인 후 이용해 주세요');
+            return
+        }
 
         $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
             console.log(data);
@@ -237,13 +235,12 @@ $(document).ready(function () {
             else console.log(status);
         })
             .done(function () {
-                // console.log(userInfo.liked);
-                for(var i=0; i<userInfo.liked.length; i++){
+                for (var i = 0; i < userInfo.liked.length; i++) {
                     var likedinDB = userInfo.liked[i]["posting_id"];
-                    console.log("db에 저장된 좋아요 포스팅 id : "+likedinDB);
-                    if(likedinDB!==undefined) postLiked.push(likedinDB);
+                    console.log("db에 저장된 좋아요 포스팅 id : " + likedinDB);
+                    if (likedinDB !== undefined) postLiked.push(likedinDB);
                 }
-                console.log("postLiked : "+postLiked);
+                console.log("postLiked : " + postLiked);
                 display(post);
             })
             .fail(function () {
@@ -269,40 +266,42 @@ $(document).ready(function () {
                 var record = "true";
                 var bgcolor = "white";
 
-                console.log("postLiked.indexOf(`${post[i]._id}`) : "+postLiked.indexOf(`${post[i]._id}`));
-                if(postLiked.indexOf(`${post[i]._id}`) < 0){
+                console.log("postLiked.indexOf(`${post[i]._id}`) : " + postLiked.indexOf(`${post[i]._id}`));
+                if (postLiked.indexOf(`${post[i]._id}`) < 0) {
                     record = "false";
                 }
 
-                if(record == "true"){
+                if (record == "true") {
                     bgcolor = "green";
                 }
 
                 middle = `<article>
-                <header class="header" style="border: 5px solid black;"> 
-                <div class="제목"> ${post[i].location} </div> <div id="작성자"> ${post[i].writer}</div>
-                </header>
-                <div id="posting_photo" style="border: 5px solid black;">
-                    <section class="imgs${i}">` + imgs + `</section>
-                </div>
-                <div class="posting_add" style="border: 5px solid black;">
-                    <button type="buttondd" id ="comment${post[i]._id}" style="background-color: ${bgcolor}" onclick="likes(${i})"> 좋아요 </button> <span id="likes${post[i]._id}" data-id = ${record} >${post[i].likes}</span>
-                    <button type="button" onclick="show(${i})"> 댓글보기 및 달기 </button>
-                </div>
-                <div id="information" style="border: 5px solid black;">
-                    <div class="time">${post[i].time}</div>
-                    <div class="category">${post[i].category}</div>
-                </div>
-                <div id="posting_comment" style="border: 5px solid black;">
-                    <div class="comment">${post[i].posting_content}</div>
-                </div>
-                <div class="show_comment" style="border: 5px solid black;"></div>
-                <div class="add_comment" style="border: 5px solid black;"></div>
-                </article> <hr>`;
+                    <header class="header" style="border: 5px solid black;"> 
+                     <div class="title"> ${post[i].location} </div> <div class="writer"> ${post[i].writer}</div>
+                    </header>
+                    <div class="posting_photo" style="border: 5px solid black;">
+                        <section id="imgs${i}">` + imgs + `</section>
+                    </div>
+                    <div class="posting_add" style="border: 5px solid black;">
+                        <button type="button" onclick="likes(${i})"> 좋아요 </button> <span id="likes${i}">${post[i].likes}</span>
+                        <button type="button" onclick="shows(${i})"> 댓글보기 및 달기 </button>
+                    </div>
+                    <div class="information" style="border: 5px solid black;">
+                        <div class="ptime">${post[i].time}</div>
+                        <div class="pcategory">${post[i].category}</div>
+                    </div>
+                    <div class="posting_comment" style="border: 5px solid black;">
+                        <div class="pcomment">${post[i].posting_content}</div>
+                    </div>
+                    <div id="open${i}" style="display:none">
+                        <div id="show_comment${i}" style="border: 5px solid black;"></div>
+                        <div id="add_comment${i}" style="border: 5px solid black;"></div>
+                    </div>
+                    </article> <hr>`;
 
                 html += middle;
             }
-                document.getElementById("new").innerHTML = html;
+            document.getElementById("new").innerHTML = html;
         } else {
             document.getElementById("new").innerText = "해당 지역에 대한 포스트가 아무것도 없습니다. 새로운 포스트를 작성해 주세요!"
         }
@@ -312,70 +311,73 @@ $(document).ready(function () {
 var liked;
 var post2;
 function likes(num) {
+    var latitude = 37.592483099999995;
+    var longitude = 127.0078127;
     console.log("실행")
     $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
         console.log(data);
         if (status == 'success') post2 = data;
         else console.log(status);
     })
-    .done(function(){
-        for(var i=0; i<userInfo.liked.length; i++){
-            var likedinDB = userInfo.liked[i]["posting_id"];
-            console.log("db에 저장된 좋아요 포스팅 id : "+likedinDB);
-            if(likedinDB!==undefined) postLiked.push(likedinDB);
-        }
-        console.log("postLiked : "+postLiked);
-
-        var idLiked = post2[num]._id;
-
-        var elem = $(`#likes${idLiked}`)
-        liked = $(`#likes${idLiked}`).attr("data-id");
-        var likess = post2[num].likes;
-        console.log(liked + likess);
-        
-        if (liked == "false") {
-            elem.attr("data-id", "true");
-            $(`#comment${idLiked}`).css( "background-color", "green" );
-            likess++;
-            $.post('/likes', { post_id: post2[num]._id, likes: likess },
-                function (data, status) {
-                    console.log(data);
-                });
-            document.getElementById(`likes${idLiked}`).innerHTML = `${likess}`;
-            postLiked.push(idLiked);
-            console.log(postLiked);
-            console.log("---- 좋아요 누름 db로! "+idLiked);
-            $.post('/liked', { userid : userInfo.ID, updateLike : "true", postid : idLiked}, function (data, status) {
-                console.log("유저 좋아요 목록 추가 성공"+JSON.stringify(data));
-            })
-        }
-        else {
-            elem.attr("data-id", "false");
-            $(`#comment${idLiked}`).css( "background-color", "white" );
-            likess--;
-            $.post('/likes', { post_id: post2[num]._id, likes: likess },
-                function (data, status) {
-                    console.log("좋아요 제거");
-                });
-            document.getElementById(`likes${idLiked}`).innerHTML = `${likess}`;
-            const DeleteInd = postLiked.indexOf(idLiked);
-            if(DeleteInd>=0){
-                postLiked.splice(DeleteInd, 1);
+        .done(function () {
+            for (var i = 0; i < userInfo.liked.length; i++) {
+                var likedinDB = userInfo.liked[i]["posting_id"];
+                console.log("db에 저장된 좋아요 포스팅 id : " + likedinDB);
+                if (likedinDB !== undefined) postLiked.push(likedinDB);
             }
-            console.log("postLiked"+postLiked);
-    
-            console.log("---- 좋아요 취소 db로! "+idLiked);
-            $.post('/liked', { userid : userInfo.ID, updateLike : "false", postid :idLiked}, function (data, status) {
-                console.log("유저 좋아요 목록 취소 성공"+JSON.stringify(data));
-            })
+            console.log("postLiked : " + postLiked);
+
+            var idLiked = post2[num]._id;
+
+            var elem = $(`#likes${idLiked}`)
+            liked = $(`#likes${idLiked}`).attr("data-id");
+            var likess = post2[num].likes;
+            console.log(liked + likess);
+
+            if (liked == "false") {
+                elem.attr("data-id", "true");
+                $(`#comment${idLiked}`).css("background-color", "green");
+                likess++;
+                $.post('/likes', { post_id: post2[num]._id, likes: likess },
+                    function (data, status) {
+                        console.log(data);
+                    });
+                document.getElementById(`likes${idLiked}`).innerHTML = `${likess}`;
+                postLiked.push(idLiked);
+                console.log(postLiked);
+                console.log("---- 좋아요 누름 db로! " + idLiked);
+                $.post('/liked', { userid: userInfo.ID, updateLike: "true", postid: idLiked }, function (data, status) {
+                    console.log("유저 좋아요 목록 추가 성공" + JSON.stringify(data));
+                })
+            }
+            else {
+                elem.attr("data-id", "false");
+                $(`#comment${idLiked}`).css("background-color", "white");
+                likess--;
+                $.post('/likes', { post_id: post2[num]._id, likes: likess },
+                    function (data, status) {
+                        console.log("좋아요 제거");
+                    });
+                document.getElementById(`likes${idLiked}`).innerHTML = `${likess}`;
+                const DeleteInd = postLiked.indexOf(idLiked);
+                if (DeleteInd >= 0) {
+                    postLiked.splice(DeleteInd, 1);
+                }
+                console.log("postLiked" + postLiked);
+
+                console.log("---- 좋아요 취소 db로! " + idLiked);
+                $.post('/liked', { userid: userInfo.ID, updateLike: "false", postid: idLiked }, function (data, status) {
+                    console.log("유저 좋아요 목록 취소 성공" + JSON.stringify(data));
+                })
+            }
         }
-    }         
-    )
+        )
 }
 
-let html1 = "";
 function shows(num) {
     console.log("댓글 보이기 버튼 누름");
+    var latitude = 37.592483099999995;
+    var longitude = 127.0078127;
     $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
         console.log(data);
         if (status == 'success') post = data;
@@ -386,28 +388,34 @@ function shows(num) {
         })
 }
 
+
+let html1 = "";
+let html2 = " ";
 function add_comment(num) {
     var showc = document.getElementById(`show_comment${num}`);
     var addc = document.getElementById(`add_comment${num}`);
     var open = document.getElementById(`open${num}`).style.display;
-    let length = post[num].comments.length;
+
+    html1 = "";
+    html2 = "";
     let exist1 = "";
     let exist2 = "";
 
     if (open == "none") {
-        if (length > 0) {
+        if (post[num].comments !== undefined) {
+            var length = post[num].comments.length;
+            console.log(length);
             for (var i = 0; i < length; i++) {
-               
                 let euser = post[num].comments[i].comment_writer;
                 let etime = post[num].comments[i].comment_time;
                 let ecomment = post[num].comments[i].comment_content;
-                console.log('댓글 ' + euser+etime+ecomment);
+                console.log('댓글 ' + euser + etime + ecomment);
 
                 exist1 += `<div id="euser">${euser}</div>
                                 <div id="etime">${etime}</div> 
                                 <div id="ecomment">${ecomment}</div>`
-                html1 += exist1;
             }
+            html1 += exist1;
             document.getElementById(`show_comment${num}`).innerHTML = html1;
         }
 
@@ -427,6 +435,7 @@ function add_comment(num) {
     }
 }
 
+
 function add(num) {
     console.log("댓글 저장");
     if ($(`#add${num}`).val() == "") {
@@ -434,19 +443,18 @@ function add(num) {
         $(`#add${num}`).focus();
         return false;
     }
-    let html2 = " ";
-
     let comment = document.getElementById(`add${num}`).value;
     console.log(comment);
     let time = new Date().toLocaleString();
     console.log(time);
     let writer = userInfo.name.toString();
     console.log(writer);
-
+    $(`#add${num}`).val('');
     html2 += `<div id="euser">${writer}</div>
                         <div id="etime">${time}</div> 
-                        <div id="ecomment">${comment}</div>`
-    document.getElementById(`show_comment${num}`).innerHTML = html2;
+                        <div id="ecomment">${comment}</div>`;
+    html1 += html2;
+    document.getElementById(`show_comment${num}`).innerHTML = html1;
 
     //몽고디비에 추가하기 
     $.post('/addcomment', { post_id: post[num]._id, post_name: writer, post_time: time, post_comment: comment },
@@ -455,26 +463,3 @@ function add(num) {
         }
     )
 }
-
-// //좋아요 부분 고칠곳!
-// var liked = true;
-// function likes(num) {
-//     console.log(num);
-//     var likess = post[num].likes;
-//     if (liked === true) {
-//         likess++;
-//         $.post('/likes', { post_id: post[num]._id, likes: likess },
-//             function (data, status) {
-//                 console.log(data);
-//             });
-//         document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
-//         liked = false;
-//     } else {
-//         $.post('/likes', { post_id: post[num]._id, likes: likess },
-//             function (data, status) {
-//                 console.log("좋아요 제거");
-//             });
-//         document.getElementById(`likes${num}`).innerHTML = `<span id="likes"> ${likess} </span>`;
-//         liked = true;
-//     }
-// }
