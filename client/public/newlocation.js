@@ -133,6 +133,12 @@ function openChild() {
     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
     var win = window.open("./newlocation.html", "newLocation", "width=400, height=450");
 }
+function openChild_2() {
+    // window.name = "부모창 이름"; 
+    window.name = "parentForm";
+    // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+    var win = window.open("./walkingpath.html", "newLocation", "width=400, height=450");
+}
 function setChildValue(name) {
     console.log('새로운 위치 정보 저장');
     document.querySelector('#current-location').innerHTML = name;
@@ -215,14 +221,13 @@ $(document).ready(function () {
 //예시
 var post;
 var postLiked;
+var real_latitude;
+var real_longitude;
 
 $(document).ready(function () {
     //현재 위치에 맞는 포스팅 불러오기
     //나중에 onclick으로 받아올거
-    var latitude = 37.592483099999995;
-    var longitude = 127.0078127;
-
-    console.log("click " + latitude + longitude);
+    
     $('#markerid').click(function () {
         if (userInfo == undefined) {
             document.location.href = url;
@@ -230,7 +235,8 @@ $(document).ready(function () {
             return
         }
 
-        $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
+        console.log("click " + real_latitude + " "+ real_longitude);
+        $.post('/showpost', { lat: real_latitude, lng: real_longitude }, function (data, status) {
             console.log(data);
             if (status == 'success') post = data;
             else console.log(status);
@@ -378,9 +384,7 @@ function likes(num) {
 
 function shows(num) {
     console.log("댓글 보이기 버튼 누름");
-    var latitude = 37.592483099999995;
-    var longitude = 127.0078127;
-    $.post('/showpost', { lat: latitude, lng: longitude }, function (data, status) {
+    $.post('/showpost', { lat: real_latitude, lng: real_longitude }, function (data, status) {
         console.log(data);
         if (status == 'success') post = data;
         else console.log(status);

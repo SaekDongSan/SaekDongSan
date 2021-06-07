@@ -163,8 +163,9 @@
 		</div>
 
 		<button type="button" id="markerid" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-			마커누름
+			선택한 위치의 리뷰 보기
 		</button>
+		<button type=submit id="path_present">선택한 곳으로 길찾기</button>
 
 
 		<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -179,6 +180,9 @@
 					<div class="modal-body">
 						<div id="new">
 						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" id="check-current-place" value="여기로 가기">
 					</div>
 				</div>
 			</div>
@@ -207,6 +211,12 @@
 			$('#posting_submit').on('click', function () {
 				$('#staticBackdrop1').modal('hide');
 				console.log("click close");
+			})
+			$('#check-current-place').on('click', function () {
+				$('#staticBackdrop2').modal('hide');
+				console.log("click find path");
+				console.log("need to check current place")
+				checkcurrentplace();
 			})
 		</script>
 </body>
