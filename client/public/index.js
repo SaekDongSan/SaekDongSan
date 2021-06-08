@@ -23,9 +23,11 @@ var image_height = 80;
 var map;
 var markerLayer;
 var markerInfo;
+var route_marker = [];
 //리뷰 마커
 var markers = [];
 //경로그림정보
+var marker;
 var marker_s, marker_e, marker_p1, marker_p2, marker_p3;
 var totalMarkerArr = [];
 var drawInfoArr = [];
@@ -34,7 +36,6 @@ var resultdrawArr = [];
 var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
-var resultMarkerArr_2 = [];
 
 var lati;
 var longi;
@@ -72,7 +73,6 @@ function initTmap(position) {
             iconSize: new Tmapv2.Size(24, 38),
             map: map
         });
-    resultMarkerArr.push(marker_s);
     console.log("기본 마커 추가");
     marker_s.addListener("click", function (evt){
         console.log("기본 마커 클릭")
@@ -85,7 +85,7 @@ function initTmap(position) {
 
     // 2. 리뷰 마커 찍기
 
-    // 산책 코스 안내
+    // 적용하기 눌렀을 때
     // 카테고리 클릭 시
     var selected;
     $("#category_select").click(function(){
@@ -109,8 +109,55 @@ function initTmap(position) {
                 resultdrawArr = []; 
             } 
         }
-        
+
+        if (selected != undefined && selected != ""){            
+            console.log('카테고리가 선택되어 있는 상태이다');
+            $.post(url + '/category',{category:selected}, function (data, status) {
+
+                var old_place = new Array(data.length+1);
+
+                for (var i = 0; i < old_place.length; i++) {
+                    old_place[i] = new Array(3);
+                } 
+                console.log(data);
+                
+                for (var i = 0; i < data.length; i++){
+                    old_place[i][0] = data[i].latitude;
+                    old_place[i][1] = data[i].longtitude;
+                    console.log(data);
+                    old_place[i][2] = "http://localhost:3000/uploads/" + data[i].image0;
+                    console.log(old_place[i][2]);
+                    console.log(old_place[i][0]);
+                    console.log(old_place[i][1]);
+
+                }
+
+                // 2. 시작, 도착 심볼찍기
+                // 시작하기 전 초기화
+                
+                // 시작
+                for (var i=0; i<old_place.length; i++){
+
+                    marker = new Tmapv2.Marker(
+                        
+                            {
+                                position : new Tmapv2.LatLng(old_place[i][0],old_place[i][1]),
+                                icon : old_place[i][2],
+                                iconSize : new Tmapv2.Size(image_width, image_height),
+                                map : map
+                            });
+                    resultMarkerArr.push(marker);
+             
+                    
+                }
+                
+                //마커 addlistener 추가해야함..
+            });
+
+        }
+                
     });
+
     //산책 코스 클릭 시 
     $("#want_select").click(function(){
         
@@ -138,33 +185,65 @@ function initTmap(position) {
         var old_place = new Array(5);
 
         for (var i = 0; i < old_place.length; i++) {
-            old_place[i] = new Array(2);
+            old_place[i] = new Array(3);
         }
         console.log('장소 배열 이상 무');   
         
-        var images = [];
 
         if (selected != undefined && selected != ""){            
             console.log('카테고리가 선택되어 있는 상태이다');
             $.post(url + '/category',{category:selected}, function (data, status) {
                 console.log(data);
                 
+                var likes_order = Array.prototype.slice.call(data);
+                console.log(likes_order);
+
+                likes_order.sort(function(a, b){
+                    if (a.likes > b.likes) {
+                    return -1;
+                    } else return 1;
+                })
+                console.log('소트 후 likes_order', likes_order);
+                
+                var can_use = [];
+                
+                var nono = false;
+                for (var i = 0; i < likes_order.length; i++){
+                    for (var j = 0; j < likes_order.length; j++){
+                        if (likes_order[i].latitude == likes_order[j].latitude && 
+                            likes_order[i].longtitude == likes_order[j].longtitude && 
+                            i != j ){
+                            
+                            console.log('같은 장소 발견, 제외해야지');
+                            nono = true;
+                            break;
+                        }
+                        console.log('if문 이후'); 
+                    }
+                    if (!nono){
+                        can_use.push(likes_order[i]);
+                        console.log(can_use);
+                        nono = false;
+                    }
+                }
+                
+
                 for (var i = 0; i < 5; i++){
-                    old_place[i][0] = Math.round(data[i].latitude * 1e8) / 1e8;
-                    old_place[i][1] = Math.round(data[i].longtitude * 1e8) / 1e8;
-                    console.log(data);
-                    images[i] = "http://localhost:3000/uploads/" + data[i].image0;
-                    console.log(images[i])
+                    old_place[i][0] = likes_order[i].latitude;
+                    old_place[i][1] = likes_order[i].longtitude;
+                    old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
+                    console.log(String(i),'번째');
                     console.log(old_place[i][0]);
                     console.log(old_place[i][1]);
+                    console.log(old_place[i][2]);
 
                 }
 
                 // 장소 배열 정렬
                 old_place.sort(function(a, b){
                     if (a[1] > b[1]) {
-                    return 1;
-                    } else return -1;
+                    return -1;
+                    } else return 1;
                 })
                 
                 var place = [];
@@ -204,13 +283,11 @@ function initTmap(position) {
                     next = push                              
                 }
 
-                for (var i=0; i<old_place.length; i++){
-                    console.log(old_place[i][0]);
-                    console.log(old_place[i][1]);
+                for (var i=0; i<place.length; i++){
+                    console.log(place[i][0]);
+                    console.log(place[i][1]);
+                    console.log(place[i][2]);
                 }
-
-                
-                var l = old_place[0][0];
                 
                 // 2. 시작, 도착 심볼찍기
                 // 시작하기 전 초기화
@@ -218,12 +295,13 @@ function initTmap(position) {
                 // 시작
                 marker_s = new Tmapv2.Marker(
                         {
-                            position : new Tmapv2.LatLng(old_place[0][0],old_place[0][1]),
-                            icon : images[0],
+                            position : new Tmapv2.LatLng(place[0][0],place[0][1]),
+                            icon : place[0][2],
                             iconSize : new Tmapv2.Size(image_width, image_height),
                             map : map
                         });
                 resultMarkerArr.push(marker_s);
+
                 marker_s.addListener("click", function (evt){
                     console.log("marker_s 클릭")
                     positionofend = marker_s.getPosition();
@@ -237,7 +315,7 @@ function initTmap(position) {
                 marker_e = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[4][0], place[4][1]),
-                            icon : images[4],
+                            icon : place[4][2],
                             iconSize : new Tmapv2.Size(image_width, image_height),
                             map : map
                         });
@@ -256,7 +334,7 @@ function initTmap(position) {
                 marker_p1 = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[1][0], place[1][1]),
-                            icon : images[1],
+                            icon : place[1][2],
                             iconSize : new Tmapv2.Size(image_width, image_height),
                             map:map
                         });
@@ -273,7 +351,7 @@ function initTmap(position) {
                 marker_p2 = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[2][0], place[2][1]),
-                            icon : images[2],
+                            icon : place[2][2],
                             iconSize : new Tmapv2.Size(image_width, image_height),
                             map:map
                         });
@@ -290,7 +368,7 @@ function initTmap(position) {
                 marker_p3 = new Tmapv2.Marker(
                         {
                             position : new Tmapv2.LatLng(place[3][0], place[3][1]),
-                            icon : images[3],
+                            icon : place[3][2],
                             iconSize : new Tmapv2.Size(image_width, image_height),
                             map:map
                         });
@@ -465,17 +543,19 @@ function initTmap(position) {
         }
     });
 
+    // 선택한 곳으로 길찾기
+
     $("#path_present").click(function(){
         console.log("선택한 곳으로 길찾기")
         console.log("안되남??")
 
-        if (resultMarkerArr_2.length > 0) {
-            for ( var i in resultMarkerArr_2) {
-                    resultMarkerArr_2[i]
+        if (resultMarkerArr.length > 0) {
+            for ( var i in resultMarkerArr) {
+                    resultMarkerArr[i]
                         .setMap(null);
 
             }
-            resultMarkerArr_2 = []; 
+            resultMarkerArr = []; 
             
         }
         console.log("삭제함")
@@ -488,7 +568,7 @@ function initTmap(position) {
                 iconSize : new Tmapv2.Size(24, 38),
                 map : map
             });
-            resultMarkerArr_2.push(marker_s);
+            resultMarkerArr.push(marker_s);
         console.log("시작 마커는 만듦")
 
         // 도착
@@ -509,7 +589,7 @@ function initTmap(position) {
                 iconSize : new Tmapv2.Size(24, 38),
                 map : map
             });
-            resultMarkerArr_2.push(marker_e);
+            resultMarkerArr.push(marker_e);
             console.log("엔딩 마커도!")
 
         
@@ -613,16 +693,7 @@ function initTmap(position) {
                                 pointType : pType
                             };
 
-                            // Marker 추가
-                            marker_p = new Tmapv2.Marker(
-                                    {
-                                        position : new Tmapv2.LatLng(
-                                                routeInfoObj.lat,
-                                                routeInfoObj.lng),
-                                        icon : routeInfoObj.markerImage,
-                                        iconSize : size,
-                                        map : map
-                                    });
+                           
                         }
                     }//for문 [E]
                     drawLine(drawInfoArr);
