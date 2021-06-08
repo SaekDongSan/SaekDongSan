@@ -44,6 +44,9 @@
 	<!-- 로그인기능 -->
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 	<a href="#" class="signingout" onclick="signOut();">Sign out</a>
+	<button type="button" id="markerid" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+		<!--선택한 위치의 리뷰 보기-->
+	</button>
 
 	<!-- 상단 바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -86,6 +89,7 @@
 				</label>
 				<button type=submit id="category_select" onclick="getlocation()">적용하기</button>
 				<button type=submit id="want_select">산책 코스</button>
+				
 			</div>
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
@@ -162,10 +166,7 @@
 			</div>
 		</div>
 
-		<button type="button" id="markerid" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-			선택한 위치의 리뷰 보기
-		</button>
-		<button type=submit id="path_present">선택한 곳으로 길찾기</button>
+		
 
 
 		<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -182,7 +183,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" id="getpathfromnew" value="새로운 위치 선택">
+						<input type="button" id="getpathfromnew" value="새로운 위치 선택해서 길찾기">
 						<input type="button" id="getpathfromcurr" value="현재 위치에서 길찾기">
 					</div>
 				</div>

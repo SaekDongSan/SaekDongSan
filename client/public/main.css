@@ -24,6 +24,7 @@ body .signingout{ /*main page top right signout button*/
     left: 85%;
     margin-left : -40px;
     top : 25px;
+    z-index : 9;
     font-family: 'Gugi', cursive;
     background-color: rgb(253, 253, 253);
     border-radius : 12px;
@@ -35,6 +36,13 @@ body .signingout{ /*main page top right signout button*/
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+#markerid{ /*안보이게 signout button 뒤*/
+    position : absolute;
+    left: 85%;
+    margin-left : -38px;
+    top : 30px;
 }
 
 .ft_area{ /*main page filter 적용 부분*/
@@ -81,7 +89,7 @@ body{ /*body element 전체적으로*/
 
 .map_wrap div{
     position : absolute;
-    top : 250px;
+    top : 150px;
 }
 
 .btn{
