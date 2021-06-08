@@ -133,12 +133,6 @@ function openChild() {
     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
     var win = window.open("./newlocation.html", "newLocation", "width=400, height=450");
 }
-function openChild_2() {
-    // window.name = "부모창 이름"; 
-    window.name = "parentForm";
-    // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-    var win = window.open("./walkingpath.html", "newLocation", "width=400, height=450");
-}
 function setChildValue(name) {
     console.log('새로운 위치 정보 저장');
     document.querySelector('#current-location').innerHTML = name;

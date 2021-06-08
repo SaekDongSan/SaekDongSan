@@ -182,7 +182,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" id="check-current-place" value="여기로 가기">
+						<input type="button" id="getpathfromnew" value="새로운 위치 선택">
+						<input type="button" id="getpathfromcurr" value="현재 위치에서 길찾기">
 					</div>
 				</div>
 			</div>
@@ -212,11 +213,13 @@
 				$('#staticBackdrop1').modal('hide');
 				console.log("click close");
 			})
-			$('#check-current-place').on('click', function () {
+			$('#getpathfromnew').on('click', function () {
 				$('#staticBackdrop2').modal('hide');
-				console.log("click find path");
-				console.log("need to check current place")
-				checkcurrentplace();
+				console.log("click getpathfromnew");
+			})
+			$('#getpathfromcurr').on('click', function () {
+				$('#staticBackdrop2').modal('hide');
+				console.log("click getpathfromcurr");
 			})
 		</script>
 </body>
