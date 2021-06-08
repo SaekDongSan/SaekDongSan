@@ -195,9 +195,7 @@ $(document).ready(function () {
             enctype: 'multipart/form-data',
             url: "/upload",
             success: function (data) {
-                $('form').each(function () {
-                    this.reset();
-                });
+                $("#reset").trigger("click");
                 const multipleContainer = document.getElementById("multiple-container");
                 while (multipleContainer.firstChild) {
                     multipleContainer.removeChild(multipleContainer.firstChild);
@@ -221,7 +219,7 @@ var real_longitude;
 $(document).ready(function () {
     //현재 위치에 맞는 포스팅 불러오기
     //나중에 onclick으로 받아올거
-    
+
     $('#markerid').click(function () {
         if (userInfo == undefined) {
             document.location.href = url;
@@ -229,7 +227,7 @@ $(document).ready(function () {
             return
         }
 
-        console.log("click " + real_latitude + " "+ real_longitude);
+        console.log("click " + real_latitude + " " + real_longitude);
         $.post('/showpost', { lat: real_latitude, lng: real_longitude }, function (data, status) {
             console.log(data);
             if (status == 'success') post = data;
