@@ -17,8 +17,8 @@ $(document).ready(function () {
 // -------지도 관련
 
 // 마커 사이즈
-var image_width = 50;
-var image_height = 80;
+var image_width = 30;
+var image_height = 50;
 
 var map;
 var markerLayer;
@@ -36,7 +36,6 @@ var resultdrawArr = [];
 var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
-var resultMarkerArr_2 = [];
 
 
 var lati;
@@ -97,20 +96,7 @@ function initTmap(position) {
         console.log('카테고리 값 선언');
 
 
-        if (resultMarkerArr.length > 0) {
-            for (var i in resultMarkerArr) {
-                resultMarkerArr[i]
-                    .setMap(null);
-            }
-            resultMarkerArr = [];
-            if (resultdrawArr.length > 0) {
-                for (var i in resultdrawArr) {
-                    resultdrawArr[i]
-                        .setMap(null);
-                }
-                resultdrawArr = [];
-            }
-        }
+        remove_all();
 
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
@@ -134,10 +120,7 @@ function initTmap(position) {
 
                 }
 
-                // 2. 시작, 도착 심볼찍기
-                // 시작하기 전 초기화
-
-                // 시작
+                // 마커 생성
                 for (var i = 0; i < old_place.length; i++) {
 
                     marker = new Tmapv2.Marker(
@@ -149,11 +132,29 @@ function initTmap(position) {
                             map: map
                         });
                     resultMarkerArr.push(marker);
-
-
                 }
 
-                //마커 addlistener 추가해야함..
+
+                //애드리스너 추가
+                var count = 1;
+                for(var i = 0; i < resultMarkerArr.length; i++)(function(idx){ 
+                    
+                    resultMarkerArr[idx].addListener('click', function(evt){ 
+                        console.log('resultMarkerArr',resultMarkerArr);
+                        console.log("marker 클릭");
+                        positionofend = resultMarkerArr[idx].getPosition();
+                        console.log("position:" + positionofend)
+                        real_latitude = positionofend._lat;
+                        real_longitude = positionofend._lng;
+                        $("#markerid").trigger("click");
+
+                    });
+                    count++
+                })(count); 
+
+                
+
+
             });
 
         }
@@ -554,13 +555,13 @@ function initTmap(position) {
     $("#getpathfromcurr").click(function () {
         console.log("그냥 바로 길 출력~!")
 
-        if (resultMarkerArr_2.length > 0) {
-            for (var i in resultMarkerArr_2) {
-                resultMarkerArr_2[i]
+        if (resultMarkerArr.length > 0) {
+            for (var i in resultMarkerArr) {
+                resultMarkerArr[i]
                     .setMap(null);
 
             }
-            resultMarkerArr_2 = [];
+            resultMarkerArr = [];
 
         }
         console.log("삭제함")
@@ -573,7 +574,7 @@ function initTmap(position) {
                 iconSize: new Tmapv2.Size(24, 38),
                 map: map
             });
-        resultMarkerArr_2.push(marker_s);
+        resultMarkerArr.push(marker_s);
         console.log("시작 마커는 만듦")
 
         // 도착
@@ -594,7 +595,7 @@ function initTmap(position) {
                 iconSize: new Tmapv2.Size(24, 38),
                 map: map
             });
-        resultMarkerArr_2.push(marker_e);
+        resultMarkerArr.push(marker_e);
         console.log("엔딩 마커도!")
 
 
@@ -698,16 +699,7 @@ function initTmap(position) {
                                 pointType: pType
                             };
 
-                            // Marker 추가
-                            marker_p = new Tmapv2.Marker(
-                                {
-                                    position: new Tmapv2.LatLng(
-                                        routeInfoObj.lat,
-                                        routeInfoObj.lng),
-                                    icon: routeInfoObj.markerImage,
-                                    iconSize: size,
-                                    map: map
-                                });
+                        
                         }
                     }//for문 [E]
                     drawLine(drawInfoArr);
@@ -735,5 +727,19 @@ function initTmap(position) {
             resultdrawArr.push(polyline_);
         }
     })
+}
+
+
+
+function remove_all(){
+    for (var i = 0; i < resultMarkerArr.length; i++) {
+        resultMarkerArr[i].setMap(null);
+    }
+    resultMarkerArr= [];
+    for (var i = 0; i < resultdrawArr.length; i++) {
+        resultdrawArr[i].setMap(null);
+    }
+    resultdrawArr = [];
+   
 }
 
