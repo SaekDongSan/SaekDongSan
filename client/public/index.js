@@ -36,6 +36,8 @@ var resultdrawArr = [];
 var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
+var resultMarkerArr_2 = [];
+
 
 var lati;
 var longi;
