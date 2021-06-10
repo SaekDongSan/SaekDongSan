@@ -146,8 +146,8 @@ function initTmap(position) {
             marker = new Tmapv2.Marker(
                 {
                     position: new Tmapv2.LatLng(initial_array[i].latitude, initial_array[i].longtitude),
-                    /*icon: initial_array[i].image0,*/
-                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+                    icon: initial_array[i].image0,
+                    /*icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",*/
                     iconSize: new Tmapv2.Size(image_width, image_height),
                     map: map
                 }
