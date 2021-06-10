@@ -271,6 +271,7 @@ textarea{
     padding : 5px;
     color:white;
     border : 0;
+<<<<<<< HEAD
     border-radius : 10px;
     bottom: 40px;
     right : 20px;
@@ -288,4 +289,13 @@ textarea{
     border-radius : 10px;
     top:60px;
     left : 20px;
+=======
+    outline : 0;
+    background: none;
+}
+
+.markerimg{
+    border-radius: 70%;
+    overflow: hidden;
+>>>>>>> 88054313f47cc10307fc20feb4a137b0f79c501c
 }
