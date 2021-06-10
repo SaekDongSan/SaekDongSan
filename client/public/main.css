@@ -22,17 +22,6 @@ a{
     text-decoration: none;
 }
 
-button{
-  height:50px;
-  border:2px solid #34495e;
-  float:left;
-  text-align:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  margin:0 0 40px 0;
-}
 body{
     /* background: linear-gradient(to top, rgb(254, 255, 195) 90%, rgb(241, 216, 255) 30%); */
     background-color: white;
@@ -103,12 +92,6 @@ body{
     padding-bottom:10px;
 }
 
-#sign_out{
-    position:absolute;
-    top:35px;
-    left : 10px;
-}
-
 #sign_out a{
     font-family:sans-serif;
     font-size:10pt;
@@ -117,11 +100,6 @@ body{
     text-align: center;
 }
 
-.g-signin2{
-    position:absolute;
-    top:5px;
-    left :10px;
-}
 .btn.mini
 {
     border: 0;
@@ -414,6 +392,28 @@ textarea{
     z-index: 3;
 }
 
+
+.weather {
+    text-align: center;
+    position:relative;
+    margin: 10px;
+    width: 300px;
+    height: 30px;
+    background:pink;
+    border-radius: 10px;
+    font-family: 'Yeon Sung', cursive;
+}
+.weather:after {
+ border-top:0px solid transparent;
+ border-left: 10px solid transparent;
+ border-right: 10px solid transparent;
+ border-bottom: 10px solid pink;
+ content:"";
+ position:absolute;
+ top:-10px;
+ left:200px;
+}
+
 #selected-value
 {
     position : relative;
@@ -424,7 +424,7 @@ textarea{
 
 .option i
 {
-    width: 16px;
+    width: 10px;
     height: 16px;
 }
 

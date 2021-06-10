@@ -55,23 +55,21 @@
 		<span id="dong">동</span>네
 		<span id="san">산</span>책
 	</div>
-	<div class="weather" style="background-color: aliceblue; font-weight: bold;"></div>
+	<div class="weather"></div>
 
 	<!-- 로그인기능 -->
-	<div class="login">
-		<div class="g-signin2" data-onsuccess="onSignIn" style="width:80px; height:25px;"></div>
-		<div class="btn white mini" id="sign_out"><a href="#" class="signingout" onclick="signOut();">Sign out</a></div>
-	</div>
-
 	<!-- 메뉴 버튼 -->
 	<!-- <button type="button" id="menu_btn" data-bs-toggle="modal" class = "btn yellow mini circle" data-bs-target="#staticBackdrop1"><span>≡</span></button> -->
 
 	<!-- 리뷰추가버튼 -->
 	<button type="button" id="review_plus" data-bs-toggle="modal" class="btn purple mini circle"
 		data-bs-target="#staticBackdrop1"><span>+</span></button>
-
-	<button type="button" id="markerid" data-bs-toggle="modal" class="btn yellow mini circle"
-		data-bs-target="#staticBackdrop2"><span>≡</span></button>
+	<button type="button" id="marker" data-bs-toggle="modal" class="btn yellow mini circle"
+		data-bs-target="#exampleModal">
+		<span>≡</span>
+	</button>
+	<button type="button" id="markerid" data-bs-toggle="modal" style="display:none"
+		data-bs-target="#staticBackdrop2"></button>
 
 	<div class="app-cover">
 		<div id="categorybox">
@@ -286,6 +284,32 @@
 					<div class="modal-footer">
 						<input type="button" id="getpathfromnew" value="새로운 위치 선택해서 길찾기">
 						<input type="button" id="getpathfromcurr" value="현재 위치에서 길찾기">
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Login</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="login">
+							로그인을 위해 버튼을 눌러주세요<br>
+							<div class="g-signin2" data-onsuccess="onSignIn" style="width:200px; height:50px;">
+							</div>
+							<br><br>
+							로그아웃을 위해 링크를 눌러주세요<br>
+							<div id="sign_out"><a href="#" class="signingout" onclick="signOut();">Sign out</a></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
