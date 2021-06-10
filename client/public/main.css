@@ -342,7 +342,7 @@ textarea{
     top: -20px;
     right: 150px;
     left: 0px;
-    width: 50%;
+    width: 53%;
     height: 22px;
     margin: 100px auto 0 auto;
     font-size: 15px;
@@ -369,7 +369,7 @@ textarea{
     position: relative;
     top: -30px;
     right: 0;
-    left: 200px;
+    left: 210px;
 }
 
 #category_select:active {
@@ -381,7 +381,7 @@ textarea{
     position: relative;
     top: -30px;
     right: 0;
-    left: 204px;
+    left: 215px;
 }
 #want_select:active {
 	position:relative;
@@ -612,7 +612,7 @@ input[type="radio"]
     position: absolute;
     left: 14px;
     top : -52px;
-    width: 145px;
+    width: 150px;
     height: 21px;
     opacity: 0;
     background-color: #fff;
@@ -662,7 +662,7 @@ input[type="radio"]
 
 .option:nth-child(1) input[type="radio"]:checked ~ .opt-val
 {
-    top: -31px;
+    top: -37px;
 }
 
 .option:nth-child(2) input[type="radio"]:checked ~ .label:before
@@ -672,7 +672,7 @@ input[type="radio"]
 
 .option:nth-child(2) input[type="radio"]:checked ~ .opt-val
 {
-    top: -71px;
+    top: -77px;
 }
 
 .option:nth-child(3) input[type="radio"]:checked ~ .label:before
@@ -682,7 +682,7 @@ input[type="radio"]
 
 .option:nth-child(3) input[type="radio"]:checked ~ .opt-val
 {
-    top: -121px;
+    top: -117px;
 }
 
 .option:nth-child(4) input[type="radio"]:checked ~ .label:before

@@ -315,6 +315,19 @@
 				$('#staticBackdrop2').modal('hide');
 				console.log("click getpathfromcurr");
 			})
+
+			let categoryName = ['tree','calorie', 'hip', 'thrill', 'happy'];
+			for(let j=0; j<categoryName.length; j++){
+				console.log($(`#${categoryName[j]}`));
+				$(`#${categoryName[j]}`).click(function(){
+					
+					document.querySelector(`#${categoryName[j]}`).querySelector(".opt-val").hide();
+					console.log(document.querySelector(`#${categoryName[j]}`).querySelector(".opt-val"));
+				})
+			}
+
+			
+			
 		</script>
 </body>
 
