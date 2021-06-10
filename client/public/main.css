@@ -22,7 +22,17 @@ a{
     text-decoration: none;
 }
 
-
+button{
+  height:50px;
+  border:2px solid #34495e;
+  float:left;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:0 0 40px 0;
+}
 body{
     /* background: linear-gradient(to top, rgb(254, 255, 195) 90%, rgb(241, 216, 255) 30%); */
     background-color: white;
@@ -80,9 +90,6 @@ body{
   right : 10px;
   z-index: 999;
 }
-#review_plus.btn:active {
-	bottom: 112px;	
-}
 #review_plus span{
     position:relative;
     top:-5px;
@@ -96,9 +103,6 @@ body{
     padding-bottom:10px;
 }
 
-#markerid.btn:active {
-	bottom: 47px;	
-}
 #sign_out{
     position:absolute;
     top:35px;
@@ -125,7 +129,9 @@ body{
     text-align: center;
 }
 
-
+.markerimg{
+    border-radius: 50px;
+}
 
 /* Colors for .btn and .btn-two */
 .btn.blue     {background-color: #7fb1bf;}
@@ -139,29 +145,21 @@ body{
 
 /* color classes for .btn */
 .btn.blue {box-shadow: 0px 4px #74a3b0;}
-.btn.blue:active {box-shadow: 0 0 #74a3b0; background-color: #709CA8;}
 
 .btn.green {box-shadow: 0px 4px 0px #d2da9f;}
-.btn.green:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
 
 .btn.green2 {box-shadow: 0px 4px 0px #cfdc80;}
-.btn.green2:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
 
 
 .btn.red {box-shadow:0px 4px 0px #E04342;}
-.btn.red:active {box-shadow: 0 0 #ff4c4b; background-color: #ff4c4b;}
 
 .btn.purple {box-shadow:0px 4px 0px #AD83A8;}
-.btn.purple:active {box-shadow: 0 0 #BA8CB5; background-color: #BA8CB5;}
 
 .btn.cyan {box-shadow:0px 4px 0px #73B9C9;}
-.btn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
 
 .btn.yellow {box-shadow:0px 4px 0px #D1B757;}
-.btn.yellow:active {box-shadow: 0 0 #ff4c4b; background-color: #D6BB59;}
 
 .btn.white {box-shadow:0px 4px 0px #8e8fbb;}
-.btn.white:active {box-shadow: 0 0 #f87373; background-color: #98958c;}
 
 #selectedcategory{
 background: rgb(247, 221, 255);
@@ -251,9 +249,6 @@ textarea{
     width: 136px;
 }
 
-
-
-
 /* ------newLocation---------- */
 
 #newWindowForLocation{
@@ -314,7 +309,6 @@ textarea{
     position: absolute;
     bottom : -400px;
     z-index: 0;
-    
 }
 
 
@@ -372,20 +366,12 @@ textarea{
     left: 210px;
 }
 
-#category_select:active {
-	position:relative;
-    top:3px;
-}
 
 #want_select{
     position: relative;
     top: -30px;
     right: 0;
     left: 215px;
-}
-#want_select:active {
-	position:relative;
-    top:43px;
 }
 
 #select-button1
@@ -398,7 +384,7 @@ textarea{
     cursor: pointer;
 }
 
-#options-view-button
+.zero
 {
     position: absolute;
     top: 0;
@@ -413,14 +399,14 @@ textarea{
     z-index: 3;
 }
 
-#options-view-button1
+.one
 {
-    position: relative;
-    top: 10px;
+    position: absolute;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width:10%;
     height: 100%;
     margin: 0;
     opacity: 0;
@@ -431,12 +417,9 @@ textarea{
 #selected-value
 {
     position : relative;
-    top : -1px;
     font-size: 16px;
     line-height: 0.4;
-    margin-right: 26px;
     height: 30px;
-
 }
 
 .option i
@@ -500,6 +483,7 @@ textarea{
     border: 1px solid #e2eded;
     border-color: #eaf1f1 #e4eded #dbe7e7 #e4eded;
 }
+
 
 .option
 {
@@ -611,7 +595,6 @@ input[type="radio"]
 {
     position: absolute;
     left: 14px;
-    top : -52px;
     width: 150px;
     height: 21px;
     opacity: 0;

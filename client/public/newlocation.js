@@ -294,7 +294,7 @@ $(document).ready(function () {
 
                 middle = `<article>
                     <header class="header" style="border: 5px solid black;"> 
-                     <div class="title"> ${post[i].location} </div> <div class="writer"> ${post[i].writer}</div>
+                     <div class="titles"> ${post[i].location} </div> <div class="writer"> ${post[i].writer}</div>
                     </header>
                     <div class="posting_photo" style="border: 5px solid black;">
                         <section id="imgs${i}">` + imgs + `</section>

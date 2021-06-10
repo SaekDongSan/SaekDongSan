@@ -1,10 +1,8 @@
 //선택한 카테고리 포스팅 전부 가져오기 (data 함수에 배열로 포스팅 정보 담겨 있음!!!)
-
+var selected;
+var searchOption;
 $(document).ready(function () {
     console.log("제제바라랄");
-    var selected;
-    var searchOption;
-
     document.getElementById('tree').addEventListener('click', selectedd, true);
     document.getElementById('calorie').addEventListener('click', selectedd, true);
     document.getElementById('hip').addEventListener('click', selectedd, true);
@@ -14,25 +12,18 @@ $(document).ready(function () {
     document.getElementById('four').addEventListener('click', selectedd1, true);
     document.getElementById('ten').addEventListener('click', selectedd1, true);
     document.getElementById('thirty').addEventListener('click', selectedd1, true);
-    $("#btn_select").click(function () {
-        console.log("click " + selected);
-        $.post(url + '/category', { category: selected }, function (data, status) {
-            console.log(data);
-        })
-    })
 })
-
 function selectedd(event) {
     selected = event.target.value;
-    alert(selected);
+    $("input[class=zero]").trigger("click");
 }
 
 function selectedd1(event) {
     searchOption = event.target.value;
-    alert(searchOption);
+    $("input[class=one]").trigger("click");
 }
-// data[i].latitude
 
+// data[i].latitude
 // -------지도 관련
 
 // 마커 사이즈
@@ -74,8 +65,6 @@ function getLocation() {
 }
 
 function initTmap(position) {
-
-
     console.log(position.coords.latitude + "    " + position.coords.longitude);
     // 1. 지도 띄우기
     map = new Tmapv2.Map("map_div", {
@@ -101,25 +90,21 @@ function initTmap(position) {
         real_latitude = positionofend._lat;
         real_longitude = positionofend._lng;
         $("#markerid").trigger("click");
-
-
     });
-
 
     // 2. 리뷰 마커 찍기
 
     // 적용하기 눌렀을 때
     // 카테고리 클릭 시
-    var selected;
-    $("#category_select").click(function () {
-        console.log('카테고리 선택');
 
-        selected = $("#selectedcategory option:selected").attr('value');
-        console.log('카테고리 값 선언');
-
+    document.getElementById('category_select').onclick = function () {
+        alert("click " + selected);
+        $.post('/category', { category: selected }, function (data, status) {
+            console.log(data);
+        })
 
         remove_all();
-
+        alert("click " + selected);
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
             $.post(url + '/category', { category: selected }, function (data, status) {
@@ -169,13 +154,12 @@ function initTmap(position) {
                 }
             });
         }
-    });
+    };
 
     //산책 코스 클릭 시 
-    $("#want_select").click(function () {
+    document.getElementById('want_select').onclick = function () {
 
         console.log('산책 코스 버튼 누름');
-        selected = $("#selectedcategory option:selected").attr('value');
 
         if (resultMarkerArr.length > 0) {
             for (var i in resultMarkerArr) {
@@ -201,7 +185,6 @@ function initTmap(position) {
             old_place[i] = new Array(3);
         }
         console.log('장소 배열 이상 무');
-
 
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
@@ -338,7 +321,8 @@ function initTmap(position) {
 
                 var routeLayer;
                 // 최단~~ 적용 클릭 시 
-                $("#course_select").click(function () {
+
+                document.getElementById('course_select').onclick = function () {
 
                     $.ajax({
                         method: "POST",
@@ -465,7 +449,7 @@ function initTmap(position) {
                     });
 
 
-                });
+                };
 
                 function addComma(num) {
                     var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -485,7 +469,7 @@ function initTmap(position) {
                 }
             });
         }
-    });
+    };
 
 
 

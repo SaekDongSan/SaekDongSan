@@ -8,7 +8,6 @@
 	<meta name="google-signin-client_id"
 		content="358885579377-963gkpo3jr9s54a8qp28emppjsb7qqj1.apps.googleusercontent.com">
 	<link rel="icon" type="image/png" href="http://example.com/myicon.png">
-	<link rel="stylesheet" href="haha.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<title>simpleMap</title>
@@ -32,6 +31,7 @@
 	<script src="index.js"></script>
 	<!-- <script src="login.js"></script> -->
 	<script src="newlocation.js"></script>
+	<script src="weather.js"></script>
 
 
 	<script>
@@ -55,6 +55,7 @@
 		<span id="dong">동</span>네
 		<span id="san">산</span>책
 	</div>
+	<div class="weather" style="background-color: aliceblue; font-weight: bold;"></div>
 
 	<!-- 로그인기능 -->
 	<div class="login">
@@ -74,7 +75,7 @@
 
 	<div class="app-cover">
 		<div id="categorybox">
-			<input type="checkbox" id="options-view-button">
+			<input class="zero" type="checkbox" id="options-view-button">
 			<div id="select-button" class="brd">
 				<div id="selected-value">
 					<span>전체 카테고리</span>
@@ -84,7 +85,7 @@
 					<i class="fa fa-chevron-down"></i>
 				</div>
 			</div>
-			<div id="options" >
+			<div id="options">
 				<div class="option" id="tree">
 					<input class="s-c top" type="radio" name="platform" value="tree">
 					<input class="s-c bottom" type="radio" name="platform" value="tree">
@@ -120,12 +121,19 @@
 					<span class="label">행복함을 주는 곳</span>
 					<span class="opt-val">행복함을 주는 곳</span>
 				</div>
+				<div class="option" id="night">
+					<input class="s-c top" type="radio" name="platform" value="night">
+					<input class="s-c bottom" type="radio" name="platform" value="night">
+					<i class="fa fa-smile-o" aria-hidden="true"></i>
+					<span class="label">야경이 예쁜 곳</span>
+					<span class="opt-val">야경이 예쁜 곳</span>
+				</div>
 				<div id="option-bg"></div>
 			</div>
 		</div>
 		<!-- </label> -->
-		<button type=submit class = "btn green2 mini" id="category_select" onclick="getlocation()">적용하기</button>
-		<button type=submit class = "btn cyan mini"id="want_select">산책 코스</button>
+		<button type=submit id="category_select">적용하기</button>
+		<button type=submit id="want_select">산책 코스</button>
 	</div>
 
 	<!-- 지도 -->
@@ -139,10 +147,10 @@
 		<div>
 			<p id="result"></p>
 
-			<div class="app-cover" id = "course">
+			<div class="app-cover">
 				<div id="trailbox">
-					<input type="checkbox" id="options-view-button">
-					<div id="select-button1" class="brd">
+					<input class="one" id="options-view-button" type="checkbox">
+					<div id="select-button" class="brd">
 						<div id="selected-value">
 							<span>경로속성</span>
 						</div>
@@ -176,7 +184,7 @@
 						<div class="option" id="thirty">
 							<input class="s-c top" type="radio" name="platform" value="30">
 							<input class="s-c bottom" type="radio" name="platform" value="30">
-							<i class="fa fa-bolt" aria-hidden="true"></i>
+							<i class="fa fa-chevron-down" aria-hidden="true"></i>
 							<span class="label">최단거리+계단제외</span>
 							<span class="opt-val">최단거리+계단제외</span>
 						</div>
@@ -185,7 +193,7 @@
 				</div>
 			</div>
 
-			<button id="course_select" class = "btn red mini">적용하기</button>
+			<button id="course_select">적용하기</button>
 		</div>
 
 		<div id="map_wrap" class="map_wrap">
@@ -283,6 +291,7 @@
 			</div>
 		</div>
 		<script>
+
 			$('#plus').click(function () {
 				if (userInfo == undefined) {
 					document.location.href = url;
@@ -316,18 +325,7 @@
 				console.log("click getpathfromcurr");
 			})
 
-			let categoryName = ['tree','calorie', 'hip', 'thrill', 'happy'];
-			for(let j=0; j<categoryName.length; j++){
-				console.log($(`#${categoryName[j]}`));
-				$(`#${categoryName[j]}`).click(function(){
-					
-					document.querySelector(`#${categoryName[j]}`).querySelector(".opt-val").hide();
-					console.log(document.querySelector(`#${categoryName[j]}`).querySelector(".opt-val"));
-				})
-			}
 
-			
-			
 		</script>
 </body>
 
