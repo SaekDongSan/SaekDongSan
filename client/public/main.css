@@ -2,254 +2,290 @@
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;400&family=Quicksand:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Poor+Story&family=Sunflower:wght@300;500;700&family=Yeon+Sung&display=swap');
 
-body .titleofproject h1{ /*main page title 색다른 동네 산책*/
-    position : absolute;
-    font-family: 'Gugi', cursive;
-    font-size : 55px;
-    top : 25px;
-    left: 50%;
-    margin-left: -400px;
+/* 
+font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Poor Story', cursive;
+font-family: 'Sunflower', sans-serif;
+font-family: 'Yeon Sung', cursive; */
+@media (min-width: 320px) and (max-width: 480px) {
+
 }
 
-.g-signin2{ /*main page top right signin button*/
-    position : absolute;
-    left: 70%;
-    margin-left : -40px;
-    top : 25px;
+* {
+    padding: 0;
+    margin: 0;
 }
 
-body .signingout{ /*main page top right signout button*/
-    position : absolute;
-    left: 85%;
-    margin-left : -40px;
-    top : 25px;
-    z-index : 9;
-    font-family: 'Gugi', cursive;
-    background-color: rgb(253, 253, 253);
-    border-radius : 12px;
-    border-top: rgb(56, 49, 9) solid 2px;
-    border-left: rgb(56, 49, 9) solid 2px;
-    border-bottom: rgb(56, 49, 9) solid 2px;
-    border-right: rgb(56, 49, 9) solid 2px;
-    padding: 5px 5px 5px 5px;
+a{
+    text-decoration: none;
+}
+
+
+body{
+    /* background: linear-gradient(to top, rgb(254, 255, 195) 90%, rgb(241, 216, 255) 30%); */
+    background-color: white;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-#markerid{ /*안보이게 signout button 뒤*/
-    position : absolute;
-    left: 85%;
-    margin-left : -38px;
-    top : 30px;
-}
-
-.ft_area{ /*main page filter 적용 부분*/
-    font-family: 'Gugi', cursive;
-    font-family: 'Jua', sans-serif;
-    font-size: 20px;
-    position : absolute;
-    top : 160px;
-    left : 50%;
-    margin-left : -300px;
-}
-
-body nav{ /*메인 페이지 상단 바*/
-    font-family: 'Gugi', cursive;
-    font-family: 'Jua', sans-serif;
-    position : absolute;
-    top : 90px;
-    width: 950px;
-    background-color: rgb(250, 255, 183);
-    border-top: rgb(56, 49, 9) solid 2px;
-    border-bottom: rgb(56, 49, 9) solid 2px;
-    padding: 3px 0 3px 0;
-    display: flex;
-    justify-content: space-around;
-    left : 50%;
-    margin-left : -470px;
-}
-body nav a{
-    font-family: 'Gugi', cursive;
-    font-family: 'Jua', sans-serif;
-    text-decoration-line: none;
-    color:rgb(56, 49, 9);
-    font-size: 20px;
-    font-weight:600;
-    align-items: center;
-}
-
-body{ /*body element 전체적으로*/
-    display:flex;
     flex-direction: column;
-    justify-content: center;
-    background-color: rgb(250, 177, 93);
+    align-items: center;
+    width : 100%;
+    height : 100%;
+    
 }
 
-.map_wrap div{
+#map_div{
+    position:fixed;
+    z-index: -999;
+    top:0px;
+    left:0px;
+    overflow:hidden;
+}
+.title{
+    /* background: linear-gradient( to top, rgb(247, 233, 255) 70%, rgb(254, 255, 225)); */
+    position:absolute;
+    bottom:0px;
+    left:10px;
     position : absolute;
-    top : 150px;
+    font-family: 'Yeon Sung', cursive;
+    font-size: 22px;
+    z-index: 1;
 }
 
-.btn{
-    border : none;
-    border-radius: 12px;
-    background-color:rgb(179, 219, 84);
-    box-shadow: 3px 3px 3px rgb(122, 114, 63);
-    width:160px;
-    text-align: center;
+#saek{
+    color : rgb(125, 58, 58)
+}
+#dong{
+    color: rgb(109, 130, 68);
+}
+#san{
+    color:rgb(69, 69, 130)
+}
 
+.circle{
+    width : 50px;
+    height: 48px;
+  padding: 4px 12px;  
+  font-size: 36px;
+  position:absolute;
+  border: 0;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  border-radius: 100%;
+}
+
+#review_plus{
+  bottom : 115px;
+  right : 10px;
+  z-index: 999;
+}
+#review_plus.btn:active {
+	bottom: 112px;	
+}
+#review_plus span{
     position:relative;
-    right : -400px;
-    top:-40px;
+    top:-5px;
 }
 
-.goto_btn{
-    text-decoration-line: none;
-    color:rgb(65, 65, 29);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 25px;
-    font-weight:600;
+#markerid{
+    bottom : 50px;
+    right : 10px;
+    z-index: 999;
+    font-size: 30px;
+    padding-bottom:10px;
 }
 
-.container{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(228, 227, 217);
-    font-family: 'Do Hyeon', sans-serif;
-    font-size: 20px;
-    width :1020px;
-
+#markerid.btn:active {
+	bottom: 47px;	
+}
+#sign_out{
+    position:absolute;
+    top:35px;
+    left : 10px;
 }
 
-
-.menu{
-    
-    color:rgb(65, 65, 29);
-    font-size: 33px;
-    font-weight: lighter;
-    margin : 30px 0px 10px 0px;
-
-}
-/*.form{
-
-}*/
-
-.btns{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 30px;
-}
-.btns input {
-    text-decoration-line: none;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    border : none;
-    border-radius: 9px;
-    box-shadow: 3px 3px 3px rgb(122, 114, 63);
-    width:100px;
-    height:50px;
-    margin-top:20px;
-    color:rgb(7, 41, 0);
-}
-#submit_btn{
-   
-    background-color: rgb(255, 198, 12);
-}
-#reset_btn{
-    background-color: rgb(197, 14, 100);
-}
-
-input{
-    font-size: 15px;
-    border : inset 3px white;
-    border-radius: 6px;
-    font-family: 'Do Hyeon', sans-serif;   
-    font-weight: lighter;
-}
-
-.private_info{
-    font-size: 15px;
-    color:rgb(122, 122, 122)
-}
-
-
-*/
-/*index.html */
-
-
-.flex-container{
-    color:white;
-    display : flex;
-    width : 1020px;
-    flex-direction: column;
-    align-items : center;
-    justify-items: center;
-    background-color: rgb(182, 205, 50);
-
-    
-}
-.flex-container > *{
-    margin-bottom: 10px;
-}
-
-.content{
-    display : flex;
-    flex-direction: row;
-    justify-content: space-around;
-
-    width:1000px;
-    color:black;
-    padding:10px;   
-    font-family: 'Quicksand', sans-serif;
-    font-weight:600;
-}
-
-.product{
-    width:350px;
-    border:solid black 2px;
+#sign_out a{
+    font-family:sans-serif;
+    font-size:10pt;
+    padding: 5px;
+    color: black;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(243, 252, 222);
 }
 
-.product *{
-    margin:3px;
+.g-signin2{
+    position:absolute;
+    top:5px;
+    left :10px;
 }
-.product_name, .product_price{
-    font-size: 15px;
-    background-color: rgb(255, 238, 0);
-    padding:10px;
-}
-
-.product_img{
-    transition: width 2s;
-
-}
-.product_img:hover{
-    width:350px;
+.btn.mini
+{
+    border: 0;
+    padding: 0px;
+    text-align: center;
 }
 
-.about{
-    font-family: 'Quicksand', sans-serif;
-    padding: 10px;
-    width: 950px;
-    column-count: 2;
-    column-gap: 40px;
-    column-rule-style: solid;
-    column-rule-width: 1px;
-    column-rule-color:gray;
-    column-width: 300px;
+
+
+/* Colors for .btn and .btn-two */
+.btn.blue, .btn-two.blue     {background-color: #7fb1bf;}
+.btn.green, .btn-two.green   {background-color: #f8ffdd;}
+.btn.red, .btn-two.red       {background-color: #fa5a5a;}
+.btn.purple, .btn-two.purple {background-color: #cb99c5;}
+.btn.cyan, .btn-two.cyan     {background-color: #7fccde;}
+.btn.yellow, .btn-two.yellow {background-color: #f0d264;}
+.btn.btn.white, .btn-two.yellow {background-color: #ffffff;}
+
+
+/* color classes for .btn */
+.btn.blue {box-shadow: 0px 4px #74a3b0;}
+.btn.blue:active {box-shadow: 0 0 #74a3b0; background-color: #709CA8;}
+
+.btn.green {box-shadow: 0px 4px 0px #cdd59b;}
+.btn.green:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
+
+.btn.red {box-shadow:0px 4px 0px #E04342;}
+.btn.red:active {box-shadow: 0 0 #ff4c4b; background-color: #ff4c4b;}
+
+.btn.purple {box-shadow:0px 4px 0px #AD83A8;}
+.btn.purple:active {box-shadow: 0 0 #BA8CB5; background-color: #BA8CB5;}
+
+.btn.cyan {box-shadow:0px 4px 0px #73B9C9;}
+.btn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
+
+.btn.yellow {box-shadow:0px 4px 0px #D1B757;}
+.btn.yellow:active {box-shadow: 0 0 #ff4c4b; background-color: #D6BB59;}
+
+.btn.white {box-shadow:0px 4px 0px #8e8fbb;}
+.btn.white:active {box-shadow: 0 0 #f87373; background-color: #98958c;}
+
+/* #selectedcategory{
+background: rgb(247, 221, 255);
+height : 30px;
+font-size : 15px;
+} */
+/* option{
+    height: 30px;
+    font-size : 15px;
 } */
 
-#plus{
+.modal-header{
+    background-color: rgb(255, 255, 227);
+}
+
+.modal-title{
+    font-size: 22px;
+    text-shadow : 1px 1px rgb(52, 51, 16);
+}
+
+
+.modal-body{
+    height : 95%;
+    display: flex;
+}
+
+
+.formInputs{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#review *{
+    margin-bottom:4px;
+    padding : 1px;
+}
+
+#reviewLocation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.little-title{
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-shadow : 1px 1px rgb(74, 53, 78);
+}
+
+#reviewPosition{
+    border-radius: 10px;
+    padding:5px;
+    font-size: 11px;
+    text-shadow: 0 0;
+    text-align: center;
+}
+
+.little-title input{
+    margin-top: 4px;
     border : 0;
-    outline : 0;
-    background: none;
+    background-color: rgba(225, 230, 215, 0.51);
+    border-radius: 10px;
+}
+
+.commentInput .little-title{
+    margin-top: 2px;
+}
+
+textarea{
+    margin-top:6px;
+    border : 0;
+    background-color: rgba(225, 230, 215, 0.51);
+    border-radius: 10px;
+    width : 310px;
+}
+
+.modal-footer{
+    margin-bottom : 20px;
+}
+
+#reset, #posting_submit{
+    padding : 3px;
+}
+
+#multiple-container *{
+    width: 136px;
+}
+
+
+
+
+/* ------newLocation---------- */
+
+#newWindowForLocation{
+    background-color: rgb(253, 211, 74);
+    color : rgb(96, 86, 86);
+    position : absolute;
+    z-index : 999;
+    padding : 5px;
+    border-radius : 10px;
+    top:30px;
+    left : 20px;
+}
+
+#complete{
+    background-color: rgb(178, 134, 255);
+    color : rgb(96, 86, 86);
+    position : absolute;
+    z-index : 999;
+    padding : 5px;
+    color:white;
+    border : 0;
+    border-radius : 10px;
+    bottom: 40px;
+    right : 20px;
+    font-size : 20px;
+}
+
+
+
+#result{
+    background-color: rgb(229, 253, 74);
+    color : rgb(96, 86, 86);
+    position : absolute;
+    z-index : 999;
+    padding : 5px;
+    border-radius : 10px;
+    top:60px;
+    left : 20px;
 }

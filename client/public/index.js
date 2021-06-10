@@ -62,10 +62,10 @@ function initTmap(position) {
     map = new Tmapv2.Map("map_div", {
         center: new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude),
         width: "100%",
-        height: "700px",
+        height: "100%",
         zoom: 15,
         zoomControl: true,
-        scrollwheel: true
+        scrollwheel: true,
     });
     marker_s = new Tmapv2.Marker(
         {

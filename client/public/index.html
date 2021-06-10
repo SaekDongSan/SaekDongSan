@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -30,67 +31,67 @@
 	<!-- <script src="login.js"></script> -->
 	<script src="newlocation.js"></script>
 
+
+	<script>
+		function myFunction() {
+		  var x = document.getElementById("myLinks");
+		  if (x.style.display === "block") {
+			x.style.display = "none";
+		  } else {
+			x.style.display = "block";
+		  }
+		}
+		</script>
+
 </head>
 
 <body onload="getLocation();">
-	<div class="titleofproject">
-		<h1><span style="color:red">색</span><span style="color:rgb(214, 96, 16)">다</span><span
-				style="color:yellow">른</span>
-			<span style="color:rgb(84, 151, 64)">동</span><span style="color:rgb(54, 114, 84)">네</span>
-			<span style="color:rgb(36, 56, 170)">산</span><span style="color:rgb(104, 14, 139)">책</span>
-		</h1>
+
+
+	<div class = "title"> 
+		<span id= "saek">색</span>다른
+		<span id="dong">동</span>네
+		<span id= "san">산</span>책
 	</div>
 
 	<!-- 로그인기능 -->
-	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<a href="#" class="signingout" onclick="signOut();">Sign out</a>
-	<button type="button" id="markerid" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-		<!--선택한 위치의 리뷰 보기-->
-	</button>
+	<div class="login">
+		<div class="g-signin2" data-onsuccess="onSignIn" style="width:80px; height:25px;" ></div>
+		<div  class = "btn white mini" id = "sign_out"><a href="#" class="signingout" onclick="signOut();">Sign out</a></div>
+	</div>
+ 
+	<!-- 메뉴 버튼 -->
+	<!-- <button type="button" id="menu_btn" data-bs-toggle="modal" class = "btn yellow mini circle" data-bs-target="#staticBackdrop1"><span>≡</span></button> -->
+	 
+	<!-- 리뷰추가버튼 -->
+	<button type="button" id="review_plus" data-bs-toggle="modal" class = "btn purple mini circle" data-bs-target="#staticBackdrop1"><span>+</span></button>
 
-	<!-- 상단 바 -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		&nbsp; &nbsp;
-		<a class="navbar-brand" href="#"><strong>Main Page</strong></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-			aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-				<a class="nav-item nav-link active" href="#">나도 모르던 내 동네의 숨은 명소 찾기!</span></a>
+	<button type="button" id="markerid" data-bs-toggle="modal"  class = "btn yellow mini circle" data-bs-target="#staticBackdrop2"><span>≡</span></button>
 
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-				<!-- 리뷰추가버튼 -->
-				<button type="button" id="plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-					<img src="./img/plus.png" alt="리뷰 추가하기" width="15px" height="15px" />
-				</button>
-				<a class="nav-item nav-link" href="#">
-					<-- 리뷰 추가하기</a>
-			</div>
-		</div>
-	</nav>
+	<div class="custom-select">
+		<!-- <label> Filter by Category : -->
+			<div id="newSelect"></div>
+			<select name="category" id="selectedcategory">
+				<div id = "optional">
+					<option value=""  class = "op op1">카테고리 선택</option>
+					<option value="night" class = "op op2"> 야경이 좋은 곳</option>
+					<option value="tree" class = "op op3"> 나무가 많은 곳 </option>
+					<option value="calorie" class = "op op4"> 칼로리 소비가 많은 곳 </option>
+					<option value="hip" class = "op op5"> HIP함이 느껴지는 곳 </option>
+					<option value="thrill" class = "op op6"> 스릴 넘치는 곳 </option>
+					<option value="happy" class = "op op7"> 행복함을 주는 곳 </option>
+				</div>
+				
+			</select>
+		<!-- </label> -->
+		<button type=submit id="category_select" onclick="getlocation()">적용하기</button>
+		<button type=submit id="want_select">산책 코스</button>
+	</div>
+
 	<!-- 지도 -->
 	<div.clas class="ft_area">
-		<div class="ft_select_wrap">
-			<div class="ft_select">
-				<label> Filter by Category :
-					<select name="category" id="selectedcategory">
-						<option value="" disabled selected>카테고리 선택</option>
-						<option value="night"> 야경이 좋은 곳</option>
-						<option value="tree"> 나무가 많은 곳 </option>
-						<option value="calorie"> 칼로리 소비가 많은 곳 </option>
-						<option value="hip"> HIP함이 느껴지는 곳 </option>
-						<option value="thrill"> 스릴 넘치는 곳 </option>
-						<option value="happy"> 행복함을 주는 곳 </option>
-					</select>
-				</label>
-				<button type=submit id="category_select" onclick="getlocation()">적용하기</button>
-				<button type=submit id="want_select">산책 코스</button>
-				
-			</div>
+		<div class="ft_select_wrap rule">
+
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
 		<div class="clear"></div>
@@ -119,63 +120,72 @@
 			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">리뷰남기기</h5>
-						&nbsp; &nbsp;&nbsp; <p onclick="openChild()"> 새로운 위치 선택 </p>
+						<h5 class="modal-title" id="staticBackdropLabel">리뷰 남기기</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
+						
 						<form name id="review" action='#' method="post" enctype="multipart/form-data">
-							<div id="current-location"> 현재 위치 주소 </div><br><br>
-							<label> 장소이름
-								<input type="text" name="name" placeholder="여러분만의 애칭을 정해주세요!" required />
-							</label>
-							<br>
-							<br>
-							<lable> 이미지 파일 업로드
-								<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
-							</lable>
-							<br>
-							<br>
-							<label id="multiple-container"> </label>
-							<br>
-							<br>
-							<lable> 감상업로드<br>
-								<textarea cols="40" rows="10" name="comment"
-									placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
-							</lable>
-							<br>
-							<br>
-							<label> Category :
-								<select name="category" id="category" required>
-									<option value="night" selected> 야경이 좋은 </option>
-									<option value="tree"> 나무가 많은 곳 </option>
-									<option value="calorie"> 칼로리 소비가 많은 곳 </option>
-									<option value="hip"> HIP함이 느껴지는 곳 </option>
-									<option value="thrill"> 스릴 넘치는 곳 </option>
-									<option value="happy"> 행복함을 주는 곳 </option>
-								</select>
-							</label>
-							<br>
+							<div class="locationInput">
+								<div id = "reviewLocation" class = "little-title">
+								
+									리뷰할 위치 :<div class = "btn green mini" id = "reviewPosition" onclick="openChild()"> 다른 위치 선택하기</div>
+								</div>
+								<div id="current-location"> 현재 위치 주소 </div>
+							</div>
+
+							<div class="LocationName">
+								<label class = "little-title"> 장소 이름<br>
+									<input type="text" name="name" placeholder=" 여러분만의 애칭을 정해주세요!" size = 38 required />
+								</label>
+							</div>
+							
+
+							<div class="imgInput">
+								<lable class = "little-title"> 이미지 파일 업로드
+									<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
+								</lable>
+								<label id="multiple-container"> </label>
+							</div>
+
+
+							<div class="commentInput">
+								<lable class = "little-title"> 감상업로드<br>
+									<textarea cols="40" rows="10" name="comment"
+										placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
+								</lable>
+							</div>
+
+
+							<div class="categoryInput">
+								<label class = "little-title"> 카테고리 :
+									<select name="category" id="category" required>
+										<option value="night" selected> 야경이 좋은 </option>
+										<option value="tree"> 나무가 많은 곳 </option>
+										<option value="calorie"> 칼로리 소비가 많은 곳 </option>
+										<option value="hip"> HIP함이 느껴지는 곳 </option>
+										<option value="thrill"> 스릴 넘치는 곳 </option>
+										<option value="happy"> 행복함을 주는 곳 </option>
+									</select>
+								</label>
+							</div>
 					</div>
 					<div class="modal-footer">
-						<input type="reset" id="reset" value="다시 작성">
-						<input type="button" id="posting_submit" value="올리기">
+						<input type="reset" id="reset" value="다시 작성" class = "btn purple mini">
+						<input type="button" id="posting_submit" value="올리기" class = "btn yellow mini">
 					</div>
 					</form>
 				</div>
 			</div>
 		</div>
-
-		
-
-
+	
 		<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 			aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">리뷰보기</h5>
-						<button type="button" class="btn-close" id="closebtn" data-bs-dismiss="modal"
+						<h5 class="modal-title" id="staticBackdropLabel">리뷰 보기</h5>
+						<button type="button" class="btn-close btn green mini" id="closebtn" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">

@@ -128,10 +128,11 @@ $(function () {
 });
 
 function openChild() {
+    // let mobileheight = window.innerHeight;
     // window.name = "부모창 이름"; 
     window.name = "parentForm";
     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-    var win = window.open("./newlocation.html", "newLocation", "width=400, height=450");
+    var win = window.open("./newlocation.html", "newLocation", "width=100%, height=100%");
 }
 function setChildValue(name) {
     console.log('새로운 위치 정보 저장');
@@ -166,6 +167,8 @@ function signOut() {
     });
 }
 
+
+// ------------------------------------
 $(document).ready(function () {
     var editForm = $("#review");
 
