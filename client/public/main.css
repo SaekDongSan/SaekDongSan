@@ -253,3 +253,8 @@ input{
     outline : 0;
     background: none;
 }
+
+.markerimg{
+    border-radius: 70%;
+    overflow: hidden;
+}
