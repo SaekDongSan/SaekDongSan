@@ -219,10 +219,10 @@ function initTmap(position) {
                     resultMarkerArr[i].addListener('click', function (evt) {
                         console.log('resultMarkerArr', resultMarkerArr);
                         console.log("marker 클릭");
-                        positionofend = resultMarkerArr[i].getPosition();
+                        positionofend = old_place[i][0]+','+old_place[i][1];
                         console.log("position:" + positionofend)
-                        real_latitude = positionofend._lat;
-                        real_longitude = positionofend._lng;
+                        real_latitude = old_place[i][0];
+                        real_longitude = old_place[i][1];
                         $("#markerid").trigger("click");
                     });
                 }
@@ -379,10 +379,10 @@ function initTmap(position) {
                     resultMarkerArr[i].addListener('click', function (evt) {
                         console.log('resultMarkerArr', resultMarkerArr);
                         console.log("marker 클릭");
-                        positionofend = resultMarkerArr[i].getPosition();
+                        positionofend = old_place[i][0]+','+old_place[i][1];
                         console.log("position:" + positionofend)
-                        real_latitude = positionofend._lat;
-                        real_longitude = positionofend._lng;
+                        real_latitude = old_place[i][0];
+                        real_longitude = old_place[i][1];
                         $("#markerid").trigger("click");
                     });
                 }
@@ -923,63 +923,6 @@ function remove_all() {
     }
     resultdrawArr = [];
 
-}
-
-// 혹시나 하고 만들었음 -> 아직 사용x
-function show_markers() {
-    $.post(url + '/category', { category: All }, function (data, status) {
-
-        var old_place = new Array(data.length + 1);
-
-        for (var i = 0; i < old_place.length; i++) {
-            old_place[i] = new Array(3);
-        }
-        console.log(data);
-
-        for (var i = 0; i < data.length; i++) {
-            old_place[i][0] = data[i].latitude;
-            old_place[i][1] = data[i].longtitude;
-            console.log(data);
-            old_place[i][2] = "http://localhost:3000/uploads/" + data[i].image0;
-            console.log(old_place[i][2]);
-            console.log(old_place[i][0]);
-            console.log(old_place[i][1]);
-
-        }
-
-        // 마커 생성
-        old_place.forEach(async function (item, i) {
-            marker = new Tmapv2.Marker(
-                {
-                    position: new Tmapv2.LatLng(old_place[i][0], old_place[i][1]),
-                    icon: old_place[i][2],
-                    iconSize: new Tmapv2.Size(image_width, image_height),
-                    map: map
-                });
-            let m = await save(resultMarkerArr, marker);
-            m.getElement().setAttribute('class', 'markerimg');
-        })
-
-        function save(resultMarkerArr, marker) {
-            resultMarkerArr.push(marker);
-            return marker;
-        }
-
-
-        //애드리스너 추가
-
-        for (let i = 0; i < resultMarkerArr.length; i++) {
-            resultMarkerArr[i].addListener('click', function (evt) {
-                console.log('resultMarkerArr', resultMarkerArr);
-                console.log("marker 클릭");
-                positionofend = resultMarkerArr[i].getPosition();
-                console.log("position:" + positionofend)
-                real_latitude = positionofend._lat;
-                real_longitude = positionofend._lng;
-                $("#markerid").trigger("click");
-            });
-        }
-    });
 }
 
 function save(resultMarkerArr, marker) {
