@@ -2,9 +2,19 @@
 
 $(document).ready(function () {
     console.log("제제바라랄");
+    var selected;
+    var searchOption;
 
+    document.getElementById('tree').addEventListener('click', selectedd, true);
+    document.getElementById('calorie').addEventListener('click', selectedd, true);
+    document.getElementById('hip').addEventListener('click', selectedd, true);
+    document.getElementById('happy').addEventListener('click', selectedd, true);
+    document.getElementById('thrill').addEventListener('click', selectedd, true);
+    document.getElementById('one').addEventListener('click', selectedd1, true);
+    document.getElementById('four').addEventListener('click', selectedd1, true);
+    document.getElementById('ten').addEventListener('click', selectedd1, true);
+    document.getElementById('thirty').addEventListener('click', selectedd1, true);
     $("#btn_select").click(function () {
-        var selected = $("#selectedcategory option:selected").attr('value');;
         console.log("click " + selected);
         $.post(url + '/category', { category: selected }, function (data, status) {
             console.log(data);
@@ -12,6 +22,15 @@ $(document).ready(function () {
     })
 })
 
+function selectedd(event) {
+    selected = event.target.value;
+    alert(selected);
+}
+
+function selectedd1(event) {
+    searchOption = event.target.value;
+    alert(searchOption);
+}
 // data[i].latitude
 
 // -------지도 관련
@@ -320,9 +339,6 @@ function initTmap(position) {
                 var routeLayer;
                 // 최단~~ 적용 클릭 시 
                 $("#course_select").click(function () {
-
-
-                    var searchOption = $("#selectLevel").val();
 
                     $.ajax({
                         method: "POST",

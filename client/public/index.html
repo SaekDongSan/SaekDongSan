@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,6 +8,8 @@
 	<meta name="google-signin-client_id"
 		content="358885579377-963gkpo3jr9s54a8qp28emppjsb7qqj1.apps.googleusercontent.com">
 	<link rel="icon" type="image/png" href="http://example.com/myicon.png">
+	<link rel="stylesheet" href="haha.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<title>simpleMap</title>
 
@@ -34,55 +36,93 @@
 
 	<script>
 		function myFunction() {
-		  var x = document.getElementById("myLinks");
-		  if (x.style.display === "block") {
-			x.style.display = "none";
-		  } else {
-			x.style.display = "block";
-		  }
+			var x = document.getElementById("myLinks");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
 		}
-		</script>
+	</script>
 
 </head>
 
 <body onload="getLocation();">
 
 
-	<div class = "title"> 
-		<span id= "saek">색</span>다른
+	<div class="title">
+		<span id="saek">색</span>다른
 		<span id="dong">동</span>네
-		<span id= "san">산</span>책
+		<span id="san">산</span>책
 	</div>
 
 	<!-- 로그인기능 -->
 	<div class="login">
-		<div class="g-signin2" data-onsuccess="onSignIn" style="width:80px; height:25px;" ></div>
-		<div  class = "btn white mini" id = "sign_out"><a href="#" class="signingout" onclick="signOut();">Sign out</a></div>
+		<div class="g-signin2" data-onsuccess="onSignIn" style="width:80px; height:25px;"></div>
+		<div class="btn white mini" id="sign_out"><a href="#" class="signingout" onclick="signOut();">Sign out</a></div>
 	</div>
- 
+
 	<!-- 메뉴 버튼 -->
 	<!-- <button type="button" id="menu_btn" data-bs-toggle="modal" class = "btn yellow mini circle" data-bs-target="#staticBackdrop1"><span>≡</span></button> -->
-	 
+
 	<!-- 리뷰추가버튼 -->
-	<button type="button" id="review_plus" data-bs-toggle="modal" class = "btn purple mini circle" data-bs-target="#staticBackdrop1"><span>+</span></button>
+	<button type="button" id="review_plus" data-bs-toggle="modal" class="btn purple mini circle"
+		data-bs-target="#staticBackdrop1"><span>+</span></button>
 
-	<button type="button" id="markerid" data-bs-toggle="modal"  class = "btn yellow mini circle" data-bs-target="#staticBackdrop2"><span>≡</span></button>
+	<button type="button" id="markerid" data-bs-toggle="modal" class="btn yellow mini circle"
+		data-bs-target="#staticBackdrop2"><span>≡</span></button>
 
-	<div class="custom-select">
-		<!-- <label> Filter by Category : -->
-			<div id="newSelect"></div>
-			<select name="category" id="selectedcategory">
-				<div id = "optional">
-					<option value=""  class = "op op1">카테고리 선택</option>
-					<option value="night" class = "op op2"> 야경이 좋은 곳</option>
-					<option value="tree" class = "op op3"> 나무가 많은 곳 </option>
-					<option value="calorie" class = "op op4"> 칼로리 소비가 많은 곳 </option>
-					<option value="hip" class = "op op5"> HIP함이 느껴지는 곳 </option>
-					<option value="thrill" class = "op op6"> 스릴 넘치는 곳 </option>
-					<option value="happy" class = "op op7"> 행복함을 주는 곳 </option>
+	<div class="app-cover">
+		<div id="categorybox">
+			<input type="checkbox" id="options-view-button">
+			<div id="select-button" class="brd">
+				<div id="selected-value">
+					<span>전체 카테고리</span>
 				</div>
-				
-			</select>
+				<div id="chevrons">
+					<i class="fa fa-chevron-up"></i>
+					<i class="fa fa-chevron-down"></i>
+				</div>
+			</div>
+			<div id="options">
+				<div class="option" id="tree">
+					<input class="s-c top" type="radio" name="platform" value="tree">
+					<input class="s-c bottom" type="radio" name="platform" value="tree">
+					<i class="fa fa-tree" aria-hidden="true"></i>
+					<span class="label">나무가 많은 곳</span>
+					<span class="opt-val">나무가 많은 곳</span>
+				</div>
+				<div class="option" id="calorie">
+					<input class="s-c top" type="radio" name="platform" value="calorie">
+					<input class="s-c bottom" type="radio" name="platform" value="calorie">
+					<i class="fa fa-heartbeat" aria-hidden="true"></i>
+					<span class="label">운동하기 좋은 곳</span>
+					<span class="opt-val">운동하기 좋은 곳</span>
+				</div>
+				<div class="option" id="hip">
+					<input class="s-c top" type="radio" name="platform" value="hip">
+					<input class="s-c bottom" type="radio" name="platform" value="hip">
+					<i class="fa fa-hand-spock-o" aria-hidden="true"></i>
+					<span class="label">HIP함이 느껴지는 곳</span>
+					<span class="opt-val">HIP함이 느껴지는 곳</span>
+				</div>
+				<div class="option" id="thrill">
+					<input class="s-c top" type="radio" name="platform" value="thrill">
+					<input class="s-c bottom" type="radio" name="platform" value="thrill">
+					<i class="fa fa-bolt" aria-hidden="true"></i>
+					<span class="label">스릴 넘치는 곳</span>
+					<span class="opt-val">스릴 넘치는 곳</span>
+				</div>
+				<div class="option" id="happy">
+					<input class="s-c top" type="radio" name="platform" value="happy">
+					<input class="s-c bottom" type="radio" name="platform" value="happy">
+					<i class="fa fa-smile-o" aria-hidden="true"></i>
+					<span class="label">행복함을 주는 곳</span>
+					<span class="opt-val">행복함을 주는 곳</span>
+				</div>
+				<div id="option-bg"></div>
+			</div>
+		</div>
 		<!-- </label> -->
 		<button type=submit id="category_select" onclick="getlocation()">적용하기</button>
 		<button type=submit id="want_select">산책 코스</button>
@@ -98,12 +138,53 @@
 		</div>
 		<div>
 			<p id="result"></p>
-			<select id="selectLevel" style="width:130px;height:30px;">
-				<option value="0" selected="selected">최적+추천</option>
-				<option value="4">추천+대로우선</option>
-				<option value="10">최단</option>
-				<option value="30">최단거리+계단제외</option>
-			</select>
+
+			<div class="app-cover">
+				<div id="trailbox">
+					<input type="checkbox" id="options-view-button1">
+					<div id="select-button1" class="brd">
+						<div id="selected-value">
+							<span>경로속성</span>
+						</div>
+						<div id="chevrons">
+							<i class="fa fa-chevron-up"></i>
+							<i class="fa fa-chevron-down"></i>
+						</div>
+					</div>
+					<div id="options">
+						<div class="option" id="one">
+							<input class="s-c top" type="radio" name="platform" value="0">
+							<input class="s-c bottom" type="radio" name="platform" value="0">
+							<i class="fa fa-tree" aria-hidden="true"></i>
+							<span class="label">최적+추천</span>
+							<span class="opt-val">최적+추천</span>
+						</div>
+						<div class="option" id="four">
+							<input class="s-c top" type="radio" name="platform" value="4">
+							<input class="s-c bottom" type="radio" name="platform" value="4">
+							<i class="fa fa-heartbeat" aria-hidden="true"></i>
+							<span class="label">추천+대로우선</span>
+							<span class="opt-val">추천+대로우선</span>
+						</div>
+						<div class="option" id="ten">
+							<input class="s-c top" type="radio" name="platform" value="10">
+							<input class="s-c bottom" type="radio" name="platform" value="10">
+							<i class="fa fa-hand-spock-o" aria-hidden="true"></i>
+							<span class="label">최단</span>
+							<span class="opt-val">최단</span>
+						</div>
+						<div class="option" id="thirty">
+							<input class="s-c top" type="radio" name="platform" value="30">
+							<input class="s-c bottom" type="radio" name="platform" value="30">
+							<i class="fa fa-bolt" aria-hidden="true"></i>
+							<span class="label">최단거리+계단제외</span>
+							<span class="opt-val">최단거리+계단제외</span>
+						</div>
+						<div id="option-bg"></div>
+					</div>
+				</div>
+			</div>
+
 			<button id="course_select" style="width:130px;height:30px;">적용하기</button>
 		</div>
 
@@ -124,25 +205,27 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						
+
 						<form name id="review" action='#' method="post" enctype="multipart/form-data">
 							<div class="locationInput">
-								<div id = "reviewLocation" class = "little-title">
-								
-									리뷰할 위치 :<div class = "btn green mini" id = "reviewPosition" onclick="openChild()"> 다른 위치 선택하기</div>
+								<div id="reviewLocation" class="little-title">
+
+									리뷰할 위치 :<div class="btn green mini" id="reviewPosition" onclick="openChild()">
+										다른 위치
+										선택하기</div>
 								</div>
 								<div id="current-location"> 현재 위치 주소 </div>
 							</div>
 
 							<div class="LocationName">
-								<label class = "little-title"> 장소 이름<br>
-									<input type="text" name="name" placeholder=" 여러분만의 애칭을 정해주세요!" size = 38 required />
+								<label class="little-title"> 장소 이름<br>
+									<input type="text" name="name" placeholder=" 여러분만의 애칭을 정해주세요!" size=38 required />
 								</label>
 							</div>
-							
+
 
 							<div class="imgInput">
-								<lable class = "little-title"> 이미지 파일 업로드
+								<lable class="little-title"> 이미지 파일 업로드
 									<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
 								</lable>
 								<label id="multiple-container"> </label>
@@ -150,7 +233,7 @@
 
 
 							<div class="commentInput">
-								<lable class = "little-title"> 감상업로드<br>
+								<lable class="little-title"> 감상업로드<br>
 									<textarea cols="40" rows="10" name="comment"
 										placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
 								</lable>
@@ -158,7 +241,7 @@
 
 
 							<div class="categoryInput">
-								<label class = "little-title"> 카테고리 :
+								<label class="little-title"> 카테고리 :
 									<select name="category" id="category" required>
 										<option value="night" selected> 야경이 좋은 </option>
 										<option value="tree"> 나무가 많은 곳 </option>
@@ -171,21 +254,14 @@
 							</div>
 					</div>
 					<div class="modal-footer">
-						<input type="reset" id="reset" value="다시 작성" class = "btn purple mini">
-						<input type="button" id="posting_submit" value="올리기" class = "btn yellow mini">
+						<input type="reset" id="reset" value="다시 작성" class="btn purple mini">
+						<input type="button" id="posting_submit" value="올리기" class="btn yellow mini">
 					</div>
 					</form>
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-	
-=======
 
-
-
-
->>>>>>> 88054313f47cc10307fc20feb4a137b0f79c501c
 		<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 			aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
