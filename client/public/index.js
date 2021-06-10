@@ -83,12 +83,8 @@ function initTmap(position) {
         real_longitude = positionofend._lng;
         $("#markerid").trigger("click");
 
-    
+
     });
-
-   
-
-   
 
 
     // 2. 리뷰 마커 찍기
@@ -140,14 +136,7 @@ function initTmap(position) {
                     m.getElement().setAttribute('class', 'markerimg');
                 })
 
-                function save(resultMarkerArr, marker) {
-                    resultMarkerArr.push(marker);
-                    return marker;
-                }
-
-
                 //애드리스너 추가
-             
                 for (let i = 0; i < resultMarkerArr.length; i++) {
                     resultMarkerArr[i].addListener('click', function (evt) {
                         console.log('resultMarkerArr', resultMarkerArr);
@@ -310,11 +299,17 @@ function initTmap(position) {
                     m.getElement().setAttribute('class', 'markerimg');
                 })
 
-                function save(resultMarkerArr, marker) {
-                    resultMarkerArr.push(marker);
-                    return marker;
+                for (let i = 0; i < resultMarkerArr.length; i++) {
+                    resultMarkerArr[i].addListener('click', function (evt) {
+                        console.log('resultMarkerArr', resultMarkerArr);
+                        console.log("marker 클릭");
+                        positionofend = resultMarkerArr[i].getPosition();
+                        console.log("position:" + positionofend)
+                        real_latitude = positionofend._lat;
+                        real_longitude = positionofend._lng;
+                        $("#markerid").trigger("click");
+                    });
                 }
-
                 // 중심좌표로 지도 이동..
                 /*
                 var lat = (place[4][0] + place[0][0])/2;
@@ -857,8 +852,8 @@ function remove_all() {
 }
 
 // 혹시나 하고 만들었음 -> 아직 사용x
-function show_markers(){
-    $.post(url + '/category', { category: All}, function (data, status) {
+function show_markers() {
+    $.post(url + '/category', { category: All }, function (data, status) {
 
         var old_place = new Array(data.length + 1);
 
@@ -898,7 +893,7 @@ function show_markers(){
 
 
         //애드리스너 추가
-     
+
         for (let i = 0; i < resultMarkerArr.length; i++) {
             resultMarkerArr[i].addListener('click', function (evt) {
                 console.log('resultMarkerArr', resultMarkerArr);
@@ -911,4 +906,9 @@ function show_markers(){
             });
         }
     });
+}
+
+function save(resultMarkerArr, marker) {
+    resultMarkerArr.push(marker);
+    return marker;
 }
