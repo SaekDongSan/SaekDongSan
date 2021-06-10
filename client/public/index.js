@@ -82,7 +82,14 @@ function initTmap(position) {
         real_latitude = positionofend._lat;
         real_longitude = positionofend._lng;
         $("#markerid").trigger("click");
+
+    
     });
+
+   
+
+   
+
 
     // 2. 리뷰 마커 찍기
 
@@ -140,7 +147,7 @@ function initTmap(position) {
 
 
                 //애드리스너 추가
-                var count = 1;
+             
                 for (let i = 0; i < resultMarkerArr.length; i++) {
                     resultMarkerArr[i].addListener('click', function (evt) {
                         console.log('resultMarkerArr', resultMarkerArr);
@@ -291,59 +298,22 @@ function initTmap(position) {
                 // 시작하기 전 초기화
 
                 // 시작
-                makemarker(marker_s, 0);
+                place.forEach(async function (item, i) {
+                    marker = new Tmapv2.Marker(
+                        {
+                            position: new Tmapv2.LatLng(place[i][0], place[i][1]),
+                            icon: place[i][2],
+                            iconSize: new Tmapv2.Size(image_width, image_height),
+                            map: map
+                        });
+                    let m = await save(resultMarkerArr, marker);
+                    m.getElement().setAttribute('class', 'markerimg');
+                })
 
-                marker_s.addListener("click", function (evt) {
-                    console.log("marker_s 클릭")
-                    positionofend = marker_s.getPosition();
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
-                });
-
-                // 도착
-                makemarker(marker_e, 4);
-                marker_e.addListener("click", function (evt) {
-                    console.log("marker_e 클릭")
-                    positionofend = marker_e.getPosition();
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
-                });
-
-
-                // 경유지
-                makemarker(marker_p1, 1);
-                marker_p1.addListener("click", function (evt) {
-                    console.log("marker_p1 클릭")
-                    positionofend = marker_p1.getPosition();
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
-                });
-
-                makemarker(marker_p2, 2);
-                marker_p2.addListener("click", function (evt) {
-                    console.log("marker_p2 클릭")
-                    positionofend = marker_p2.getPosition();
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
-                });
-
-                makemarker(marker_p3, 3);
-                marker_p3.addListener("click", function (evt) {
-                    console.log("marker_p3 클릭")
-                    positionofend = marker_p3.getPosition();
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
-                });
+                function save(resultMarkerArr, marker) {
+                    resultMarkerArr.push(marker);
+                    return marker;
+                }
 
                 // 중심좌표로 지도 이동..
                 /*
@@ -506,21 +476,7 @@ function initTmap(position) {
         }
     });
 
-    async function makemarker(marker, i) {
-        marker_s = new Tmapv2.Marker(
-            {
-                position: new Tmapv2.LatLng(place[i][0], place[i][1]),
-                icon: place[i][2],
-                iconSize: new Tmapv2.Size(image_width, image_height),
-                map: map
-            });
-        let m = await save(resultMarkerArr, marker_s);
-        m.getElement().setAttribute('class', 'markerimg');
-    }
-    async function save(resultMarkerArr, marker) {
-        resultMarkerArr.push(marker);
-        return marker;
-    }
+
 
     // 선택한 곳으로 길찾기
 
@@ -900,3 +856,59 @@ function remove_all() {
 
 }
 
+// 혹시나 하고 만들었음 -> 아직 사용x
+function show_markers(){
+    $.post(url + '/category', { category: All}, function (data, status) {
+
+        var old_place = new Array(data.length + 1);
+
+        for (var i = 0; i < old_place.length; i++) {
+            old_place[i] = new Array(3);
+        }
+        console.log(data);
+
+        for (var i = 0; i < data.length; i++) {
+            old_place[i][0] = data[i].latitude;
+            old_place[i][1] = data[i].longtitude;
+            console.log(data);
+            old_place[i][2] = "http://localhost:3000/uploads/" + data[i].image0;
+            console.log(old_place[i][2]);
+            console.log(old_place[i][0]);
+            console.log(old_place[i][1]);
+
+        }
+
+        // 마커 생성
+        old_place.forEach(async function (item, i) {
+            marker = new Tmapv2.Marker(
+                {
+                    position: new Tmapv2.LatLng(old_place[i][0], old_place[i][1]),
+                    icon: old_place[i][2],
+                    iconSize: new Tmapv2.Size(image_width, image_height),
+                    map: map
+                });
+            let m = await save(resultMarkerArr, marker);
+            m.getElement().setAttribute('class', 'markerimg');
+        })
+
+        function save(resultMarkerArr, marker) {
+            resultMarkerArr.push(marker);
+            return marker;
+        }
+
+
+        //애드리스너 추가
+     
+        for (let i = 0; i < resultMarkerArr.length; i++) {
+            resultMarkerArr[i].addListener('click', function (evt) {
+                console.log('resultMarkerArr', resultMarkerArr);
+                console.log("marker 클릭");
+                positionofend = resultMarkerArr[i].getPosition();
+                console.log("position:" + positionofend)
+                real_latitude = positionofend._lat;
+                real_longitude = positionofend._lng;
+                $("#markerid").trigger("click");
+            });
+        }
+    });
+}
