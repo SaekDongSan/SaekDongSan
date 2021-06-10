@@ -8,6 +8,15 @@
     outline: none;
 }
 
+#categorybox{
+    position: relative;
+}
+
+#trailbox{
+    position: absolute;
+    top : 50px;
+}
+
 
 .brd
 {
@@ -28,8 +37,7 @@
     background-color: #f3f9f9;
 }
 
-.app-cover
-{
+.app-cover{
     position: absolute;
     top: 0;
     right: 0;
@@ -39,25 +47,46 @@
     margin: 100px auto 0 auto;
 }
 
-#select-button
-{
+#select-button{
     position: relative;
-    height: 16px;
+    height: 40px;
     padding: 12px 14px;
     background-color: #fff;
     border-radius: 4px;
     cursor: pointer;
 }
 
+#course_select{
+    position:  relative;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+#category_select{
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+#want_select{
+    position: relative;
+    top: 40px;
+    right: 100px;
+    left: 0;
+}
+
 #select-button1
 {
     position: relative;
-    height: 16px;
+    height: 40px;
     padding: 12px 14px;
     background-color: #fff;
     border-radius: 4px;
     cursor: pointer;
 }
+
 
 #options-view-button
 {
