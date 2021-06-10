@@ -176,9 +176,6 @@ function initTmap(position) {
 
     document.getElementById('category_select').onclick = function () {
         alert("click " + selected);
-        $.post('/category', { category: selected }, function (data, status) {
-            console.log(data);
-        })
 
         remove_all();
         alert("click " + selected);
