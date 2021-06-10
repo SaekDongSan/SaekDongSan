@@ -146,8 +146,8 @@ function initTmap(position) {
             marker = new Tmapv2.Marker(
                 {
                     position: new Tmapv2.LatLng(initial_array[i].latitude, initial_array[i].longtitude),
-                    icon: initial_array[i].image0,
-                    /*icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",*/
+                    /*icon: initial_array[i].image0,*/
+                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
                     iconSize: new Tmapv2.Size(image_width, image_height),
                     map: map
                 }
@@ -181,6 +181,14 @@ function initTmap(position) {
         alert("click " + selected);
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
+
+            if (category_array.length > 0) {
+                category_array.forEach(async function (item, i) {
+                    category_array[i] = null;
+                })
+                category_array = [];
+            }
+
             initial_array.forEach(async function (item, i) {
                 if (initial_array[i].category == selected){
                     category_array.push(initial_array[i]);
@@ -203,6 +211,7 @@ function initTmap(position) {
             })
 
             if (initial_array_marker.length > 0) {
+                console.log("들어옴")
                 for (var i in initial_array_marker) {
                     initial_array_marker[i]
                         .setMap(null);
