@@ -8,6 +8,7 @@ $(document).ready(function () {
     document.getElementById('hip').addEventListener('click', selectedd, true);
     document.getElementById('happy').addEventListener('click', selectedd, true);
     document.getElementById('thrill').addEventListener('click', selectedd, true);
+    document.getElementById('night').addEventListener('click', selectedd, true);
     document.getElementById('one').addEventListener('click', selectedd1, true);
     document.getElementById('four').addEventListener('click', selectedd1, true);
     document.getElementById('ten').addEventListener('click', selectedd1, true);
@@ -46,7 +47,9 @@ var resultdrawArr = [];
 var chktraffic = [];
 var resultdrawArr = [];
 var resultMarkerArr = [];
-
+var initial_array = [];
+var initial_array_marker = [];
+var category_array = [];
 
 var lati;
 var longi;
@@ -91,6 +94,80 @@ function initTmap(position) {
         real_longitude = positionofend._lng;
         $("#markerid").trigger("click");
     });
+
+    if (initial_array.length > 0) {
+        for (var i in initial_array) {
+            initial_array[i]
+                .setMap(null);
+
+        }
+        initial_array = [];
+
+    }
+
+    if (initial_array_marker.length > 0) {
+        for (var i in initial_array_marker) {
+            initial_array_marker[i]
+                .setMap(null);
+
+        }
+        initial_array_marker = [];
+
+    }
+
+    console.log("이제 근방 탐색")
+    $.get('/total', function (data, status) {
+        console.log(data);
+        if (status == 'success') {
+            console.log(data);
+            console.log(data.length)
+            console.log("처음 비어있어야 함:" + initial_array)
+            for (var i = 0; i < data.length; i++){
+                console.log(i)
+                console.log(data[i].latitude)
+                var position_add = new Tmapv2.LatLng(data[i].latitude, data[i].longtitude)
+                console.log(data[i].longtitude)
+                var position_sub = new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude)
+                distance = position_sub.distanceTo(position_add)
+                console.log(distance)
+                if (distance <= 3000){
+                    console.log(data[i])
+                    initial_array.push(data[i])
+                    console.log("push 했음")
+                }
+            }
+        }
+        else console.log(status);
+    }).done(function () {
+        console.log("성공")
+        console.log("마커 생성 시작")
+        for(var i = 0; i < initial_array.length; i++){ 
+            console.log(i+"번째 마커 생성하기")
+            marker = new Tmapv2.Marker(
+                {
+                    position: new Tmapv2.LatLng(initial_array[i].latitude, initial_array[i].longtitude),
+                    /*icon: initial_array[i].image0,*/
+                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+                    iconSize: new Tmapv2.Size(image_width, image_height),
+                    map: map
+                }
+            );
+            initial_array_marker.push(marker);
+            console.log(initial_array)
+            console.log(initial_array_marker);
+        }; 
+
+        initial_array_marker.forEach(async function (item, i) {
+            initial_array_marker[i].addListener('click', function(evt){ 
+                console.log("marker 클릭");
+                console.log(initial_array[0])
+                console.log(i)
+                real_latitude = initial_array[i].latitude;
+                real_longitude = initial_array[i].longtitude;
+                $("#markerid").trigger("click");
+            });
+        })
+    })
 
     // 2. 리뷰 마커 찍기
 

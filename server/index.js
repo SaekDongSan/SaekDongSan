@@ -273,3 +273,14 @@ app.post('/liked', function (req, res) {
     }
 
 });
+
+app.get('/total', function (req, res) {
+    console.log("도착");
+    Posting.find({}, function (err, data) {
+        if (!data) { console.log("전체 데이터 못읽어옴") }
+        else {
+            res.send(data);
+            console.log("전체 데이터 보냄");
+        }
+    })
+})
