@@ -84,7 +84,7 @@
 					<i class="fa fa-chevron-down"></i>
 				</div>
 			</div>
-			<div id="options">
+			<div id="options" >
 				<div class="option" id="tree">
 					<input class="s-c top" type="radio" name="platform" value="tree">
 					<input class="s-c bottom" type="radio" name="platform" value="tree">
@@ -124,8 +124,8 @@
 			</div>
 		</div>
 		<!-- </label> -->
-		<button type=submit id="category_select" onclick="getlocation()">적용하기</button>
-		<button type=submit id="want_select">산책 코스</button>
+		<button type=submit class = "btn green2 mini" id="category_select" onclick="getlocation()">적용하기</button>
+		<button type=submit class = "btn cyan mini"id="want_select">산책 코스</button>
 	</div>
 
 	<!-- 지도 -->
@@ -139,7 +139,7 @@
 		<div>
 			<p id="result"></p>
 
-			<div class="app-cover">
+			<div class="app-cover" id = "course">
 				<div id="trailbox">
 					<input type="checkbox" id="options-view-button">
 					<div id="select-button1" class="brd">
@@ -185,7 +185,7 @@
 				</div>
 			</div>
 
-			<button id="course_select" style="width:130px;height:30px;">적용하기</button>
+			<button id="course_select" class = "btn red mini">적용하기</button>
 		</div>
 
 		<div id="map_wrap" class="map_wrap">

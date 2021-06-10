@@ -83,7 +83,7 @@ function initTmap(position) {
         width: "100%",
         height: "100%",
         zoom: 15,
-        zoomControl: true,
+        zoomControl: false,
         scrollwheel: true,
     });
     marker_s = new Tmapv2.Marker(
