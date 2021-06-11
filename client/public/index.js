@@ -370,245 +370,344 @@ function initTmap(position) {
                 }
             }
 
-
-            for (var i = 0; i < 5; i++) {
-                old_place[i][0] = likes_order[i].latitude;
-                old_place[i][1] = likes_order[i].longtitude;
-                old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
-                console.log(String(i), '번째');
-                console.log(old_place[i][0]);
-                console.log(old_place[i][1]);
-                console.log(old_place[i][2]);
-
-            }
-
-            // 장소 배열 정렬
-            old_place.sort(function (a, b) {
-                if (a[1] > b[1]) {
-                    return -1;
-                } else return 1;
-            })
-
-            var place = [];
-
-            place.push(old_place[0]);
-
-            var push;
-            var isPush = false;
-            var distance = 0;
-            var next = old_place[0];
-            for (var i = 1; i < old_place.length; i++) {
-
-
-                for (var j = 1; j < old_place.length; j++) {
-                    // 지금 비교하려는 위치가 새 배열 place에 없을 때
-                    if (place.includes(old_place[j]) == false) {
-
-                        // 직선거리 구하기
-                        var dis_0 = old_place[j][0] - next[0];
-                        var dis_1 = old_place[j][1] - next[1];
-                        var new_distance = Math.sqrt(Math.abs(dis_0 * dis_0) + Math.abs(dis_1 * dis_1));
-
-                        // 새로 시작하거나 직선거리가 기존 거리보다 더 작을 때
-                        if ((distance == 0) || (new_distance < distance)) {
-                            distance = new_distance;
-                            push = old_place[j];
-                            isPush = true;
-                        }
-                    }
+            if(likes_order.length < 5){
+                alert("리뷰 장소가 5개 미만입니다.")
+                for (var i = 0; i < likes_order.length; i++){
+                    old_place[i][0] = likes_order[i].latitude;
+                    old_place[i][1] = likes_order[i].longtitude;
+                    old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
                 }
 
-                // push를 place에 넣어주자
-                if (isPush && (place.includes(push) == false)) { place.push(push); }
-                else if (i == 5) { place.push(old_place[j]); }
-                distance = 0;
-                isPush = false;
-                next = push
-            }
+                 // 장소 배열 정렬
+                 old_place.sort(function (a, b) {
+                    if (a[1] > b[1]) {
+                        return -1;
+                    } else return 1;
+                })
 
-            for (var i = 0; i < place.length; i++) {
-                console.log(place[i][0]);
-                console.log(place[i][1]);
-                console.log(place[i][2]);
-            }
+                var place = [];
 
-            // 2. 시작, 도착 심볼찍기
-            // 시작하기 전 초기화
+                place.push(old_place[0]);
 
-            // 시작
-            place.forEach(async function (item, i) {
-                marker = new Tmapv2.Marker(
-                    {
-                        position: new Tmapv2.LatLng(place[i][0], place[i][1]),
-                        icon: place[i][2],
-                        iconSize: new Tmapv2.Size(image_width, image_height),
-                        map: map
+                var push;
+                var isPush = false;
+                var distance = 0;
+                var next = old_place[0];
+                for (var i = 1; i < old_place.length; i++) {
+
+
+                    for (var j = 1; j < old_place.length; j++) {
+                        // 지금 비교하려는 위치가 새 배열 place에 없을 때
+                        if (place.includes(old_place[j]) == false) {
+
+                            // 직선거리 구하기
+                            var dis_0 = old_place[j][0] - next[0];
+                            var dis_1 = old_place[j][1] - next[1];
+                            var new_distance = Math.sqrt(Math.abs(dis_0 * dis_0) + Math.abs(dis_1 * dis_1));
+
+                            // 새로 시작하거나 직선거리가 기존 거리보다 더 작을 때
+                            if ((distance == 0) || (new_distance < distance)) {
+                                distance = new_distance;
+                                push = old_place[j];
+                                isPush = true;
+                            }
+                        }
+                    }
+
+                    // push를 place에 넣어주자
+                    if (isPush && (place.includes(push) == false)) { place.push(push); }
+                    else if (i == 5) { place.push(old_place[j]); }
+                    distance = 0;
+                    isPush = false;
+                    next = push
+                }
+
+                for (var i = 0; i < place.length; i++) {
+                    console.log(place[i][0]);
+                    console.log(place[i][1]);
+                    console.log(place[i][2]);
+                }
+
+                // 2. 시작, 도착 심볼찍기
+                // 시작하기 전 초기화
+
+                // 시작
+                place.forEach(async function (item, i) {
+                    marker = new Tmapv2.Marker(
+                        {
+                            position: new Tmapv2.LatLng(place[i][0], place[i][1]),
+                            icon: place[i][2],
+                            iconSize: new Tmapv2.Size(image_width, image_height),
+                            map: map
+                        });
+                    let m = await save(resultMarkerArr, marker);
+                    m.getElement().setAttribute('class', 'markerimg');
+                })
+
+                resultMarkerArr.forEach(async function (item, i) {
+                    resultMarkerArr[i].addListener('click', function (evt) {
+                        console.log('resultMarkerArr', resultMarkerArr);
+                        console.log("marker 클릭");
+                        positionofend = resultMarkerArr[i].getPosition();
+                        positionofend._lat = place[i][0];
+                        positionofend._lng = place[i][1];
+                        console.log("position:" + positionofend)
+                        real_latitude = positionofend._lat;
+                        real_longitude = positionofend._lng;
+                        $("#markerid").trigger("click");
                     });
-                let m = await save(resultMarkerArr, marker);
-                m.getElement().setAttribute('class', 'markerimg');
-            })
+                })
 
-            resultMarkerArr.forEach(async function (item, i) {
-                resultMarkerArr[i].addListener('click', function (evt) {
-                    console.log('resultMarkerArr', resultMarkerArr);
-                    console.log("marker 클릭");
-                    positionofend = resultMarkerArr[i].getPosition();
-                    positionofend._lat = place[i][0];
-                    positionofend._lng = place[i][1];
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
-                });
-            })
-            // 중심좌표로 지도 이동..
-            /*
-            var lat = (place[4][0] + place[0][0])/2;
-            var lon = (place[4][1] + place[0][1])/2;
-            tMapView.setCenterPoint(lon, lat);
-            */
+                document.getElementById('course_select').onclick = function () {
+                    place=[];
+                }
+            }
+            else{
 
-            var routeLayer;
-            // 최단~~ 적용 클릭 시 
+                
 
-            document.getElementById('course_select').onclick = function () {
-
-                if (marker_start.length > 0) {
-                    for (var i in marker_start) {
-                        marker_start[i]
-                            .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
-
-                    }
+                for (var i = 0; i < 5; i++) {
+                                
+                    old_place[i][0] = likes_order[i].latitude;
+                    old_place[i][1] = likes_order[i].longtitude;
+                    old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
+                    console.log(String(i), '번째');
+                    console.log(old_place[i][0]);
+                    console.log(old_place[i][1]);
+                    console.log(old_place[i][2]);
+                     
 
                 }
+            
 
-                $.ajax({
-                    method: "POST",
-                    url: "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result",
-                    async: false,
-                    data: {
+                // 장소 배열 정렬
+                old_place.sort(function (a, b) {
+                    if (a[1] > b[1]) {
+                        return -1;
+                    } else return 1;
+                })
 
-                        "appKey": "l7xxdb5dae09f39444cb9c87fd5289236e24",
-                        "startX": String(place[0][1]),
-                        "startY": String(place[0][0]),
-                        "endX": String(place[4][1]),
-                        "endY": String(place[4][0]),
+                var place = [];
 
-                        // 경유지
-                        "passList":
-                            String(place[1][1]) + "," + String(place[1][0])
-                            + "_" + String(place[2][1]) + "," + String(place[2][0])
-                            + "_" + String(place[3][1]) + "," + String(place[3][0]),
+                place.push(old_place[0]);
 
-                        "reqCoordType": "WGS84GEO",
-                        "resCoordType": "EPSG3857",
+                var push;
+                var isPush = false;
+                var distance = 0;
+                var next = old_place[0];
+                for (var i = 1; i < old_place.length; i++) {
 
-                        "startName": "출발지",
-                        "endName": "도착지",
-                        "searchOption": searchOption
 
-                    },
-                    success: function (response) {
-                        var resultData = response.features;
+                    for (var j = 1; j < old_place.length; j++) {
+                        // 지금 비교하려는 위치가 새 배열 place에 없을 때
+                        if (place.includes(old_place[j]) == false) {
 
-                        //결과 출력
-                        var tDistance = "총 거리 : "
-                            + ((resultData[0].properties.totalDistance) / 1000)
-                                .toFixed(1) + "km,";
-                        var tTime = " 총 시간 : "
-                            + ((resultData[0].properties.totalTime) / 60)
-                                .toFixed(0) + "분";
+                            // 직선거리 구하기
+                            var dis_0 = old_place[j][0] - next[0];
+                            var dis_1 = old_place[j][1] - next[1];
+                            var new_distance = Math.sqrt(Math.abs(dis_0 * dis_0) + Math.abs(dis_1 * dis_1));
 
-                        document.querySelector('#result').style.visibility = 'visible';
-                        $("#result").text(tDistance + tTime);
-
-                        //기존 그려진 라인 & 마커가 있다면 초기화
-                        if (resultdrawArr.length > 0) {
-                            for (var i in resultdrawArr) {
-                                resultdrawArr[i]
-                                    .setMap(null);
+                            // 새로 시작하거나 직선거리가 기존 거리보다 더 작을 때
+                            if ((distance == 0) || (new_distance < distance)) {
+                                distance = new_distance;
+                                push = old_place[j];
+                                isPush = true;
                             }
-                            resultdrawArr = [];
+                        }
+                    }
+
+                    // push를 place에 넣어주자
+                    if (isPush && (place.includes(push) == false)) { place.push(push); }
+                    else if (i == 5) { place.push(old_place[j]); }
+                    distance = 0;
+                    isPush = false;
+                    next = push
+                }
+
+                for (var i = 0; i < place.length; i++) {
+                    console.log(place[i][0]);
+                    console.log(place[i][1]);
+                    console.log(place[i][2]);
+                }
+
+                // 2. 시작, 도착 심볼찍기
+                // 시작하기 전 초기화
+
+                // 시작
+                place.forEach(async function (item, i) {
+                    marker = new Tmapv2.Marker(
+                        {
+                            position: new Tmapv2.LatLng(place[i][0], place[i][1]),
+                            icon: place[i][2],
+                            iconSize: new Tmapv2.Size(image_width, image_height),
+                            map: map
+                        });
+                    let m = await save(resultMarkerArr, marker);
+                    m.getElement().setAttribute('class', 'markerimg');
+                })
+
+                resultMarkerArr.forEach(async function (item, i) {
+                    resultMarkerArr[i].addListener('click', function (evt) {
+                        console.log('resultMarkerArr', resultMarkerArr);
+                        console.log("marker 클릭");
+                        positionofend = resultMarkerArr[i].getPosition();
+                        positionofend._lat = place[i][0];
+                        positionofend._lng = place[i][1];
+                        console.log("position:" + positionofend)
+                        real_latitude = positionofend._lat;
+                        real_longitude = positionofend._lng;
+                        $("#markerid").trigger("click");
+                    });
+                })
+                // 중심좌표로 지도 이동..
+                /*
+                var lat = (place[4][0] + place[0][0])/2;
+                var lon = (place[4][1] + place[0][1])/2;
+                tMapView.setCenterPoint(lon, lat);
+                */
+
+                var routeLayer;
+                // 최단~~ 적용 클릭 시 
+
+                document.getElementById('course_select').onclick = function () {
+
+                    if (marker_start.length > 0) {
+                        for (var i in marker_start) {
+                            marker_start[i]
+                                .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
                         }
 
-                        drawInfoArr = [];
-
-                        for (var i in resultData) { //for문 [S]
-                            var geometry = resultData[i].geometry;
-                            var properties = resultData[i].properties;
-                            var polyline_;
-
-
-                            if (geometry.type == "LineString") {
-                                for (var j in geometry.coordinates) {
-                                    // 경로들의 결과값(구간)들을 포인트 객체로 변환 
-                                    var latlng = new Tmapv2.Point(
-                                        geometry.coordinates[j][0],
-                                        geometry.coordinates[j][1]);
-                                    // 포인트 객체를 받아 좌표값으로 변환
-                                    var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-                                        latlng);
-                                    // 포인트객체의 정보로 좌표값 변환 객체로 저장
-                                    var convertChange = new Tmapv2.LatLng(
-                                        convertPoint._lat,
-                                        convertPoint._lng);
-                                    // 배열에 담기
-                                    drawInfoArr.push(convertChange);
-                                }
-                            } else {
-                                var markerImg = "";
-                                var pType = "";
-                                var size = "";
-
-                                if (properties.pointType == "S") { //출발지 마커
-                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
-                                    pType = "S";
-                                    size = new Tmapv2.Size(24, 38);
-                                } else if (properties.pointType == "E") { //도착지 마커
-                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
-                                    pType = "E";
-                                    size = new Tmapv2.Size(24, 38);
-                                } else if (properties.pointType == "P") { //경유지 마커
-                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png";
-                                    pType = "P";
-                                    size = new Tmapv2.Size(24, 38);
-                                } else { //각 포인트 마커
-                                    markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-                                    pType = "P";
-                                    size = new Tmapv2.Size(8, 8);
-                                }
-
-                                // 경로들의 결과값들을 포인트 객체로 변환 
-                                var latlon = new Tmapv2.Point(
-                                    geometry.coordinates[0],
-                                    geometry.coordinates[1]);
-
-                                // 포인트 객체를 받아 좌표값으로 다시 변환
-                                var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-                                    latlon);
-
-                                var routeInfoObj = {
-                                    markerImage: markerImg,
-                                    lng: convertPoint._lng,
-                                    lat: convertPoint._lat,
-                                    pointType: pType
-
-                                };
-
-
-                            }
-                        }//for문 [E]
-                        drawLine(drawInfoArr);
-                    },
-                    error: function (request, status, error) {
-                        console.log("code:" + request.status + "\n"
-                            + "message:" + request.responseText + "\n"
-                            + "error:" + error);
                     }
-                });
+
+                    $.ajax({
+                        method: "POST",
+                        url: "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result",
+                        async: false,
+                        data: {
+
+                            "appKey": "l7xxdb5dae09f39444cb9c87fd5289236e24",
+                            "startX": String(place[0][1]),
+                            "startY": String(place[0][0]),
+                            "endX": String(place[4][1]),
+                            "endY": String(place[4][0]),
+
+                            // 경유지
+                            "passList":
+                                String(place[1][1]) + "," + String(place[1][0])
+                                + "_" + String(place[2][1]) + "," + String(place[2][0])
+                                + "_" + String(place[3][1]) + "," + String(place[3][0]),
+
+                            "reqCoordType": "WGS84GEO",
+                            "resCoordType": "EPSG3857",
+
+                            "startName": "출발지",
+                            "endName": "도착지",
+                            "searchOption": searchOption
+
+                        },
+                        success: function (response) {
+                            var resultData = response.features;
+
+                            //결과 출력
+                            var tDistance = "총 거리 : "
+                                + ((resultData[0].properties.totalDistance) / 1000)
+                                    .toFixed(1) + "km,";
+                            var tTime = " 총 시간 : "
+                                + ((resultData[0].properties.totalTime) / 60)
+                                    .toFixed(0) + "분";
+
+                            document.querySelector('#result').style.visibility = 'visible';
+                            $("#result").text(tDistance + tTime);
+
+                            //기존 그려진 라인 & 마커가 있다면 초기화
+                            if (resultdrawArr.length > 0) {
+                                for (var i in resultdrawArr) {
+                                    resultdrawArr[i]
+                                        .setMap(null);
+                                }
+                                resultdrawArr = [];
+                            }
+
+                            drawInfoArr = [];
+
+                            for (var i in resultData) { //for문 [S]
+                                var geometry = resultData[i].geometry;
+                                var properties = resultData[i].properties;
+                                var polyline_;
 
 
-            };
+                                if (geometry.type == "LineString") {
+                                    for (var j in geometry.coordinates) {
+                                        // 경로들의 결과값(구간)들을 포인트 객체로 변환 
+                                        var latlng = new Tmapv2.Point(
+                                            geometry.coordinates[j][0],
+                                            geometry.coordinates[j][1]);
+                                        // 포인트 객체를 받아 좌표값으로 변환
+                                        var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+                                            latlng);
+                                        // 포인트객체의 정보로 좌표값 변환 객체로 저장
+                                        var convertChange = new Tmapv2.LatLng(
+                                            convertPoint._lat,
+                                            convertPoint._lng);
+                                        // 배열에 담기
+                                        drawInfoArr.push(convertChange);
+                                    }
+                                } else {
+                                    var markerImg = "";
+                                    var pType = "";
+                                    var size = "";
+
+                                    if (properties.pointType == "S") { //출발지 마커
+                                        markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
+                                        pType = "S";
+                                        size = new Tmapv2.Size(24, 38);
+                                    } else if (properties.pointType == "E") { //도착지 마커
+                                        markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
+                                        pType = "E";
+                                        size = new Tmapv2.Size(24, 38);
+                                    } else if (properties.pointType == "P") { //경유지 마커
+                                        markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png";
+                                        pType = "P";
+                                        size = new Tmapv2.Size(24, 38);
+                                    } else { //각 포인트 마커
+                                        markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+                                        pType = "P";
+                                        size = new Tmapv2.Size(8, 8);
+                                    }
+
+                                    // 경로들의 결과값들을 포인트 객체로 변환 
+                                    var latlon = new Tmapv2.Point(
+                                        geometry.coordinates[0],
+                                        geometry.coordinates[1]);
+
+                                    // 포인트 객체를 받아 좌표값으로 다시 변환
+                                    var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+                                        latlon);
+
+                                    var routeInfoObj = {
+                                        markerImage: markerImg,
+                                        lng: convertPoint._lng,
+                                        lat: convertPoint._lat,
+                                        pointType: pType
+
+                                    };
+
+
+                                }
+                            }//for문 [E]
+                            drawLine(drawInfoArr);
+                        },
+                        error: function (request, status, error) {
+                            console.log("code:" + request.status + "\n"
+                                + "message:" + request.responseText + "\n"
+                                + "error:" + error);
+                        }
+                    });
+
+
+                };
+            }
 
             function addComma(num) {
                 var regexp = /\B(?=(\d{3})+(?!\d))/g;
