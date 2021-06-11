@@ -93,7 +93,7 @@ body{
 }
 
 #sign_out a{
-    font-family:sans-serif;
+    font-family: 'Yeon Sung', cursive;
     font-size:10pt;
     padding: 5px;
     color: black;
@@ -153,10 +153,7 @@ font-size : 15px;
     background-color: rgb(255, 255, 227);
 }
 
-.modal-title{
-    font-size: 22px;
-    text-shadow : 1px 1px rgb(52, 51, 16);
-}
+
 
 
 .modal-body{
@@ -802,4 +799,81 @@ input[type="radio"]
   background-color: #143240;
   border-radius: 4px;
   box-shadow: 0 10px 20px -5px rgba(20, 50, 64, 0.76);
+}
+
+
+
+
+/* 댓글창 */
+.mb-3{
+    margin : 5px;
+}
+.form-label{
+    margin: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Yeon Sung', cursive;
+}
+.form-control{
+    font-family: 'Yeon Sung', cursive;
+}
+.done{
+    margin: 5px;
+    width : 100px;
+    height : 40px;
+    font-family: 'Yeon Sung', cursive;
+}
+
+.titlesss{
+     margin: 5px;
+    font-size : 30px;
+    font-family: 'Yeon Sung', cursive;
+    font-weight: bold;
+}
+.writer{
+     margin: 5px;
+    font-size : 20px;
+    font-family: 'Yeon Sung', cursive;
+}
+.posting_photo{
+   margin: 5px;
+}
+
+.btn{
+    color :rgb(52, 51, 16);
+    font-family: 'Yeon Sung', cursive;
+}
+span{
+     font-family: 'Yeon Sung', cursive;
+}
+.information .ptime, .pcategory{
+    margin: 5px;
+    display: inline-block;
+    font-size : 17px;
+    font-family: 'Yeon Sung', cursive;
+}
+.pcategory{
+    color :rgb(178, 134, 255)
+}
+.pcomment{
+    margin: 5px;
+    font-family: 'Yeon Sung', cursive;
+    font-size: 22px;
+    margin: 5px;
+}
+.showcomment{
+    margin: 5px;
+    font-family: 'Yeon Sung', cursive;
+}
+#getpathfromcurr{
+    opacity: 50%;
+}
+#getpathfromnew{
+    opacity: 50%;
+}
+
+.modal-title{
+    font-family: 'Yeon Sung', cursive;
+    font-size: 22px;
+    text-shadow : 1px 1px rgb(52, 51, 16);
 }

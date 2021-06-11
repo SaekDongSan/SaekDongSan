@@ -443,9 +443,9 @@ function add(num) {
     let writer = userInfo.name.toString();
     console.log(writer);
     $(`#exampleFormControlTextarea1${num}`).val('');
-    html2 += `<div id="euser">${writer}</div>
-                        <div id="etime">${time}</div> 
-                        <div id="ecomment">${comment}</div>`;
+    html2 += `<div class="euser">${writer}</div>
+                        <div class="etime">${time}</div> 
+                        <div class="ecomment">${comment}</div>`;
 
     html1 += html2
     document.getElementById(`show_comment${num}`).innerHTML = html1;
