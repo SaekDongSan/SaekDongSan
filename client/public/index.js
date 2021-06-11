@@ -141,27 +141,29 @@ function initTmap(position) {
     }).done(function () {
         console.log("성공")
         console.log("마커 생성 시작")
-        for(var i = 0; i < initial_array.length; i++){ 
+        initial_array.forEach(async function (item, i) {
             console.log(i+"번째 마커 생성하기")
             marker = new Tmapv2.Marker(
                 {
                     position: new Tmapv2.LatLng(initial_array[i].latitude, initial_array[i].longtitude),
-                    /*icon: initial_array[i].image0,*/
-                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+                    icon: "http://localhost:3000/uploads/" + initial_array[i].image0,
+                    /*icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",*/
                     iconSize: new Tmapv2.Size(image_width, image_height),
                     map: map
                 }
             );
-            initial_array_marker.push(marker);
+            let m = await save(initial_array_marker, marker);
+            m.getElement().setAttribute('class', 'markerimg');
             console.log(initial_array)
             console.log(initial_array_marker);
-        }; 
+        }) 
 
         initial_array_marker.forEach(async function (item, i) {
             initial_array_marker[i].addListener('click', function(evt){ 
                 console.log("marker 클릭");
                 console.log(initial_array[0])
                 console.log(i)
+                positionofend = initial_array_marker[i].getPosition();
                 real_latitude = initial_array[i].latitude;
                 real_longitude = initial_array[i].longtitude;
                 $("#markerid").trigger("click");
@@ -403,7 +405,7 @@ function initTmap(position) {
                     m.getElement().setAttribute('class', 'markerimg');
                 })
 
-                for (let i = 0; i < resultMarkerArr.length; i++) {
+                resultMarkerArr.forEach(async function (item, i) {
                     resultMarkerArr[i].addListener('click', function (evt) {
                         console.log('resultMarkerArr', resultMarkerArr);
                         console.log("marker 클릭");
@@ -413,7 +415,7 @@ function initTmap(position) {
                         real_longitude = positionofend._lng;
                         $("#markerid").trigger("click");
                     });
-                }
+                })
                 // 중심좌표로 지도 이동..
                 /*
                 var lat = (place[4][0] + place[0][0])/2;
