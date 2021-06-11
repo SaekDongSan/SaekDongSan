@@ -16,12 +16,12 @@ $(document).ready(function () {
 })
 function selectedd(event) {
     selected = event.target.value;
-    $("input[class=zero]").trigger("click");
+    $("#options-view-button").trigger("click");
 }
 
 function selectedd1(event) {
     searchOption = event.target.value;
-    $("input[class=one]").trigger("click");
+    $("#options-view-button-path").trigger("click");
 }
 
 // data[i].latitude
@@ -662,7 +662,8 @@ function initTmap(position) {
                                 var tTime = " 총 시간 : "
                                     + ((resultData[0].properties.totalTime) / 60)
                                         .toFixed(0) + "분";
-
+                                      
+                                document.getElementById("result").style.display = 'block';
                                 $("#result").text(tDistance + tTime);
 
                                 //기존 그려진 라인 & 마커가 있다면 초기화

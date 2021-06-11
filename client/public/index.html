@@ -57,14 +57,10 @@
 	</div>
 	<div class="weather"></div>
 
-	<!-- 로그인기능 -->
-	<!-- 메뉴 버튼 -->
-	<!-- <button type="button" id="menu_btn" data-bs-toggle="modal" class = "btn yellow mini circle" data-bs-target="#staticBackdrop1"><span>≡</span></button> -->
-
 	<!-- 리뷰추가버튼 -->
-	<button type="button" id="review_plus" data-bs-toggle="modal" class="btn purple mini circle"
+	<button type="button" id="review_plus" data-bs-toggle="modal" class="btn yellow mini circle"
 		data-bs-target="#staticBackdrop1"><span>+</span></button>
-	<button type="button" id="marker" data-bs-toggle="modal" class="btn yellow mini circle"
+	<button type="button" id="marker" data-bs-toggle="modal" class="btn purple mini circle"
 		data-bs-target="#exampleModal">
 		<span>≡</span>
 	</button>
@@ -130,8 +126,8 @@
 			</div>
 		</div>
 		<!-- </label> -->
-		<button type=submit id="category_select">적용하기</button>
-		<button type=submit id="want_select">산책 코스</button>
+		<button type=submit  class = "btn red mapbtn" id="category_select">적용</button>
+		<button type=submit class = "btn green2 mapbtn" id="want_select">추천 코스</button>
 	</div>
 
 	<!-- 지도 -->
@@ -143,21 +139,19 @@
 		<div class="clear"></div>
 		</div>
 		<div>
-			<p id="result"></p>
-
 			<div class="app-cover">
 				<div id="trailbox">
-					<input class="one" id="options-view-button" type="checkbox">
-					<div id="select-button" class="brd">
-						<div id="selected-value">
+					<input class="zero" id="options-view-button-path" type="checkbox">
+					<div id="select-button-path" class="brd">
+						<div id="selected-value-path">
 							<span>경로속성</span>
 						</div>
-						<div id="chevrons">
+						<div id="chevrons-path">
 							<i class="fa fa-chevron-up"></i>
 							<i class="fa fa-chevron-down"></i>
 						</div>
 					</div>
-					<div id="options">
+					<div id="options-path">
 						<div class="option" id="one">
 							<input class="s-c top" type="radio" name="platform" value="0">
 							<input class="s-c bottom" type="radio" name="platform" value="0">
@@ -186,19 +180,19 @@
 							<span class="label">최단거리+계단제외</span>
 							<span class="opt-val">최단거리+계단제외</span>
 						</div>
-						<div id="option-bg"></div>
+						<div id="option-bg-path"></div>
 					</div>
 				</div>
-			</div>
+				<button class ="btn cyan mapbtn" id="course_select">적용</button>
 
-			<button id="course_select">적용하기</button>
 		</div>
+
 
 		<div id="map_wrap" class="map_wrap">
 			<div id="map_div"></div>
 		</div>
 		<div class="map_act_btn_wrap clear_box"></div>
-		<p id="result"></p>
+		<p id="result" style = "display : none;"></p>
 
 
 		<!-- Modal -->
@@ -294,23 +288,25 @@
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<div class="modal-content loginWindow">
+					<div class="modal-header loginbn">
+						<h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
 					</div>
 					<div class="modal-body">
 						<div class="login">
 							로그인을 위해 버튼을 눌러주세요<br>
-							<div class="g-signin2" data-onsuccess="onSignIn" style="width:200px; height:50px;">
+							<div class="g-signin2 loginbtn" data-onsuccess="onSignIn" style="width:200px; height:50px;">
 							</div>
-							<br><br>
+							<hr>
 							로그아웃을 위해 링크를 눌러주세요<br>
-							<div id="sign_out"><a href="#" class="signingout" onclick="signOut();">Sign out</a></div>
+							<div class="signout loginbtn">
+								<a href="#" id="sign_out" onclick="signOut();">
+									<div style="height:50px;width:200px;" class="abcRioButton abcRioButtonLightBlue"><div class="abcRioButtonContentWrapper"><div class="abcRioButtonIcon" style="padding:15px"><div style="width:18px;height:18px;" class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg></div></div><span style="font-size:16px;line-height:48px;" class="abcRioButtonContents"><span id="not_signed_in2p86pc9clc2o">Sign out</span><span id="connected2p86pc9clc2o" style="display:none">Signed in</span></span></div></div>
+								</a></div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn purple loginbn" data-bs-dismiss="modal">CLOSE</button>
 					</div>
 				</div>
 			</div>

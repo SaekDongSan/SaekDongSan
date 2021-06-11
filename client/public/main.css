@@ -30,6 +30,7 @@ body{
     align-items: center;
     width : 100%;
     height : 100%;
+    /* position:relative */
     
 }
 
@@ -78,13 +79,11 @@ body{
   bottom : 115px;
   right : 10px;
   z-index: 999;
-}
-#review_plus span{
-    position:relative;
-    top:-5px;
+  line-height: 0.8;
+  padding-bottom:8px;
 }
 
-#markerid{
+#marker{
     bottom : 50px;
     right : 10px;
     z-index: 999;
@@ -93,7 +92,7 @@ body{
 }
 
 #sign_out a{
-    font-family: 'Yeon Sung', cursive;
+    font-family:sans-serif;
     font-size:10pt;
     padding: 5px;
     color: black;
@@ -115,8 +114,8 @@ body{
 .btn.blue     {background-color: #7fb1bf;}
 .btn.green2 {background-color: #d7f75a;}
 .btn.red      {background-color: #ffb2b2;}
-.btn.purple {background-color: #cb99c5;}
-.btn.cyan    {background-color: #7fccde;}
+.btn.purple {background-color: #c9a6d0;}
+.btn.cyan    {background-color: #a6ecfb;}
 .btn.yellow {background-color: #f0d264;}
 .btn.btn.white {background-color: #ffffff;}
 .btn.green {background-color: #f8ffdd;}
@@ -144,16 +143,15 @@ background: rgb(247, 221, 255);
 height : 30px;
 font-size : 15px;
 }
-/* option{
-    height: 30px;
-    font-size : 15px;
-} */
 
 .modal-header{
     background-color: rgb(255, 255, 227);
 }
 
-
+.modal-title{
+    font-size: 22px;
+    text-shadow : 1px 1px rgb(52, 51, 16);
+}
 
 
 .modal-body{
@@ -254,14 +252,16 @@ textarea{
 
 
 #result{
-    background-color: rgb(229, 253, 74);
+    width:300px;
+    text-align: center;
+    background-color: rgb(253, 181, 74);
     color : rgb(96, 86, 86);
     position : absolute;
     z-index : 999;
     padding : 5px;
     border-radius : 10px;
-    top:60px;
-    left : 20px;
+    top:120px;
+    left : 10px;
 }
 
 
@@ -280,30 +280,11 @@ textarea{
     position: relative;
 }
 
-#trailbox{
-    position: absolute;
-    bottom : -400px;
-    z-index: 0;
-}
-
 
 .brd
 {
     border: 1px solid #e2eded;
     border-color: #eaf1f1 #e4eded #dbe7e7 #e4eded;
-}
-
-#info
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    color: #2d3667;
-    font-size: 16px;
-    text-align: center;
-    padding: 14px;
-    background-color: #f3f9f9;
 }
 
 .app-cover{
@@ -323,40 +304,41 @@ textarea{
     height: 30px;
     padding: 12px 14px;
     background-color: #fff;
-    border-radius: 4px;
+    border : 0;
+    border : 2px solid black;
+    border-radius : 10px;
     cursor: pointer;
 }
 
-#course_select{
-    position:  relative;
-    top: 470px;
-    right: 100px;
-    left: 0;
-}
 
 #category_select{
-    position: relative;
-    top: -30px;
-    right: 0;
-    left: 210px;
+    position: absolute;
+    top: 0px;
+    right: -60px;
+    background-color: rgb(255, 174, 174);
+    color:black;
+    width : 50px;
 }
 
 
 #want_select{
-    position: relative;
-    top: -30px;
-    right: 0;
-    left: 215px;
+    position: absolute;
+    top: 0px;
+    right: -150px;
 }
 
-#select-button1
-{
-    position: relative;
-    height: 30px;
-    padding: 12px 14px;
-    background-color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
+#course_select{
+    position: absolute;
+    top: 40px;
+    right: -60px;
+    width : 50px;
+}
+
+.mapbtn{
+    width : 60px;
+    font-size: 14px;
+    width : 80px;
+    padding:2px 0px 2px 0px;
 }
 
 .zero
@@ -374,42 +356,7 @@ textarea{
     z-index: 3;
 }
 
-.one
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width:10%;
-    height: 100%;
-    margin: 0;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 3;
-}
 
-
-.weather {
-    text-align: center;
-    position:relative;
-    margin: 10px;
-    width: 300px;
-    height: 30px;
-    background:pink;
-    border-radius: 10px;
-    font-family: 'Yeon Sung', cursive;
-}
-.weather:after {
- border-top:0px solid transparent;
- border-left: 10px solid transparent;
- border-right: 10px solid transparent;
- border-bottom: 10px solid pink;
- content:"";
- position:absolute;
- top:-10px;
- left:200px;
-}
 
 #selected-value
 {
@@ -473,6 +420,7 @@ textarea{
     margin: 0 auto;
     background-color: #fff;
     border-radius: 4px;
+    z-index : 999;
 }
 
 #options-view-button:checked ~ #options
@@ -588,16 +536,7 @@ input[type="radio"]
     transition: 0.3s ease all;
 }
 
-.opt-val
-{
-    position: absolute;
-    left: 14px;
-    width: 150px;
-    height: 21px;
-    opacity: 0;
-    background-color: #fff;
-    transform: scale(0);
-}
+
 
 .option input[type="radio"]:checked ~ .opt-val
 {
@@ -631,7 +570,7 @@ input[type="radio"]
 
 #options-view-button:not(:checked) ~ #options .option input[type="radio"]:checked ~ .opt-val
 {
-    top: -30px;
+    top: -35px;
 }
 
 .option:nth-child(1) input[type="radio"]:checked ~ .label:before
@@ -693,7 +632,7 @@ input[type="radio"]
 
 .option:nth-child(6) input[type="radio"]:checked ~ .opt-val
 {
-    top: -231px;
+    top: -237px;
 }
 
 .option .fa-codepen
@@ -726,6 +665,10 @@ input[type="radio"]
     color: #006400;
 }
 
+
+
+
+
 #option-bg
 {
     position: absolute;
@@ -734,7 +677,6 @@ input[type="radio"]
     left: 0;
     height: 30px;
     transition: 0.3s ease all;
-    z-index: 1;
     display: none;
 }
 
@@ -786,23 +728,242 @@ input[type="radio"]
     border-radius: 0 0 4px 4px;
 }
 
-#ytd-url {
-  display: block;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  padding: 10px 14px;
-  margin: 20px;
-  color: #fff;
-  font-size: 14px;
-  text-decoration: none;
-  background-color: #143240;
-  border-radius: 4px;
-  box-shadow: 0 10px 20px -5px rgba(20, 50, 64, 0.76);
+.opt-val
+{
+    position: absolute;
+    left: 14px;
+    width: 150px;
+    height: 21px;
+    opacity: 0;
+    background-color: #fff;
+    transform: scale(0);
+}
+
+.app-cover #trailbox{
+    position: absolute;
+    top: -60px;
+    right: 150px;
+    left: 0px;
+    width: 100%;
+    height: 22px;
+    margin: 100px auto 0 auto;
+    font-size: 15px;
+    
+}
+
+#trailbox{
+    position : relative;
+}
+
+#select-button-path{
+    position: relative;
+    height: 30px;
+    padding: 12px 14px;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.one
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width:10%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#selected-value-path
+{
+    position : relative;
+    font-size: 16px;
+    line-height: 0.4;
+    height: 30px;
+}
+
+
+#chevrons-path
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 12px;
+    padding-right: 25px;
+}
+
+#chevrons-path i
+{
+    display: block;
+    height: 50%;
+    color: #d1dede;
+    font-size: 12px;
+    text-align: right;
+}
+
+#options-view-button-path:checked + #select-button-path #chevrons-path i
+{
+    color: #2d3667;
+}
+
+#options-path
+{
+    position: absolute;
+    top: 42px;
+    right: 0;
+    left: 0;
+    width: 298px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+#options-view-button-path:checked ~ #options-path
+{
+    border: 1px solid #e2eded;
+    border-color: #eaf1f1 #e4eded #dbe7e7 #e4eded;
 }
 
 
 
+#options-view-button-path:checked ~ #options-path .option i
+{
+    display: block;
+    padding: 12px 0;
+}
+
+
+#options-view-button-path:checked ~ #options-path .label
+{
+    display: block;
+    padding: 12px 14px;    
+}
+
+
+#options-view-button-path:not(:checked) ~ #options-path .option input[type="radio"]:checked ~ .opt-val
+{
+    top: -35px;
+}
+
+
+#option-bg-path
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 30px;
+    transition: 0.3s ease all;
+    z-index: 1;
+    display: none;
+}
+
+#options-view-button-path:checked ~ #options-path #option-bg-path
+{
+    display: block;
+}
+
+.option:nth-child(1):hover ~ #option-bg-path
+{
+    top: 0;
+    background-color: #000;
+    border-radius: 4px 4px 0 0;
+}
+
+.option:nth-child(2):hover ~ #option-bg-path
+{
+    top: 40px;
+    background-color: #ea4c89;
+}
+
+.option:nth-child(3):hover ~ #option-bg-path
+{
+    top: 80px;
+    background-color: #0057ff;
+}
+
+.option:nth-child(4):hover ~ #option-bg-path
+{
+    top: 120px;
+    background-color: #32c766;
+}
+
+.option:nth-child(5):hover ~ #option-bg-path
+{
+    top: 160px;
+    background-color: #f48024;
+}
+
+.option:nth-child(6):hover ~ #option-bg-path
+{
+    top: 200px;
+    background-color: #006400;
+    border-radius: 0 0 4px 4px;
+}
+
+
+.show{
+    background-color: rgba(255, 255, 255, 0);
+ /* background: linear-gradient(to top, rgba(192, 194, 145, 0.551) 40%, rgba(104, 122, 55, 0.571)); */
+}
+
+.loginWindow{
+    position:absolute;
+    top:420px;
+}
+
+.loginbn{
+    background-color: #ccb9e0;
+    color : white;
+    border-radius: 10px;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50%;
+}
+
+.g-signin2{
+    margin-bottom:10px;
+
+}
+.signout{
+    margin-bottom:5px;
+}
+
+.loginbtn{
+    margin-top: 10px;
+}
+
+
+.weather {
+    text-align: center;
+    position:relative;
+    margin: 10px;
+    width: 300px;
+    height: 30px;
+    background:pink;
+    border-radius: 10px;
+    font-family: 'Yeon Sung', cursive;
+}
+.weather:after {
+ border-top:0px solid transparent;
+ border-left: 10px solid transparent;
+ border-right: 10px solid transparent;
+ border-bottom: 10px solid pink;
+ content:"";
+ position:absolute;
+ top:-10px;
+ left:200px;
+}
 
 /* 댓글창 */
 .mb-3{
