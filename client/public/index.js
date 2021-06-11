@@ -89,6 +89,8 @@ function initTmap(position) {
     marker_s.addListener("click", function (evt) {
         console.log("기본 마커 클릭")
         positionofend = marker_s.getPosition();
+        positionofend._lat = position.coords.latitude;
+        positionofend._lng = position.coords.longitude;
         console.log("position:" + positionofend)
         real_latitude = positionofend._lat;
         real_longitude = positionofend._lng;
@@ -164,6 +166,8 @@ function initTmap(position) {
                 console.log(initial_array[0])
                 console.log(i)
                 positionofend = initial_array_marker[i].getPosition();
+                positionofend._lat = initial_array[i].latitude;
+                positionofend._lng = initial_array[i].longtitude;
                 real_latitude = initial_array[i].latitude;
                 real_longitude = initial_array[i].longtitude;
                 $("#markerid").trigger("click");
@@ -189,7 +193,10 @@ function initTmap(position) {
                     category_array[i] = null;
                 })
                 category_array = [];
+                console.log(category_array)
             }
+
+            console.log(category_array)
 
             initial_array.forEach(async function (item, i) {
                 if (initial_array[i].category == selected) {
@@ -201,6 +208,7 @@ function initTmap(position) {
             for (var i = 0; i < old_place.length; i++) {
                 old_place[i] = new Array(3);
             }
+            console.log(old_place)
 
             category_array.forEach(async function (item, i) {
                 old_place[i][0] = category_array[i].latitude;
@@ -252,6 +260,8 @@ function initTmap(position) {
                     console.log('resultMarkerArr', resultMarkerArr);
                     console.log("marker 클릭");
                     positionofend = resultMarkerArr[i].getPosition();
+                    positionofend._lat = old_place[i][0];
+                    positionofend._lng = old_place[i][1];
                     console.log("position:" + positionofend)
                     real_latitude = positionofend._lat;
                     real_longitude = positionofend._lng;
@@ -408,12 +418,14 @@ function initTmap(position) {
             resultMarkerArr.forEach(async function (item, i) {
                 resultMarkerArr[i].addListener('click', function (evt) {
                     console.log('resultMarkerArr', resultMarkerArr);
-                    console.log("marker 클릭");
-                    positionofend = resultMarkerArr[i].getPosition();
-                    console.log("position:" + positionofend)
-                    real_latitude = positionofend._lat;
-                    real_longitude = positionofend._lng;
-                    $("#markerid").trigger("click");
+                        console.log("marker 클릭");
+                        positionofend = resultMarkerArr[i].getPosition();
+                        positionofend._lat = place[i][0];
+                        positionofend._lng = place[i][1];
+                        console.log("position:" + positionofend)
+                        real_latitude = positionofend._lat;
+                        real_longitude = positionofend._lng;
+                        $("#markerid").trigger("click");
                 });
             })
             // 중심좌표로 지도 이동..
@@ -958,7 +970,7 @@ function remove_all() {
 }
 
 // 혹시나 하고 만들었음 -> 아직 사용x
-function show_markers() {
+/*function show_markers() {
     $.post(url + '/category', { category: All }, function (data, status) {
 
         var old_place = new Array(data.length + 1);
@@ -1012,7 +1024,7 @@ function show_markers() {
             });
         }
     });
-}
+}*/
 
 function save(resultMarkerArr, marker) {
     resultMarkerArr.push(marker);
