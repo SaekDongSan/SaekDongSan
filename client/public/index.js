@@ -132,7 +132,7 @@ function initTmap(position) {
                 var position_sub = new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude)
                 distance = position_sub.distanceTo(position_add)
                 console.log(distance)
-                if (distance <= 3000) {
+                if (distance <= 10000) {
                     console.log(data[i])
                     initial_array.push(data[i])
                     console.log("push 했음")
