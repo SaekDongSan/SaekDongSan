@@ -181,10 +181,7 @@ function initTmap(position) {
     // 카테고리 클릭 시
 
     document.getElementById('category_select').onclick = function () {
-        alert("click " + selected);
-
         remove_all();
-        alert("click " + selected);
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
 
@@ -418,14 +415,14 @@ function initTmap(position) {
             resultMarkerArr.forEach(async function (item, i) {
                 resultMarkerArr[i].addListener('click', function (evt) {
                     console.log('resultMarkerArr', resultMarkerArr);
-                        console.log("marker 클릭");
-                        positionofend = resultMarkerArr[i].getPosition();
-                        positionofend._lat = place[i][0];
-                        positionofend._lng = place[i][1];
-                        console.log("position:" + positionofend)
-                        real_latitude = positionofend._lat;
-                        real_longitude = positionofend._lng;
-                        $("#markerid").trigger("click");
+                    console.log("marker 클릭");
+                    positionofend = resultMarkerArr[i].getPosition();
+                    positionofend._lat = place[i][0];
+                    positionofend._lng = place[i][1];
+                    console.log("position:" + positionofend)
+                    real_latitude = positionofend._lat;
+                    real_longitude = positionofend._lng;
+                    $("#markerid").trigger("click");
                 });
             })
             // 중심좌표로 지도 이동..
