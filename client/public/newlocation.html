@@ -113,6 +113,7 @@
                                 newRoadAddr += (' (' + arrResult.buildingName + ') ');
                             }
 
+                            document.querySelector('#result').style.display = 'block';
                             $('#result').text(newRoadAddr);
                             document.querySelector('#result').value = newRoadAddr;
                         },
@@ -135,12 +136,12 @@
 
 <body onload="initTmap();">
     <div id="newWindowForLocation">새로운 위치를 선택해 주세요</div>
-    
+
     <div id="map_wrap" class="map_wrap3">
         <div id="map_div"></div>
     </div>
     <div class="map_act_btn_wrap clear_box"></div>
-    <p id="result"></p>
+    <p id="result" style="display: none;"></p>
     <button type="button" value="완료" onclick="send(document.querySelector('#result').value)" id="complete">선택하기</button>
 </body>
 

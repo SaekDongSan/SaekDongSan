@@ -126,8 +126,8 @@
 			</div>
 		</div>
 		<!-- </label> -->
-		<button type=submit  class = "btn red mapbtn" id="category_select">적용</button>
-		<button type=submit class = "btn green2 mapbtn" id="want_select">추천 코스</button>
+		<button type=submit class="btn red mapbtn" id="category_select">적용</button>
+		<button type=submit class="btn green2 mapbtn" id="want_select">추천 코스</button>
 	</div>
 
 	<!-- 지도 -->
@@ -183,171 +183,210 @@
 						<div id="option-bg-path"></div>
 					</div>
 				</div>
-				<button class ="btn cyan mapbtn" id="course_select">적용</button>
+				<button class="btn cyan mapbtn" id="course_select">적용</button>
 
-		</div>
-
-
-		<div id="map_wrap" class="map_wrap">
-			<div id="map_div"></div>
-		</div>
-		<div class="map_act_btn_wrap clear_box"></div>
-		<p id="result" style = "display : none;"></p>
+			</div>
 
 
-		<!-- Modal -->
-		<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">리뷰 남기기</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
+			<div id="map_wrap" class="map_wrap">
+				<div id="map_div"></div>
+			</div>
+			<div class="map_act_btn_wrap clear_box"></div>
+			<p id="result"></p>
 
-						<form name id="review" action='#' method="post" enctype="multipart/form-data">
-							<div class="locationInput">
-								<div id="reviewLocation" class="little-title">
 
-									리뷰할 위치 :<div class="btn green mini" id="reviewPosition" onclick="openChild()">
-										다른 위치
-										선택하기</div>
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false"
+				tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">리뷰 남기기</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+
+							<form name id="review" action='#' method="post" enctype="multipart/form-data">
+								<div class="locationInput">
+									<div id="reviewLocation" class="little-title">
+
+										리뷰할 위치 :<div class="btn green mini" id="reviewPosition" onclick="openChild()">
+											다른 위치
+											선택하기</div>
+									</div>
+									<div id="current-location"> 현재 위치 주소 </div>
 								</div>
-								<div id="current-location"> 현재 위치 주소 </div>
-							</div>
 
-							<div class="LocationName">
-								<label class="little-title"> 장소 이름<br>
-									<input type="text" name="name" placeholder=" 여러분만의 애칭을 정해주세요!" size=38 required />
-								</label>
-							</div>
-
-
-							<div class="imgInput">
-								<lable class="little-title"> 이미지 파일 업로드 <br>
-									<input name="img[]" type="file" id="photoInput" accept="image/*,video/*" multiple />
-								</lable>
-								<label id="multiple-container"> </label>
-							</div>
+								<div class="LocationName">
+									<label class="little-title"> 장소 이름<br>
+										<input type="text" name="name" placeholder=" 여러분만의 애칭을 정해주세요!" size=38
+											required />
+									</label>
+								</div>
 
 
-							<div class="commentInput">
-								<lable class="little-title"> 감상업로드<br>
-									<textarea cols="40" rows="10" name="comment"
-										placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!" required></textarea>
-								</lable>
-							</div>
+								<div class="imgInput">
+									<lable class="little-title"> 이미지 파일 업로드 <br>
+										<input name="img[]" type="file" id="photoInput" accept="image/*,video/*"
+											multiple />
+									</lable>
+									<label id="multiple-container"> </label>
+								</div>
 
 
-							<div class="categoryInput">
-								<label class="little-title"> 카테고리 :
-									<select name="category" id="category" required>
-										<option value="night" selected> 야경이 좋은 </option>
-										<option value="tree"> 나무가 많은 곳 </option>
-										<option value="calorie"> 칼로리 소비가 많은 곳 </option>
-										<option value="hip"> HIP함이 느껴지는 곳 </option>
-										<option value="thrill"> 스릴 넘치는 곳 </option>
-										<option value="happy"> 행복함을 주는 곳 </option>
-									</select>
-								</label>
-							</div>
+								<div class="commentInput">
+									<lable class="little-title"> 감상업로드<br>
+										<textarea cols="40" rows="10" name="comment"
+											placeholder="여러분이 느낀 이 곳만의 공기, 분위기, 추억등을 자유롭게 글로 남겨주세요!"
+											required></textarea>
+									</lable>
+								</div>
+
+
+								<div class="categoryInput">
+									<label class="little-title"> 카테고리 :
+										<select name="category" id="category" required>
+											<option value="night" selected> 야경이 좋은 </option>
+											<option value="tree"> 나무가 많은 곳 </option>
+											<option value="calorie"> 칼로리 소비가 많은 곳 </option>
+											<option value="hip"> HIP함이 느껴지는 곳 </option>
+											<option value="thrill"> 스릴 넘치는 곳 </option>
+											<option value="happy"> 행복함을 주는 곳 </option>
+										</select>
+									</label>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<input type="reset" id="reset" value="다시 작성" class="btn purple mini">
+							<input type="button" id="posting_submit" value="올리기" class="btn yellow mini">
+						</div>
+						</form>
 					</div>
-					<div class="modal-footer">
-						<input type="reset" id="reset" value="다시 작성" class="btn purple mini">
-						<input type="button" id="posting_submit" value="올리기" class="btn yellow mini">
-					</div>
-					</form>
 				</div>
 			</div>
-		</div>
 
-		<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">리뷰 보기</h5>
-						<button type="button" class="btn-close btn green mini" id="closebtn" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div id="new">
+			<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+				tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">리뷰 보기</h5>
+							<button type="button" class="btn-close btn green mini" id="closebtn" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div id="new">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="button" id="getpathfromnew" class="btn btn-outline-secondary"
+								value="새로운 위치 선택해서 길찾기">
+							<input type="button" id="getpathfromcurr" class="btn btn-outline-info" value="현재 위치에서 길찾기">
 						</div>
 					</div>
-					<div class="modal-footer">
-						<input type="button" id="getpathfromnew" class="btn btn-outline-secondary"
-							value="새로운 위치 선택해서 길찾기">
-						<input type="button" id="getpathfromcurr" class="btn btn-outline-info" value="현재 위치에서 길찾기">
-					</div>
 				</div>
 			</div>
-		</div>
 
 
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content loginWindow">
-					<div class="modal-header loginbn">
-						<h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
-					</div>
-					<div class="modal-body">
-						<div class="login">
-							로그인을 위해 버튼을 눌러주세요<br>
-							<div class="g-signin2 loginbtn" data-onsuccess="onSignIn" style="width:200px; height:50px;">
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content loginWindow">
+						<div class="modal-header loginbn">
+							<h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
+						</div>
+						<div class="modal-body">
+							<div class="login">
+								로그인을 위해 버튼을 눌러주세요<br>
+								<div class="g-signin2 loginbtn" data-onsuccess="onSignIn"
+									style="width:200px; height:50px;">
+								</div>
+								<hr>
+								로그아웃을 위해 링크를 눌러주세요<br>
+								<div class="signout loginbtn">
+									<a href="#" id="sign_out" onclick="signOut();">
+										<div style="height:50px;width:200px;"
+											class="abcRioButton abcRioButtonLightBlue">
+											<div class="abcRioButtonContentWrapper">
+												<div class="abcRioButtonIcon" style="padding:15px">
+													<div style="width:18px;height:18px;"
+														class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18">
+														<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+															width="18px" height="18px" viewBox="0 0 48 48"
+															class="abcRioButtonSvg">
+															<g>
+																<path fill="#EA4335"
+																	d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+																</path>
+																<path fill="#4285F4"
+																	d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+																</path>
+																<path fill="#FBBC05"
+																	d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+																</path>
+																<path fill="#34A853"
+																	d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+																</path>
+																<path fill="none" d="M0 0h48v48H0z"></path>
+															</g>
+														</svg>
+													</div>
+												</div><span style="font-size:16px;line-height:48px;"
+													class="abcRioButtonContents"><span
+														id="not_signed_in2p86pc9clc2o">Sign out</span><span
+														id="connected2p86pc9clc2o" style="display:none">Signed
+														in</span></span>
+											</div>
+										</div>
+									</a>
+								</div>
 							</div>
-							<hr>
-							로그아웃을 위해 링크를 눌러주세요<br>
-							<div class="signout loginbtn">
-								<a href="#" id="sign_out" onclick="signOut();">
-									<div style="height:50px;width:200px;" class="abcRioButton abcRioButtonLightBlue"><div class="abcRioButtonContentWrapper"><div class="abcRioButtonIcon" style="padding:15px"><div style="width:18px;height:18px;" class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg></div></div><span style="font-size:16px;line-height:48px;" class="abcRioButtonContents"><span id="not_signed_in2p86pc9clc2o">Sign out</span><span id="connected2p86pc9clc2o" style="display:none">Signed in</span></span></div></div>
-								</a></div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn purple loginbn" data-bs-dismiss="modal">CLOSE</button>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn purple loginbn" data-bs-dismiss="modal">CLOSE</button>
-					</div>
 				</div>
 			</div>
-		</div>
-		<script>
+			<script>
 
-			$('#plus').click(function () {
-				if (userInfo == undefined) {
-					document.location.href = url;
-					alert('로그인 후 이용해 주세요');
-					return
-				}
-			})
+				$('#plus').click(function () {
+					if (userInfo == undefined) {
+						document.location.href = url;
+						alert('로그인 후 이용해 주세요');
+						return
+					}
+				})
 
-			$("#closebtn").click(function () {
-				const multipleContainer = document.getElementById("new");
-				while (multipleContainer.firstChild) {
-					multipleContainer.removeChild(multipleContainer.firstChild);
-				}
-			})
-			$('#reset').on('click', function () {
-				const multipleContainer = document.getElementById("multiple-container");
-				while (multipleContainer.firstChild) {
-					multipleContainer.removeChild(multipleContainer.firstChild);
-				}
-			})
-			$('#posting_submit').on('click', function () {
-				$('#staticBackdrop1').modal('hide');
-				console.log("click close");
-			})
-			$('#getpathfromnew').on('click', function () {
-				$('#staticBackdrop2').modal('hide');
-				console.log("click getpathfromnew");
-			})
-			$('#getpathfromcurr').on('click', function () {
-				$('#staticBackdrop2').modal('hide');
-				console.log("click getpathfromcurr");
-			})
+				$("#closebtn").click(function () {
+					const multipleContainer = document.getElementById("new");
+					while (multipleContainer.firstChild) {
+						multipleContainer.removeChild(multipleContainer.firstChild);
+					}
+				})
+				$('#reset').on('click', function () {
+					const multipleContainer = document.getElementById("multiple-container");
+					while (multipleContainer.firstChild) {
+						multipleContainer.removeChild(multipleContainer.firstChild);
+					}
+				})
+				$('#posting_submit').on('click', function () {
+					$('#staticBackdrop1').modal('hide');
+					window.location.reload();
+					console.log("click close");
+				})
+				$('#getpathfromnew').on('click', function () {
+					$('#staticBackdrop2').modal('hide');
+					console.log("click getpathfromnew");
+				})
+				$('#getpathfromcurr').on('click', function () {
+					$('#staticBackdrop2').modal('hide');
+					console.log("click getpathfromcurr");
+				})
 
 
-		</script>
+			</script>
 </body>
 
 </html>

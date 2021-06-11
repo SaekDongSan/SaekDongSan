@@ -3,7 +3,9 @@
 var url = 'http://localhost:3000';
 var first;
 $(document).ready(function () {
-
+    lo();
+});
+function lo() {
     if ("geolocation" in navigator) {	/* geolocation 사용 가능 */
         navigator.geolocation.getCurrentPosition(function (data) {
 
@@ -19,7 +21,7 @@ $(document).ready(function () {
     } else {	/* geolocation 사용 불가능 */
         alert('geolocation 사용 불가능');
     }
-});
+}
 
 function reverseGeo(lon, lat) {
     $.ajax({
@@ -85,6 +87,7 @@ $(function () {
 
     // 파일 업로드 된 내용이 변화
     $("#photoInput").on('change', function () {
+
         while (multipleContainer.firstChild) {
             multipleContainer.removeChild(multipleContainer.firstChild);
         }
@@ -199,6 +202,7 @@ $(document).ready(function () {
             url: "/upload",
             success: function (data) {
                 $("#reset").trigger("click");
+                lo();
                 const multipleContainer = document.getElementById("multiple-container");
                 while (multipleContainer.firstChild) {
                     multipleContainer.removeChild(multipleContainer.firstChild);

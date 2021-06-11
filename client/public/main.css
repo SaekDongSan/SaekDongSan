@@ -16,6 +16,7 @@ font-family: 'Yeon Sung', cursive; */
 * {
     padding: 0;
     margin: 0;
+    font-family: 'Yeon Sung', cursive;
 }
 
 a{
@@ -356,8 +357,9 @@ textarea{
     z-index: 3;
 }
 
-
-
+#result{
+    visibility:hidden;
+}
 #selected-value
 {
     position : relative;
