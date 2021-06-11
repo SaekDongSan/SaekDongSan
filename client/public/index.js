@@ -181,54 +181,84 @@ function initTmap(position) {
         alert("click " + selected);
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
-            $.post(url + '/category', { category: selected }, function (data, status) {
 
-                var old_place = new Array(data.length + 1);
-
-                for (var i = 0; i < old_place.length; i++) {
-                    old_place[i] = new Array(3);
-                }
-                console.log(data);
-
-                for (var i = 0; i < data.length; i++) {
-                    old_place[i][0] = data[i].latitude;
-                    old_place[i][1] = data[i].longtitude;
-                    console.log(data);
-                    old_place[i][2] = "http://localhost:3000/uploads/" + data[i].image0;
-                    console.log(old_place[i][2]);
-                    console.log(old_place[i][0]);
-                    console.log(old_place[i][1]);
-
-                }
-
-                // 마커 생성
-                old_place.forEach(async function (item, i) {
-                    marker = new Tmapv2.Marker(
-                        {
-                            position: new Tmapv2.LatLng(old_place[i][0], old_place[i][1]),
-                            icon: old_place[i][2],
-                            iconSize: new Tmapv2.Size(image_width, image_height),
-                            map: map
-                        });
-                    let m = await save(resultMarkerArr, marker);
-                    m.getElement().setAttribute('class', 'markerimg');
+            if (category_array.length > 0) {
+                category_array.forEach(async function (item, i) {
+                    category_array[i] = null;
                 })
+                category_array = [];
+            }
 
-                //애드리스너 추가
-                for (let i = 0; i < resultMarkerArr.length; i++) {
-                    resultMarkerArr[i].addListener('click', function (evt) {
-                        console.log('resultMarkerArr', resultMarkerArr);
-                        console.log("marker 클릭");
-                        positionofend = resultMarkerArr[i].getPosition();
-                        console.log("position:" + positionofend)
-                        real_latitude = positionofend._lat;
-                        real_longitude = positionofend._lng;
-                        $("#markerid").trigger("click");
-                    });
+            initial_array.forEach(async function (item, i) {
+                if (initial_array[i].category == selected){
+                    category_array.push(initial_array[i]);
                 }
-            });
+            })
+
+            var old_place = new Array(category_array.length + 1);
+            for (var i = 0; i < old_place.length; i++) {
+                old_place[i] = new Array(3);
+            }
+
+            category_array.forEach(async function (item, i) {
+                old_place[i][0] = category_array[i].latitude;
+                old_place[i][1] = category_array[i].longtitude;
+                old_place[i][2] = "http://localhost:3000/uploads/" + category_array[i].image0;
+                console.log(old_place[i][2]);
+                console.log(old_place[i][0]);
+                console.log(old_place[i][1]);
+
+            })
+
+            if (initial_array_marker.length > 0) {
+                console.log("들어옴")
+                for (var i in initial_array_marker) {
+                    initial_array_marker[i]
+                        .setMap(null);
+        
+                }
+                initial_array_marker = [];
+        
+            }
+
+            if (resultMarkerArr.length > 0) {
+                for (var i in resultMarkerArr) {
+                    resultMarkerArr[i]
+                        .setMap(null);
+        
+                }
+                resultMarkerArr = [];
+        
+            }
+
+             // 마커 생성
+             old_place.forEach(async function (item, i) {
+                marker = new Tmapv2.Marker(
+                    {
+                        position: new Tmapv2.LatLng(old_place[i][0], old_place[i][1]),
+                        icon: old_place[i][2],
+                        iconSize: new Tmapv2.Size(image_width, image_height),
+                        map: map
+                    });
+                let m = await save(resultMarkerArr, marker);
+                m.getElement().setAttribute('class', 'markerimg');
+            })
+
+            // 애드리스너 추가
+            resultMarkerArr.forEach(async function (item, i) {
+                resultMarkerArr[i].addListener('click', function (evt) {
+                    console.log('resultMarkerArr', resultMarkerArr);
+                    console.log("marker 클릭");
+                    positionofend = resultMarkerArr[i].getPosition();
+                    console.log("position:" + positionofend)
+                    real_latitude = positionofend._lat;
+                    real_longitude = positionofend._lng;
+                    $("#markerid").trigger("click");
+                });
+            })
         }
-    };
+    }
+    
 
     //산책 코스 클릭 시 
     document.getElementById('want_select').onclick = function () {
@@ -262,10 +292,8 @@ function initTmap(position) {
 
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
-            $.post(url + '/category', { category: selected }, function (data, status) {
-                console.log(data);
 
-                var likes_order = Array.prototype.slice.call(data);
+                var likes_order = category_array;
                 console.log(likes_order);
 
                 likes_order.sort(function (a, b) {
@@ -541,7 +569,6 @@ function initTmap(position) {
                     });
                     resultdrawArr.push(polyline_);
                 }
-            });
         }
     };
 
