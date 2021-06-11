@@ -45,22 +45,25 @@ body{
 .title{
     /* background: linear-gradient( to top, rgb(247, 233, 255) 70%, rgb(254, 255, 225)); */
     position:absolute;
-    bottom:0px;
+    bottom:10px;
     left:10px;
     position : absolute;
     font-family: 'Yeon Sung', cursive;
     font-size: 22px;
     z-index: 1;
+    color:rgb(23, 23, 18);
+    background-color: rgba(241, 255, 247, 0.857);
+    border-radius: 12px;
 }
 
 #saek{
-    color : rgb(125, 58, 58)
+    color : rgb(179, 84, 84)
 }
 #dong{
-    color: rgb(109, 130, 68);
+    color: rgb(130, 150, 89);
 }
 #san{
-    color:rgb(69, 69, 130)
+    color:rgb(99, 99, 152)
 }
 
 .circle{
@@ -80,8 +83,7 @@ body{
   bottom : 115px;
   right : 10px;
   z-index: 999;
-  line-height: 0.8;
-  padding-bottom:8px;
+  padding-top:0.8px;
 }
 
 #marker{
@@ -89,7 +91,7 @@ body{
     right : 10px;
     z-index: 999;
     font-size: 30px;
-    padding-bottom:10px;
+    padding-top:0.8px;
 }
 
 #sign_out a{
@@ -306,7 +308,7 @@ textarea{
     padding: 12px 14px;
     background-color: #fff;
     border : 0;
-    border : 2px solid black;
+    border : 2px solid rgb(243, 126, 126);
     border-radius : 10px;
     cursor: pointer;
 }
@@ -762,8 +764,9 @@ input[type="radio"]
     height: 30px;
     padding: 12px 14px;
     background-color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
+    border : 0;
+    border : 2px solid rgb(110, 186, 233);
+    border-radius : 10px;
 }
 
 .one
@@ -949,10 +952,11 @@ input[type="radio"]
 .weather {
     text-align: center;
     position:relative;
+    top:23px;
     margin: 10px;
     width: 300px;
     height: 30px;
-    background:pink;
+    background:rgba(255, 251, 200, 0.864);
     border-radius: 10px;
     font-family: 'Yeon Sung', cursive;
 }
@@ -960,7 +964,7 @@ input[type="radio"]
  border-top:0px solid transparent;
  border-left: 10px solid transparent;
  border-right: 10px solid transparent;
- border-bottom: 10px solid pink;
+ border-bottom: 10px solid rgba(255, 250, 183, 0.782);
  content:"";
  position:absolute;
  top:-10px;
