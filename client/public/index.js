@@ -37,6 +37,7 @@ var markerInfo;
 var route_marker = [];
 //리뷰 마커
 var markers = [];
+var marker_start = [];
 //경로그림정보
 var marker;
 var marker_s, marker_e, marker_p1, marker_p2, marker_p3;
@@ -85,6 +86,7 @@ function initTmap(position) {
             iconSize: new Tmapv2.Size(24, 38),
             map: map
         });
+    marker_start.push(marker_s);
     console.log("기본 마커 추가");
     marker_s.addListener("click", function (evt) {
         console.log("기본 마커 클릭")
@@ -119,6 +121,16 @@ function initTmap(position) {
 
     console.log("이제 근방 탐색")
     $.get('/total', function (data, status) {
+
+        if (marker_start.length > 0) {
+            for (var i in marker_start) {
+                marker_start[i]
+                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+            }
+
+        }
+
         console.log(data);
         if (status == 'success') {
             console.log(data);
@@ -141,6 +153,14 @@ function initTmap(position) {
         }
         else console.log(status);
     }).done(function () {
+        if (marker_start.length > 0) {
+            for (var i in marker_start) {
+                marker_start[i]
+                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+            }
+
+        }
         console.log("성공")
         console.log("마커 생성 시작")
         initial_array.forEach(async function (item, i) {
@@ -182,6 +202,14 @@ function initTmap(position) {
 
     document.getElementById('category_select').onclick = function () {
         remove_all();
+        if (marker_start.length > 0) {
+            for (var i in marker_start) {
+                marker_start[i]
+                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+            }
+
+        }
         if (selected != undefined && selected != "") {
             console.log('카테고리가 선택되어 있는 상태이다');
 
@@ -271,6 +299,14 @@ function initTmap(position) {
 
     //산책 코스 클릭 시 
     document.getElementById('want_select').onclick = function () {
+        if (marker_start.length > 0) {
+            for (var i in marker_start) {
+                marker_start[i]
+                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+            }
+
+        }
 
         console.log('산책 코스 버튼 누름');
 
@@ -437,6 +473,15 @@ function initTmap(position) {
 
             document.getElementById('course_select').onclick = function () {
 
+                if (marker_start.length > 0) {
+                    for (var i in marker_start) {
+                        marker_start[i]
+                            .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+                    }
+
+                }
+
                 $.ajax({
                     method: "POST",
                     url: "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result",
@@ -516,15 +561,15 @@ function initTmap(position) {
                                 var size = "";
 
                                 if (properties.pointType == "S") { //출발지 마커
-                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
                                     pType = "S";
                                     size = new Tmapv2.Size(24, 38);
                                 } else if (properties.pointType == "E") { //도착지 마커
-                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
                                     pType = "E";
                                     size = new Tmapv2.Size(24, 38);
                                 } else if (properties.pointType == "P") { //경유지 마커
-                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_p.png";
+                                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png";
                                     pType = "P";
                                     size = new Tmapv2.Size(24, 38);
                                 } else { //각 포인트 마커
@@ -592,12 +637,20 @@ function initTmap(position) {
     var startingpoint_lon;
 
     $("#getpathfromnew").click(function () {
+        if (marker_start.length > 0) {
+            for (var i in marker_start) {
+                marker_start[i]
+                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+            }
+
+        }
         //새로 위치 클릭하면 거기서부터 길 출력
         console.log("새로운 위치 길 출력~!")
         alert("지도 위에 새로운 시작점을 선택하세요!");
 
         marker1 = new Tmapv2.Marker({
-            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
+            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png",
             iconSize: new Tmapv2.Size(24, 38),
             map: map
         });
@@ -620,13 +673,22 @@ function initTmap(position) {
                     }
                     console.log("삭제함")
 
+                    if (marker_start.length > 0) {
+                        for (var i in marker_start) {
+                            marker_start[i]
+                                .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png");
+
+                        }
+
+                    }
+                    console.log("삭제함")
                     var markerPosition = new Tmapv2.LatLng(
                         mapLatLng._lat, mapLatLng._lng);
                     //마커 올리기
                     marker1 = new Tmapv2.Marker(
                         {
                             position: markerPosition,
-                            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
+                            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png",
                             iconSize: new Tmapv2.Size(24, 38),
                             map: map
                         });
@@ -639,7 +701,7 @@ function initTmap(position) {
                     marker_e = new Tmapv2.Marker(
                         {
                             position: new Tmapv2.LatLng(positionofend._lat, positionofend._lng),
-                            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
+                            icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png",
                             iconSize: new Tmapv2.Size(24, 38),
                             map: map
                         });
@@ -715,11 +777,11 @@ function initTmap(position) {
                                         var size;
 
                                         if (properties.pointType == "S") { //출발지 마커
-                                            markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+                                            markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
                                             pType = "S";
                                             size = new Tmapv2.Size(24, 38);
                                         } else if (properties.pointType == "E") { //도착지 마커
-                                            markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+                                            markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
                                             pType = "E";
                                             size = new Tmapv2.Size(24, 38);
                                         } else { //각 포인트 마커
@@ -788,15 +850,15 @@ function initTmap(position) {
         }
         console.log("삭제함")
 
-        marker_s = new Tmapv2.Marker(
+        marker_ss = new Tmapv2.Marker(
             {
                 //position : new Tmapv2.LatLng(lati, longi),
                 position: new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude),
-                icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+                icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png",
                 iconSize: new Tmapv2.Size(24, 38),
                 map: map
             });
-        resultMarkerArr.push(marker_s);
+        resultMarkerArr.push(marker_ss);
         console.log("시작 마커는 만듦")
 
         // 도착
@@ -810,10 +872,16 @@ function initTmap(position) {
 
         }
 
+        for (var i in marker_start) {
+                marker_start[i]
+                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png");
+        }
+           
+
         marker_e = new Tmapv2.Marker(
             {
                 position: new Tmapv2.LatLng(positionofend._lat, positionofend._lng),
-                icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
+                icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png",
                 iconSize: new Tmapv2.Size(24, 38),
                 map: map
             });
@@ -893,11 +961,11 @@ function initTmap(position) {
                             var size;
 
                             if (properties.pointType == "S") { //출발지 마커
-                                markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+                                markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
                                 pType = "S";
                                 size = new Tmapv2.Size(24, 38);
                             } else if (properties.pointType == "E") { //도착지 마커
-                                markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+                                markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
                                 pType = "E";
                                 size = new Tmapv2.Size(24, 38);
                             } else { //각 포인트 마커
