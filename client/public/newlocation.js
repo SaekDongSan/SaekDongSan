@@ -277,7 +277,7 @@ $(document).ready(function () {
                 var middle;
                 for (var j = 0; j < post[i].filenumber; j++) {
                     var img = url1 + post[i][`image${j}`];
-                    imgs += `<img src="${img}" width="40%">`;
+                    imgs += `<img src="${img}"  class="img-thumbnail">`;
                 }
 
                 var record = "true";
@@ -293,26 +293,26 @@ $(document).ready(function () {
                 }
 
                 middle = `<article>
-                    <header class="header" style="border: 5px solid black;"> 
-                     <div class="titles"> ${post[i].location} </div> <div class="writer"> ${post[i].writer}</div>
+                    <header class="header"> 
+                     <div class="titlesss"> ${post[i].location} </div> <div class="writer"> ${post[i].writer}</div>
                     </header>
-                    <div class="posting_photo" style="border: 5px solid black;">
+                    <div class="posting_photo">
                         <section id="imgs${i}">` + imgs + `</section>
                     </div>
-                    <div class="posting_add" style="border: 5px solid black;">
-                        <button type="buttondd" id ="comment${post[i]._id}" style="background-color: ${bgcolor}" onclick="likes(${i})"> 좋아요 </button> <span id="likes${post[i]._id}" data-id = ${record} >${post[i].likes}</span>
-                        <button type="button" onclick="shows(${i})"> 댓글보기 및 달기 </button>
+                    <div class="posting_add" >
+                        <button type="button" class="btn btn-warning" id ="comment${post[i]._id}" style="background-color: ${bgcolor}" onclick="likes(${i})"> likes </button> <span id="likes${post[i]._id}" data-id = ${record} >${post[i].likes}</span>
+                        <button type="button" class="btn btn-warning" onclick="shows(${i})"> comment </button>
                     </div>
-                    <div class="information" style="border: 5px solid black;">
-                        <div class="ptime">${post[i].time}</div>
+                    <div class="information" >
+                        <div class="ptime">${post[i].time}</div> 
                         <div class="pcategory">${post[i].category}</div>
                     </div>
                     <div class="posting_comment" style="border: 5px solid black;">
                         <div class="pcomment">${post[i].posting_content}</div>
                     </div>
                     <div id="open${i}" style="display:none">
-                        <div id="show_comment${i}" style="border: 5px solid black;"></div>
-                        <div id="add_comment${i}" style="border: 5px solid black;"></div>
+                        <div class="showcomment" id="show_comment${i}"></div>
+                        <div class="addcomment" id="add_comment${i}" ></div>
                     </div>
                     </article> <hr>`;
 
@@ -407,16 +407,19 @@ function add_comment(num) {
                 let ecomment = post[num].comments[i].comment_content;
                 console.log('댓글 ' + euser + etime + ecomment);
 
-                exist1 += `<div id="euser">${euser}</div>
+                exist1 += `<hr> <div id="euser">${euser}</div>
                                 <div id="etime">${etime}</div> 
-                                <div id="ecomment">${ecomment}</div>`
+                                <div id="ecomment">${ecomment}</div> <hr>`
             }
             html1 += exist1;
             document.getElementById(`show_comment${num}`).innerHTML = html1;
         }
-
-        exist2 += `<textarea id="add${num}" col="50" row="30" placeholder = "댓글을 입력해주세요" ></textarea>
-                    <button class="done" onclick="add(${num})">comment</button>`
+        exist2 += `<div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Comment</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1${num}" rows="3" placeholder = "댓글을 입력해주세요"></textarea>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;
+            <button type="button" class="done btn btn-success" onclick="add(${num})">Success</button>
+        </div>`
         document.getElementById(`add_comment${num}`).innerHTML = exist2;
         document.getElementById(`open${num}`).style.display = "block";
     } else {
@@ -428,18 +431,18 @@ function add_comment(num) {
 function add(num) {
     console.log("댓글 저장");
     html2 = "";
-    if ($(`#add${num}`).val() == "") {
+    if ($(`#exampleFormControlTextarea1${num}`).val() == "") {
         alert("내용을 입력하세요.");
-        $(`#add${num}`).focus();
+        $(`#exampleFormControlTextarea1${num}`).focus();
         return false;
     }
-    let comment = document.getElementById(`add${num}`).value;
+    let comment = document.getElementById(`exampleFormControlTextarea1${num}`).value;
     console.log(comment);
     let time = new Date().toLocaleString();
     console.log(time);
     let writer = userInfo.name.toString();
     console.log(writer);
-    $(`#add${num}`).val('');
+    $(`#exampleFormControlTextarea1${num}`).val('');
     html2 += `<div id="euser">${writer}</div>
                         <div id="etime">${time}</div> 
                         <div id="ecomment">${comment}</div>`;
