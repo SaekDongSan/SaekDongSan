@@ -35,13 +35,15 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err))
 
+
+console.log('config', config.mongoURI);
 const { OAuth2Client } = require('google-auth-library');
 const { runInNewContext } = require('vm');
 const client = new OAuth2Client('구글 클라이언트 id');
 
 
 var port = 3000;
-app.listen(port, function () {
+app.listen(process.env.PORT || port, function () {
     console.log('server on! http://localhost:' + port);
 });
 
