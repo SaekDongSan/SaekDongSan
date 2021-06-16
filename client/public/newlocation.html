@@ -113,7 +113,7 @@
                                 newRoadAddr += (' (' + arrResult.buildingName + ') ');
                             }
 
-                            document.querySelector('#result').style.display = 'block';
+                            document.querySelector('#result').style.visibility = 'visible';
                             $('#result').text(newRoadAddr);
                             document.querySelector('#result').value = newRoadAddr;
                         },
@@ -141,7 +141,7 @@
         <div id="map_div"></div>
     </div>
     <div class="map_act_btn_wrap clear_box"></div>
-    <p id="result" style="display: none;"></p>
+    <p id="result"></p>
     <button type="button" value="완료" onclick="send(document.querySelector('#result').value)" id="complete">선택하기</button>
 </body>
 
