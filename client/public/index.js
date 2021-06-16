@@ -168,7 +168,7 @@ function initTmap(position) {
             marker = new Tmapv2.Marker(
                 {
                     position: new Tmapv2.LatLng(initial_array[i].latitude, initial_array[i].longtitude),
-                    icon: "http://localhost:3000/uploads/" + initial_array[i].image0,
+                    icon: "https://saekdongssan.herokuapp.com/uploads/" + initial_array[i].image0,
                     /*icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",*/
                     iconSize: new Tmapv2.Size(image_width, image_height),
                     map: map
@@ -238,7 +238,7 @@ function initTmap(position) {
             category_array.forEach(async function (item, i) {
                 old_place[i][0] = category_array[i].latitude;
                 old_place[i][1] = category_array[i].longtitude;
-                old_place[i][2] = "http://localhost:3000/uploads/" + category_array[i].image0;
+                old_place[i][2] = "https://saekdongssan.herokuapp.com/uploads/" + category_array[i].image0;
                 console.log(old_place[i][2]);
                 console.log(old_place[i][0]);
                 console.log(old_place[i][1]);
@@ -375,7 +375,7 @@ function initTmap(position) {
                 for (var i = 0; i < likes_order.length; i++){
                     old_place[i][0] = likes_order[i].latitude;
                     old_place[i][1] = likes_order[i].longtitude;
-                    old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
+                    old_place[i][2] = "https://saekdongssan.herokuapp.com/uploads/" + likes_order[i].image0;
                 }
 
                  // 장소 배열 정렬
@@ -470,7 +470,7 @@ function initTmap(position) {
                                 
                     old_place[i][0] = likes_order[i].latitude;
                     old_place[i][1] = likes_order[i].longtitude;
-                    old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
+                    old_place[i][2] = "https://saekdongssan.herokuapp.com/uploads/" + likes_order[i].image0;
                     console.log(String(i), '번째');
                     console.log(old_place[i][0]);
                     console.log(old_place[i][1]);
