@@ -1,6 +1,6 @@
 // var latitude;
 // var longitude;
-var url = 'http://localhost:3000';
+var url = 'https://saekdongssan.herokuapp.com';
 var first;
 $(document).ready(function () {
     lo();
@@ -274,7 +274,7 @@ $(document).ready(function () {
             console.log("총 내보낼 포스트의 길이는 " + post.length);
 
             var html = "";
-            var url1 = "http://localhost:3000/uploads/";
+            var url1 = "https://saekdongssan.herokuapp.com/uploads/";
 
             for (var i = 0; i < post.length; i++) {
                 var imgs = '';
