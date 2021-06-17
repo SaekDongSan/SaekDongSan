@@ -370,16 +370,16 @@ function initTmap(position) {
                 }
             }
 
-            if(likes_order.length < 5){
+            if (likes_order.length < 5) {
                 alert("리뷰 장소가 5개 미만입니다.")
-                for (var i = 0; i < likes_order.length; i++){
+                for (var i = 0; i < likes_order.length; i++) {
                     old_place[i][0] = likes_order[i].latitude;
                     old_place[i][1] = likes_order[i].longtitude;
                     old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
                 }
 
-                 // 장소 배열 정렬
-                 old_place.sort(function (a, b) {
+                // 장소 배열 정렬
+                old_place.sort(function (a, b) {
                     if (a[1] > b[1]) {
                         return -1;
                     } else return 1;
@@ -459,15 +459,15 @@ function initTmap(position) {
                 })
 
                 document.getElementById('course_select').onclick = function () {
-                    place=[];
+                    place = [];
                 }
             }
-            else{
+            else {
 
-                
+
 
                 for (var i = 0; i < 5; i++) {
-                                
+
                     old_place[i][0] = likes_order[i].latitude;
                     old_place[i][1] = likes_order[i].longtitude;
                     old_place[i][2] = "http://localhost:3000/uploads/" + likes_order[i].image0;
@@ -475,10 +475,10 @@ function initTmap(position) {
                     console.log(old_place[i][0]);
                     console.log(old_place[i][1]);
                     console.log(old_place[i][2]);
-                     
+
 
                 }
-            
+
 
                 // 장소 배열 정렬
                 old_place.sort(function (a, b) {
@@ -972,10 +972,10 @@ function initTmap(position) {
         }
 
         for (var i in marker_start) {
-                marker_start[i]
-                    .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png");
+            marker_start[i]
+                .setIcon("http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png");
         }
-           
+
 
         marker_e = new Tmapv2.Marker(
             {
