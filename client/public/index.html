@@ -246,12 +246,12 @@
 								<div class="categoryInput">
 									<label class="little-title"> 카테고리 :
 										<select name="category" id="category" required>
-											<option value="night" selected style = "font-size: 13px;"> 야경이 좋은 </option>
-											<option value="tree" style = "font-size: 13px;"> 나무가 많은 곳 </option>
-											<option value="calorie" style = "font-size: 13px;"> 운동하기 좋은 곳 </option>
-											<option value="hip" style = "font-size: 13px;"> HIP함이 느껴지는 곳 </option>
-											<option value="thrill" style = "font-size: 13px;"> 스릴 넘치는 곳 </option>
-											<option value="happy" style = "font-size: 13px;"> 행복함을 주는 곳 </option>
+											<option value="night" selected style="font-size: 13px;"> 야경이 좋은 </option>
+											<option value="tree" style="font-size: 13px;"> 나무가 많은 곳 </option>
+											<option value="calorie" style="font-size: 13px;"> 운동하기 좋은 곳 </option>
+											<option value="hip" style="font-size: 13px;"> HIP함이 느껴지는 곳 </option>
+											<option value="thrill" style="font-size: 13px;"> 스릴 넘치는 곳 </option>
+											<option value="happy" style="font-size: 13px;"> 행복함을 주는 곳 </option>
 										</select>
 									</label>
 								</div>
@@ -351,10 +351,10 @@
 			</div>
 			<script>
 
-				$('#plus').click(function () {
+				$('#review_plus').click(function () {
 					if (userInfo == undefined) {
-						document.location.href = url;
 						alert('로그인 후 이용해 주세요');
+						document.location.href = url;
 						return
 					}
 				})

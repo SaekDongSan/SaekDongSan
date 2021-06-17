@@ -35,13 +35,15 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err))
 
+
+console.log('config', config.mongoURI);
 const { OAuth2Client } = require('google-auth-library');
 const { runInNewContext } = require('vm');
 const client = new OAuth2Client('구글 클라이언트 id');
 
 
 var port = 3000;
-app.listen(port, function () {
+app.listen(process.env.PORT || port, function () {
     console.log('server on! http://localhost:' + port);
 });
 
@@ -113,12 +115,13 @@ app.post('/user', function (req, res) {
     User.findOne({ ID: userid }, (err, user) => {
         if (err) throw err;
         if (user) {//user 콜렉션 안에 이메일이 없다면(== user가 false)
-            console.log("원하는 유저 정보 " +user);
+            console.log("원하는 유저 정보 " + user);
             res.send({
                 ID: user.ID, name: user.NAME, email: user.EMAIL, liked: user.likedlist
             });
         }
-})})
+    })
+})
 //-----------------------------------------------------
 
 //--------포스팅------------------------------
@@ -263,7 +266,7 @@ app.post('/liked', function (req, res) {
     }
     else {
         console.log("!!!!!!!");
-        User.updateOne({ ID: userid }, { $pull:{"likedlist": { "posting_id": postid } }} , function (err, change) {
+        User.updateOne({ ID: userid }, { $pull: { "likedlist": { "posting_id": postid } } }, function (err, change) {
             if (!change) {
                 console.log('현재 posting 좋아요 취소 실패');
             }
